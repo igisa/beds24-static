@@ -38,7 +38,6 @@ $(function () {
             color = color.replace("rgb", "rgba");
             color = color.replace(")", ",0.7)");            
             bookElement.css("background-color", color);
-            bookid.css("background-color");
 
             //get the hover text and replace it
             $.ajax({
