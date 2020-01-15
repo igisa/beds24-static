@@ -44,7 +44,7 @@ $(function () {
 
             //set the color to semitransparent
             var color = bookElement.css("background-color");
-            color = color.replace("rgb", "rgba").replace(")", ",0.6)");
+            color = color.replace("rgb", "rgba").replace(")", ",0.75)");
             bookElement.css("background-color", color);
             //hide the text on the booking
             bookElement.css("color", "rgba(0,0,0,0)");
