@@ -51,7 +51,7 @@ $(function () {
 
             //get the hover text and replace it
             $.ajax({
-                url: "https://www.beds24.com/api/ajax/bookinghover.php?b=" + bookid,
+                url: "/api/ajax/bookinghover.php?b=" + bookid,
                 success: function (result) {
                     element.textNodes().remove();
                     element.find("br").remove();
