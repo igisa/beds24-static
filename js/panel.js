@@ -1,9 +1,7 @@
 
 $(function () {
     
-    //on beds24 panel config there should bethe following config variables:
-    
-
+    //on beds24 panel config there should be the following config variables:
     if(    !panel_custom_settings 
         || !panel_custom_settings.users 
         || !panel_custom_settings.filter
@@ -48,6 +46,8 @@ $(function () {
             var color = bookElement.css("background-color");
             color = color.replace("rgb", "rgba").replace(")", ",0.6)");
             bookElement.css("background-color", color);
+            //hide the text on the booking
+            bookElement.css("color", "rgba(0,0,0,0)");
 
             //get the hover text and replace it
             $.ajax({
@@ -55,12 +55,11 @@ $(function () {
                 success: function (result) {
                     element.textNodes().remove();
                     element.find("br").remove();
-
                     element.append("&nbsp;" + result);
+                    //show the text on the booking
+                    bookElement.css("color", "rgb(0,0,0)");
                 }
             });
         });
-
-
     }
 });
