@@ -1,7 +1,18 @@
-$(function () {
 
-    const users = ["maestranzax", "dvdarias", "____lisset"];
-    const filter = "dmc";
+$(function () {
+    
+    //on beds24 panel config there should bethe following config variables:
+    
+
+    if(    !panel_custom_settings 
+        || !panel_custom_settings.users 
+        || !panel_custom_settings.filter
+        ){
+        return;
+    }
+
+    const users = panel_custom_settings.users;
+    const filter = panel_custom_settings.filter;    
 
     //add a new containsi expression to filter case-insensitive
     $.expr[":"].containsi = $.expr.createPseudo(function (arg) {
@@ -35,8 +46,7 @@ $(function () {
 
             //set the color to semitransparent
             var color = bookElement.css("background-color");
-            color = color.replace("rgb", "rgba");
-            color = color.replace(")", ",0.7)");            
+            color = color.replace("rgb", "rgba").replace(")", ",0.6)");
             bookElement.css("background-color", color);
 
             //get the hover text and replace it
