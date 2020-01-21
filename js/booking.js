@@ -4,6 +4,9 @@ $(function () {
     var tab_name = "Servicios";
     var tab_pos = 4;
 
+    var script_open_bracket = "<" + "script>";
+    var script_close_bracket = "<" + "/" + "script>";
+
     
     var fields = {
         status: {
@@ -231,7 +234,7 @@ $(function () {
                         <input type="hidden" name="${service_id}_${field_id}_hide" id="${service_id}_${field_id}_hide" value="2020-01-19">
                     </div>
                     <span id="${service_id}_${field_id}_extrainfo"></span>
-                    <script>
+                    ${script_open_bracket}
                     $("#${service_id}_${field_id}_hide").val("2020-01-19");
                     $(function() {
                         var df = "DD, d MM, yy";
@@ -271,13 +274,10 @@ $(function () {
                             }
                         });  
                     });
-                    </script>
+                    ${script_close_bracket}
                 </div>
-            </div>
-            `;
+            </div>`;
         }
         return html;
-    }    
-
-    
+    }       
 });
