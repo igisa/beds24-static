@@ -1,5 +1,7 @@
 $(function () {
 
+    return;
+
     //ui parameters
     var tab_name = "Servicios";
     var tab_pos = 4;
@@ -230,8 +232,8 @@ $(function () {
                 </div>
                 <div class="ninecol last">
                     <div class="inputdatefancydiv">
-                        <input class="inputdatefancy inputdate hasDatepicker" type="text" name="${service_id}_${field_id}" id="${service_id}_${field_id}" value="Sunday, 19 January, 2020" title="">
-                        <input type="hidden" name="${service_id}_${field_id}_hide" id="${service_id}_${field_id}_hide" value="2020-01-19">
+                        <input class="inputdatefancy inputdate hasDatepicker" type="text" name="${service_id}_${field_id}" id="${service_id}_${field_id}" value="" title="">
+                        <input type="hidden" name="${service_id}_${field_id}_hide" id="${service_id}_${field_id}_hide" value="">
                     </div>
                     <span id="${service_id}_${field_id}_extrainfo"></span>
                     ${script_open_bracket}
