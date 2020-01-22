@@ -400,6 +400,7 @@ $(function () {
     $("#existing_services_container").on('input', "input", update_all_included_services);
     $("#existing_services_container").on('change', "select", update_all_included_services);
     $("#existing_services_container").on('change', "input", update_all_included_services);
+    $("#existing_services_container").on('change', "textarea", update_all_included_services);
     
     $("#existing_services_container").on("click", 'button[name="copy_email"]', function (event) {
         event.preventDefault();
