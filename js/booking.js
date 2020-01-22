@@ -67,6 +67,22 @@ $(function () {
             label: "Nombre",
             type: "text",
         },
+        numCars: {
+            label: "Autos",
+            type: "options",
+            options: [
+                { id: "1", label: "1" },
+                { id: "2", label: "2" },
+                { id: "3", label: "3" },
+                { id: "4", label: "4" },
+                { id: "5", label: "5" },
+                { id: "6", label: "6" },
+                { id: "7", label: "7" },
+                { id: "8", label: "8" },
+                { id: "9", label: "9" },
+                { id: "10", label: "10" },
+            ],
+        },
         numAdult: {
             label: "Adultos",
             type: "options",
@@ -112,13 +128,10 @@ $(function () {
             description: "Transfer Aeropuerto-Hotel (In)",
             description_short: "Trans.IN",
             pax_price: { 1: 35, 2: 35, 3: 35, 4: 70, 5: 70, 6: 70, 7: 105, 8: 105, 9: 105 },
-            pax_notes: {
-                3: "Este transfer in requiere 1 solo auto.",
-                6: "Este transfer in requiere 2 autos.",
-                9: "Este transfer in requiere 3 autos.",
-            },
+            pax_cars: { 1: 1, 2: 1, 3: 1, 4: 2, 5: 2, 6: 2, 7: 3, 8: 3, 9: 3},
             icon: "I-plane-arrival",
-            fields: ["status", "fullname", "numAdult", "numChild", "date", "flight", "time", "airline", "price", "seller", "payed", "notes"],
+            fields: ["status", "fullname", "numAdult", "numChild", "date", "flight", "time", "airline", "numCars", "price", "seller", "payed", "notes"],
+            provider_fields: ["status", "fullname", "numAdult", "numChild", "date", "flight", "time", "airline", "numCars", "notes"],
             calendar_resume_fields: ["status", "date", "flight", "time", "airline", "payed"]
         },
         
@@ -126,13 +139,10 @@ $(function () {
             description: "Transfer Habana-Trinidad",
             description_short: "Trans.HAB-TRI",
             pax_price: { 1: 200, 2: 200, 3: 200, 4: 400, 5: 400, 6: 400, 7: 600, 8: 600, 9: 600 },
-            pax_notes: {
-                3: "Este transfer in requiere 1 solo auto.",
-                6: "Este transfer in requiere 2 autos.",
-                9: "Este transfer in requiere 3 autos.",
-            },
+            pax_cars: { 1: 1, 2: 1, 3: 1, 4: 2, 5: 2, 6: 2, 7: 3, 8: 3, 9: 3},
             icon: "I-taxi",
-            fields: ["status", "fullname", "numAdult", "numChild", "date", "time", "price", "seller", "payed", "notes"],
+            fields: ["status", "fullname", "numAdult", "numChild", "date", "time", "numCars", "price", "seller", "payed", "notes"],
+            provider_fields: ["status", "fullname", "numAdult", "numChild", "date", "time", "numCars", "notes"],
             calendar_resume_fields: ["status", "date", "time", "payed"]
         },
         
@@ -140,13 +150,10 @@ $(function () {
             description: "Transfer Hotel-Aeropuerto (Out)",
             description_short: "Trans.OUT",
             pax_price: { 1: 35, 2: 35, 3: 35, 4: 70, 5: 70, 6: 70, 7: 105, 8: 105, 9: 105 },
-            pax_notes: {
-                3: "Este transfer out requiere 1 solo auto.",
-                6: "Este transfer out requiere 2 autos.",
-                9: "Este transfer out requiere 3 autos.",
-            },
+            pax_cars: { 1: 1, 2: 1, 3: 1, 4: 2, 5: 2, 6: 2, 7: 3, 8: 3, 9: 3},
             icon: "I-plane-departure",
-            fields: ["status", "fullname", "numAdult", "numChild", "date", "flight", "time", "airline", "price", "seller", "payed", "notes"],
+            fields: ["status", "fullname", "numAdult", "numChild", "date", "flight", "time", "airline", "numCars", "price", "seller", "payed", "notes"],
+            provider_fields: ["status", "fullname", "numAdult", "numChild", "date", "flight", "time", "airline", "numCars", "notes"],
             calendar_resume_fields: ["status", "date", "flight", "time", "airline", "payed"]
         },
         
@@ -156,6 +163,7 @@ $(function () {
             pax_price: { 1: 75, 2: 110, 3: 135, 4: 180, 5: 225, 6: 270, 7: 315, 8: 360, 9: 405 },
             icon: "I-car-building",
             fields: ["status", "date", "fullname", "numAdult", "numChild", "country", "price", "seller", "payed", "notes"],
+            provider_fields: ["status", "date", "fullname", "numAdult", "numChild", "country", "notes"],
             calendar_resume_fields: ["status", "date", "country", "payed"]
         }
     }
@@ -340,7 +348,7 @@ $(function () {
         var service_name = $(this).attr("data");
         $("#new_service_container").empty();
         $("#include_new_service_button").show();
-        $("#new_service_container").append(create_service_ui(service_name, false, "new_service", false));
+        $("#new_service_container").append(create_service_ui(service_name, false, "new_service", false, false));
 
         var booking_info_clone = JSON.parse(JSON.stringify(booking_info));
         booking_info_clone.id = uuidv4();
@@ -348,18 +356,26 @@ $(function () {
         
         fill_service_values("new_service", booking_info_clone);
 
-        var update_price = function () {
+        var update_pax_fields = function () {
             const service = service_name
-            var adults = parseInt($(`#new_service_numAdult`).val());
-            var childs = parseInt($(`#new_service_numChild`).val());
-            var price = services[service].pax_price[adults + childs];
-            $(`#new_service_price`).val(price?price.toFixed(2):"100.00");        
+            if (services[service].fields.indexOf("numAdult") >= 0 && services[service].fields.indexOf("numChild") >= 0){
+                var adults = parseInt($(`#new_service_numAdult`).val());
+                var childs = parseInt($(`#new_service_numChild`).val());
+                if(services[service].fields.indexOf("price") >= 0){
+                    var price = services[service].pax_price[adults + childs];
+                    $(`#new_service_price`).val(price?price.toFixed(2):"100.00");        
+                }
+                if (services[service].fields.indexOf("numCars") >= 0){
+                    var cars = services[service].pax_cars[adults + childs];
+                    $(`#new_service_numCars`).val(cars).change();
+                }
+            } 
         }
 
-        update_price();
+        update_pax_fields();
 
-        $(document).on('change', `#new_service_numAdult`, update_price);
-        $(document).on('change', `#new_service_numChild`, update_price);
+        $(document).on('change', `#new_service_numAdult`, update_pax_fields);
+        $(document).on('change', `#new_service_numChild`, update_pax_fields);
     });
 
     $("#include_new_service_button").on("click",function (e) {
@@ -376,7 +392,7 @@ $(function () {
 
     for (let i = 0; i < services_data.services.length; i++) {
         const service = services_data.services[i];
-        $("#existing_services_container").append(create_service_ui(service.name, true, service.id, true));
+        $("#existing_services_container").append(create_service_ui(service.name, true, service.id, true, true));
         fill_service_values(service.id, service);
     }
     
@@ -384,8 +400,18 @@ $(function () {
     $("#existing_services_container").on('input', "input", update_all_included_services);
     $("#existing_services_container").on('change', "select", update_all_included_services);
     $("#existing_services_container").on('change', "input", update_all_included_services);
+    
+    $("#existing_services_container").on("click", 'button[name="copy_email"]', function (event) {
+        var service_id = $(this).attr("service_id");        
+        for (let i = 0; i < services_data.services.length; i++) {
+            const service = services_data.services[i];
+            if (service.id === service_id) {
+                console.log(get_service_provider_email(service));
+            }
+        }
+    });
 
-    $("#existing_services_container").on("click", "button", function (event) {
+    $("#existing_services_container").on("click", 'button[name="delete_button"]', function (event) {
         var service_id = $(this).attr("service_id");
         $(this).attr("disabled", true);
         for (let i = 0; i < services_data.services.length; i++) {
@@ -495,7 +521,7 @@ $(function () {
                 if(service.status===option.id){
                     if(option.show_logo){
                         var color = option.logo_color ? option.logo_color : "000000";
-                        items[services[service.name].icon] = get_service_resume(service, color);
+                        items[services[service.name].icon] = get_service_calendar_resume(service, color);
                     }
                     break;
                 }
@@ -508,7 +534,28 @@ $(function () {
         return item_text.indexOf("·")>=0
     }
 
-    function get_service_resume(service, color){
+    function get_service_provider_email(service) {
+        var header = `Confirmación ${services[service.name].description}\n\n`;
+
+        var body = `Servicio: ${services[service.name].description}\n`;        
+        for (let i = 0; i < services[service.name].provider_fields.length; i++) {
+            const field = services[service.name].provider_fields[i];
+            if (fields[field].type === "options") {
+                for (let o = 0; o < fields[field].options.length; o++) {
+                    const option = fields[field].options[o];
+                    if (option.id === service[field]) {
+                        body += `${fields[field].label}: ${option.label}\n`;
+                        break;
+                    }
+                }
+            } else {
+                body += `${fields[field].label}: ${service[field]}\n`;
+            }
+        }
+        return (header+body).trim();
+    }
+
+    function get_service_calendar_resume(service, color){
         var resume = `#${color} ·${services[service.name].description_short}·\n`
         for (let i = 0; i < services[service.name].calendar_resume_fields.length; i++) {
             const field = services[service.name].calendar_resume_fields[i];
@@ -616,18 +663,25 @@ $(function () {
         }
     }
     
-    function create_service_ui(service_name, include_divider, service_id, include_delete) {
+    function create_service_ui(service_name, include_divider, service_id, include_delete, include_copy_button) {
         var service = services[service_name];
-        
-        var html =`
-            <div id="${service_id}_container" class="twelvecol first ">
-        `;
-
-        
-
+        var html =`<div id="${service_id}_container" class="twelvecol first ">`;
         html += `        
         <br>
         <strong>${service.description}</strong>
+        `
+        if(include_copy_button){
+            html+=`
+            <span>
+                <button service_id="${service_id}" name="copy_email" class="btn btn-info btn-xs" title="">
+                < span class = "glyphicon glyphicon-copy" aria-hidden="true"></span>
+                    Copiar Email
+                </button>
+            </span>
+            `
+        }
+        html+=`
+        <span class="btn btn-info btn-xs glyphicon glyphicon-remove" aria-hidden="true"></span>
         <br><br>        
         <input type="hidden" id="${service_id}_id" value="${uuidv4()}">
         <input type="hidden" id="${service_id}_name" value="${service_name}">
@@ -641,7 +695,7 @@ $(function () {
             html += `
             <div class="floatleft styleupdatebuttons">
                 &nbsp;
-                <button name="${service_id}_delete_button" service_id="${service_id}" class="btn btn-danger btn-xs b24-btn" value="Delete" title="">
+                <button name="delete_button" service_id="${service_id}" class="btn btn-danger btn-xs b24-btn" value="Delete" title="">
                     <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
                     <span class="glyphicon glyphicon-" aria-hidden="true"></span> 
                     Eliminar Servicio
