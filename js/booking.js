@@ -193,12 +193,39 @@ $(function () {
     //on beds24 booking config there should be the following config variables:
     if (!booking_custom_settings ||
         !booking_custom_settings.authentication ||
+        !booking_custom_settings.user ||
+        !booking_custom_settings.user_restrictions ||
         !booking_custom_settings.authentication.apiKey
     ) {
         console.log("Some expected configuration values were not present.")
         return;
     }
+    /*
+    desk: restricts to only services modfications
+    */
 
+    var restrictions = booking_custom_settings.user_restrictions[booking_custom_settings.user];
+
+    if (restrictions == "desk") {
+        $("#bookingcopyasnewbutton").remove();
+        $('button[name="dosubdelete"]').remove();
+        disable_booking_tab ('#tabdetail');
+        disable_booking_tab ('#tabsummary');
+        disable_booking_tab ('#tabinfo');
+    }
+
+    function disable_booking_tab(selector){
+        $(`${selector} textarea`).attr("disabled", true);
+        $(`${selector} input`).attr("disabled", true);
+        $(`${selector} select`).attr("disabled", true);
+        $(`${selector} button`).attr("disabled", true);
+        $(`${selector} span.jPicker`).hide();
+        $(`${selector} div.btn`).attr("disabled", true);
+        $(`${selector} a.btn`).attr("disabled", true);
+        $(`${selector} #openslicemodal`).hide();
+        
+    }
+    
     const booking_info = booking_custom_settings.booking_info;
     var updated_service_data = false;
 
