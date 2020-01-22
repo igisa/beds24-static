@@ -665,7 +665,7 @@ $(function () {
     
     function create_service_ui(service_name, include_divider, service_id, include_delete, include_copy_button) {
         var service = services[service_name];
-        var html =`<div id="${service_id}_container" class="twelvecol first ">`;
+        var html =`<div id="${service_id}_container" class="twelvecol first">`;
         html += `        
         <br>
         <strong>${service.description}</strong>
@@ -674,7 +674,7 @@ $(function () {
             html+=`
             <span>
                 <button service_id="${service_id}" name="copy_email" class="btn btn-info btn-xs" title="">
-                < span class = "glyphicon glyphicon-copy" aria-hidden="true"></span>
+                <span class="glyphicon glyphicon-copy" aria-hidden="true"></span>
                     Copiar Email
                 </button>
             </span>
