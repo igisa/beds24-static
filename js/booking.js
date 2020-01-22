@@ -222,6 +222,7 @@ $(function () {
         $(`${selector} span.jPicker`).hide();
         $(`${selector} div.btn`).attr("disabled", true);
         $(`${selector} a.btn`).attr("disabled", true);
+        $(`${selector} span.btn`).attr("disabled", true);
         $(`${selector} #openslicemodal`).hide();
         
     }
