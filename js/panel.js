@@ -56,7 +56,10 @@ $(function () {
     }
 
     $("#calendartableholder [data-bookid] div i").each(fix_icons);
+    
     $("#tabgrid [data-bookid] div i").each(fix_icons);
+    //disable dragging of bookings on the grid view
+    $("#tabgrid [data-bookid]").draggable('destroy');
 
     //check if is a valid user for booking text-tooltip replacement
     var allowed = false;
