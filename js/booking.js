@@ -625,7 +625,7 @@ $(function () {
 
         
 
-        var html = `        
+        html += `        
         <br>
         <strong>${service.description}</strong>
         <br><br>        
