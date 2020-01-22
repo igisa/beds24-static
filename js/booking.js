@@ -763,8 +763,8 @@ $(function () {
                             yearRange: "2006:+10",
                             firstDay: 1,
                             dateFormat: df,
-                            monthNames: ["Enero","Febrero","Marzo","Abril","Mayo","Junio","Julio","Agosto","Septiembre","Octubre","Noviembre","Diciembre"],
-                            dayNames: ["Domingo","Lunes","Martes","Miércoles","Jueves","Viernes","Sabado"], 
+                            monthNames: ["enero","febrero","marzo","abril","mayo","junio","julio","agosto","septiembre","octubre","noviembre","diciembre"],
+                            dayNames: ["domingo","lunes","martes","miércoles","jueves","viernes","sabado"], 
                             onSelect: function (dateText, date, inst) {
                                 var dateVar = $("#${service_id}_${field_id}").datepicker("getDate"); 
                                 $("#${service_id}_${field_id}_hide").val($.datepicker.formatDate("yy-mm-dd", dateVar)); 
