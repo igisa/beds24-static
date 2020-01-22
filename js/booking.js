@@ -278,13 +278,22 @@ $(function () {
     for (const service in services) {
         if (services.hasOwnProperty(service)) {
             const details = services[service];
-            service_options += `
-            <li role="presentation" class="">
-                <a role="menuitem" tabindex="-1" id="new_service_button_${service}" data="${service}")">
-                    ${details.description}
-                </a>
-            </li>
-            `;
+            //skip option if already included in the booking
+            var skip = false;
+            for (let i = 0; i < services_data.services.length; i++) {
+                if (services_data.services[i].name === service) {
+                    skip=true;
+                }
+            }
+            if(!skip){
+                service_options += `
+                <li role="presentation" class="">
+                    <a role="menuitem" tabindex="-1" id="new_service_button_${service}" data="${service}")">
+                        ${details.description}
+                    </a>
+                </li>
+                `;
+            }
         }
     }
 
