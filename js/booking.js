@@ -402,6 +402,7 @@ $(function () {
     $("#existing_services_container").on('change', "input", update_all_included_services);
     
     $("#existing_services_container").on("click", 'button[name="copy_email"]', function (event) {
+        event.preventDefault();
         var service_id = $(this).attr("service_id");        
         for (let i = 0; i < services_data.services.length; i++) {
             const service = services_data.services[i];
@@ -412,6 +413,7 @@ $(function () {
     });
 
     $("#existing_services_container").on("click", 'button[name="delete_button"]', function (event) {
+        event.preventDefault();
         var service_id = $(this).attr("service_id");
         $(this).attr("disabled", true);
         for (let i = 0; i < services_data.services.length; i++) {
@@ -681,7 +683,6 @@ $(function () {
             `
         }
         html+=`
-        <span class="btn btn-info btn-xs glyphicon glyphicon-remove" aria-hidden="true"></span>
         <br><br>        
         <input type="hidden" id="${service_id}_id" value="${uuidv4()}">
         <input type="hidden" id="${service_id}_name" value="${service_name}">
