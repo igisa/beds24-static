@@ -187,8 +187,8 @@ $(function () {
     }
 
     //change the name of the tab and put it after the defined tab
-    $("#ui-id-9").text(tab_name);
-    $("#ui-id-9").parent().insertAfter($("#ui-id-"+(tab_pos-1)).parent());
+    $('a[href="#tabcustom"]').text(tab_name);
+    $('a[href="#tabcustom"]').parent().insertAfter($("#ui-id-" + (tab_pos - 1)).parent());
 
     //on beds24 booking config there should be the following config variables:
     if (!booking_custom_settings ||
