@@ -456,28 +456,28 @@ $(function () {
     });
 
 
-    //override form sumbit to do ajax on booking codes if needed
-    $('#bookingedit').submit(function (event) {
-        var self = this;
-        event.preventDefault(); //this will prevent the default submit
+    // //override form sumbit to do ajax on booking codes if needed
+    // $('#bookingedit').submit(function (event) {
+    //     var self = this;
+    //     event.preventDefault(); //this will prevent the default submit
 
-        //if nothing changed, do the submit
-        if(!updated_service_data){
-            $(self).unbind('submit').submit();
-            return;
-        }
+    //     //if nothing changed, do the submit
+    //     if(!updated_service_data){
+    //         $(self).unbind('submit').submit();
+    //         return;
+    //     }
 
-        //if something changed, do the submit after a successful ajax call
-        set_loading_overlay(true);
-        update_booking_infoItems(function (success) {
-            if (success){
-                $(self).unbind('submit').submit();
-            }
-            else{
-                set_loading_overlay(false);
-            }
-        }, compute_infoItems_modifications())
-    })
+    //     //if something changed, do the submit after a successful ajax call
+    //     set_loading_overlay(true);
+    //     update_booking_infoItems(function (success) {
+    //         if (success){
+    //             $(self).unbind('submit').submit();
+    //         }
+    //         else{
+    //             set_loading_overlay(false);
+    //         }
+    //     }, compute_infoItems_modifications())
+    // })
 
     function compute_infoItems_modifications(){
         var objective = get_services_infoItems();
