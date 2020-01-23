@@ -455,10 +455,10 @@ $(function () {
         $("button[value='Update'][type='submit']").click();
     });
 
-    $("button[value='Update'][type='submit']").click(click_event_handler);
-    $("button[value='Save'][type='submit']").click(click_event_handler);
-    $("button[value='Delete'][type='submit']").click(click_event_handler);
-    $("button[value='Close'][type='submit']").click(click_event_handler);
+    //$("button[value='Update'][type='submit']").click(click_event_handler);
+    //$("button[value='Save'][type='submit']").click(click_event_handler);
+    //$("button[value='Delete'][type='submit']").click(click_event_handler);
+    //$("button[value='Close'][type='submit']").click(click_event_handler);
 
     function click_event_handler(event){
         var self = this;
