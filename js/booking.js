@@ -168,7 +168,7 @@ $(function () {
         }
     }
 
-    //Helper methods & stuff
+    //Helper methods & constants
     
     //to avoid nested script tag closing by jquery
     const script_open_bracket = "<" + "script>";
@@ -192,6 +192,29 @@ $(function () {
                 v = c == 'x' ? r : (r & 0x3 | 0x8);
             return v.toString(16);
         });
+    }
+
+    //function to copy a text to the clipboard
+    function copyToClipboard(text) {
+        if (window.clipboardData && window.clipboardData.setData) {
+            // Internet Explorer-specific code path to prevent textarea being shown while dialog is visible.
+            return clipboardData.setData("Text", text);
+
+        } else if (document.queryCommandSupported && document.queryCommandSupported("copy")) {
+            var textarea = document.createElement("textarea");
+            textarea.textContent = text;
+            textarea.style.position = "fixed"; // Prevent scrolling to bottom of page in Microsoft Edge.
+            document.body.appendChild(textarea);
+            textarea.select();
+            try {
+                return document.execCommand("copy"); // Security exception may be thrown by some browsers.
+            } catch (ex) {
+                console.warn("Copy to clipboard failed.", ex);
+                return false;
+            } finally {
+                document.body.removeChild(textarea);
+            }
+        }
     }
 
     //change the name of the tab and put it after the defined tab
@@ -408,7 +431,8 @@ $(function () {
         for (let i = 0; i < services_data.services.length; i++) {
             const service = services_data.services[i];
             if (service.id === service_id) {
-                console.log(get_service_provider_email(service));
+                var email = get_service_provider_email(service);
+                copyToClipboard(email);
             }
         }
     });
