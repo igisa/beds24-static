@@ -258,7 +258,6 @@ $(function () {
         $(`${selector} a.btn`).attr("disabled", true);
         $(`${selector} span.btn`).attr("disabled", true);
         $(`${selector} #openslicemodal`).hide();
-        
     }
     
     const booking_info = booking_custom_settings.booking_info;
@@ -287,7 +286,7 @@ $(function () {
 
     var separator = "--> DO NOT MODIFY OR INCLUDE ANY TEXT AFTER THIS <--"
     var field_selector = "#apimessage"
-    $(`${field_selector}`).attr("disabled", false);
+    $(`${field_selector}`).attr("readonly", true);
 
     function get_services_data() {
         var text = $(field_selector).val();
