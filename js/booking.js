@@ -455,32 +455,33 @@ $(function () {
         $("button[value='Update'][type='submit']").click();
     });
 
-    //$("button[value='Update'][type='submit']").click(click_event_handler);
-    //$("button[value='Save'][type='submit']").click(click_event_handler);
-    //$("button[value='Delete'][type='submit']").click(click_event_handler);
-    //$("button[value='Close'][type='submit']").click(click_event_handler);
-
-    function click_event_handler(event){
-        var self = this;
+    var click_handler = function(event) {
         event.preventDefault(); //this will prevent the default submit
-
+        var self = this;
+        
         //if nothing changed, do the click()
-        if(!updated_service_data){
+        if (!updated_service_data) {
+            $(self).off(".services")
             $(self).click();
             return;
         }
-
+        
         //if something changed, do the submit after a successful ajax call
         set_loading_overlay(true);
         update_booking_infoItems(function (success) {
-            if (success){
+            if (success) {
+                $(self).off(".services")
                 $(self).click();
-            }
-            else{
+            } else {
                 set_loading_overlay(false);
             }
         }, compute_infoItems_modifications())
     }
+
+    $("button[value='Update'][type='submit']").on("click.services",click_handler);
+    $("button[value='Save'][type='submit']").on("click.services", click_handler);
+    $("button[value='Delete'][type='submit']").on("click.services", click_handler);
+    $("button[value='Close'][type='submit']").on("click.services", click_handler);
 
     function compute_infoItems_modifications(){
         var objective = get_services_infoItems();
@@ -649,10 +650,13 @@ $(function () {
         }
     }
 
+    //failsafe to run it only once per session
+    var ran_once = false;
     function update_booking_infoItems(on_finished, infoItems) {
 
-        if(infoItems.length==0){
-            on_finished(true);    
+        if(infoItems.length==0 || ran_once){
+            on_finished(true);
+            if(ran_once) Console.log("Failsafe for API abuse triggered, request skipped.")    
             return;
         }
 
@@ -677,6 +681,7 @@ $(function () {
             data: JSON.stringify(request_body)
         }
 
+        ran_once = true;
         $.ajax(settings).done(function (response) {
             console.log("Booking info items update request was successful");       
             on_finished(true);    
