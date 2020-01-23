@@ -480,8 +480,8 @@ $(function () {
 
     $("button[value='Update'][type='submit']").on("click.services",click_handler);
     $("button[value='Save'][type='submit']").on("click.services", click_handler);
-    $("button[value='Delete'][type='submit']").on("click.services", click_handler);
-    $("button[value='Close'][type='submit']").on("click.services", click_handler);
+    // $("button[value='Delete'][type='submit']").on("click.services", click_handler);
+    // $("button[value='Close'][type='submit']").on("click.services", click_handler);
 
     function compute_infoItems_modifications(){
         var objective = get_services_infoItems();
