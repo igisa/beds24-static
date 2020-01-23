@@ -240,7 +240,10 @@ $(function () {
     if (restrictions == "desk") {
         $("#bookingcopyasnewbutton").remove();
         $('button[name="dosubdelete"]').remove();
-        disable_booking_tab ('#tabdetail');
+        
+        $('a[href="#tabdetail"]').parent().hide()
+        $('#tabdetail').hide()
+        
         disable_booking_tab ('#tabsummary');
         disable_booking_tab ('#tabinfo');
     }
