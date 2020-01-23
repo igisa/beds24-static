@@ -425,14 +425,14 @@ $(function () {
     $("#existing_services_container").on('change', "input", update_all_included_services);
     $("#existing_services_container").on('change', "textarea", update_all_included_services);
     
-    $("#existing_services_container").on("click", 'button[name="copy_email"]', function (event) {
+    $("#existing_services_container").on("click", 'button[name="copy_service_text"]', function (event) {
         event.preventDefault();
         var service_id = $(this).attr("service_id");        
         for (let i = 0; i < services_data.services.length; i++) {
             const service = services_data.services[i];
             if (service.id === service_id) {
-                var email = get_service_provider_email(service);
-                copyToClipboard(email);
+                var text = get_service_provider_text(service);
+                copyToClipboard(text);
             }
         }
     });
@@ -561,7 +561,7 @@ $(function () {
         return item_text.indexOf("·")>=0
     }
 
-    function get_service_provider_email(service) {
+    function get_service_provider_text(service) {
         var header = `Confirmación ${services[service.name].description}\n\n`;
 
         var body = `Servicio: ${services[service.name].description}\n`;        
@@ -700,9 +700,9 @@ $(function () {
         if(include_copy_button){
             html+=`
             <span>
-                <button service_id="${service_id}" name="copy_email" class="btn btn-info btn-xs" title="">
+                <button service_id="${service_id}" name="copy_service_text" class="btn btn-info btn-xs" title="">
                 <span class="glyphicon glyphicon-copy" aria-hidden="true"></span>
-                    Copiar Email
+                    Copiar Texto
                 </button>
             </span>
             `
