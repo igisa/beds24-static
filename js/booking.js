@@ -284,6 +284,8 @@ $(function () {
 
     var separator = "--> DO NOT MODIFY OR INCLUDE ANY TEXT AFTER THIS <--"
     var field_selector = "#apimessage"
+    $(`${field_selector}`).attr("disabled", true);
+
     function get_services_data() {
         var text = $(field_selector).val();
         if(text.indexOf(separator)<0){
