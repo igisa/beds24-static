@@ -191,8 +191,8 @@ booking_extras.services = {
         description_short: "City-Tour",
         price:{
             update_on: ["numChild", "numAdult"],
-            selling_price: "({ 1: 75, 2: 110, 3: 135, 4: 180, 5: 225, 6: 270, 7: 315, 8: 360, 9: 405 })[($numChild+$numAdult)]",
-            cost: "({ 1: 61, 2:  77, 3:  93, 4: 109, 5: 145, 6: 166, 7: 182, 8: 198, 9: 214 })[($numChild+$numAdult)]",
+            selling_price: "({ 1: 75, 2: 110, 3: 135, 4: 180, 5: 225, 6: 270, 7: 315, 8: 360, 9: 405 })[ $numChild+$numAdult ]",
+            cost: "({ 1: 61, 2:  77, 3:  93, 4: 109, 5: 145, 6: 166, 7: 182, 8: 198, 9: 214 })[ $numChild+$numAdult ]",
             commission: "($numChild+$numAdult) * 3",
         },
         icon: "I-car-building",
@@ -206,17 +206,19 @@ booking_extras.methods = {
 
     get_price_value: function(service, value) {
         var desc = booking_extras.services[service.name];
-        function function_eval(code) {
-            return Function('"use strict";return (' + code + ')');
-        };
+        function function_eval(code) { return Function('"use strict";return (' + code + ')'); };
+        
         var value = function_eval(desc.price[value].replace(/\$/g, "this.")).call(service);
+
+        console.log(desc.price[value].replace(/\$/g, "this."));
+        console.log(service);
+        console.log(value);
+        
         return (value ? value : 0);
     },
     
     get_correlation_value: function (service, correlation) {
-        function function_eval(code) {
-            return Function('"use strict";return (' + code + ')');
-        };
+        function function_eval(code) { return Function('"use strict";return (' + code + ')'); };
         var value = function_eval(correlation.relation.replace(/\$/g, "this.")).call(service);
         return (value ? value : 0);
     },
