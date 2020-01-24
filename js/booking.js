@@ -557,12 +557,12 @@ $(function () {
     }
 
     function fill_service_values(service_id, data){
-        $(`#${service_id}_id`).val(data.id);
-        $(`#${service_id}_name`).val(data.name);
+        $(`#${service_id}_id`).val(data.id).change();
+        $(`#${service_id}_name`).val(data.name).change();
         for (const field in data) {
             if (data.hasOwnProperty(field)) {
                 const value = data[field];
-                $(`#${service_id}_${field}`).val(value);
+                $(`#${service_id}_${field}`).val(value).change();
             }
         }
     }
@@ -606,7 +606,7 @@ $(function () {
                 ref += parseFloat($("#${service_id}_"+current).val());
             }
             var commission = eval(service.price.commission);
-            $("#${service_id}_seller_post_label").text("Comisión: "+commission.toFixed(2)+"cuc");
+            $("#${service_id}_seller_post_label").text(" Comisión: "+commission.toFixed(2)+" cuc");
         });
         ${script_close_bracket}
         `;
