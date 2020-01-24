@@ -234,7 +234,7 @@ $(function () {
         var update_price = function () {
             var fields = aggregate_fields(services[service_name].price.fields);
             var price = eval(services[service_name].price.selling_price);
-            $(`#new_service_price`).val(price ? price.toFixed(2) : "0.00");            
+            $(`#new_service_price`).val(price ? price.toFixed(2) : "0.00").change();            
         }
 
         update_price();
@@ -253,7 +253,7 @@ $(function () {
                     return function(){
                         var from = aggregate_fields(self.from);
                         var value = eval(self.relation)
-                        $(`#new_service_${self.to}`).val(value);
+                        $(`#new_service_${self.to}`).val(value).change();
                     }
                 }(correlation));                
             }            
