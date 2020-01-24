@@ -124,9 +124,9 @@ booking_extras.services = {
         description: "Transfer Aeropuerto-Hotel (In)",
         description_short: "Trans.IN",
         price:{
-            fields: ["numCars"],
-            selling_price: "fields * 35",
-            cost: "fields * 25",
+            ref: ["numCars"],
+            selling_price: "ref * 35",
+            cost: "ref * 25",
         },
         correlations:[
             {
@@ -145,9 +145,9 @@ booking_extras.services = {
         description: "Transfer Habana-Trinidad",
         description_short: "Trans.HAB-TRI",
         price:{
-            fields: ["numCars"],
-            selling_price: "fields * 200",
-            cost: "fields * 160"
+            ref: ["numCars"],
+            selling_price: "ref * 200",
+            cost: "ref * 160"
         },
         correlations:[
             {
@@ -166,9 +166,9 @@ booking_extras.services = {
         description: "Transfer Hotel-Aeropuerto (Out)",
         description_short: "Trans.OUT",
         price:{
-            fields: ["numCars"],
-            selling_price: "fields * 35",
-            cost: "fields * 25"
+            ref: ["numCars"],
+            selling_price: "ref * 35",
+            cost: "ref * 25"
         },
         correlations:[
             {
@@ -187,9 +187,9 @@ booking_extras.services = {
         description: "City Tour Carro Clásico",
         description_short: "City-Tour",
         price:{
-            fields: ["numChild", "numAdult"],
-            selling_price: "({ 1: 75, 2: 110, 3: 135, 4: 180, 5: 225, 6: 270, 7: 315, 8: 360, 9: 405 })[fields]",
-            cost: "({ 1: 61, 2:  77, 3:  93, 4: 109, 5: 145, 6: 166, 7: 182, 8: 198, 9: 214 })[fields]"
+            ref: ["numChild", "numAdult"],
+            selling_price: "({ 1: 75, 2: 110, 3: 135, 4: 180, 5: 225, 6: 270, 7: 315, 8: 360, 9: 405 })[ref]",
+            cost: "({ 1: 61, 2:  77, 3:  93, 4: 109, 5: 145, 6: 166, 7: 182, 8: 198, 9: 214 })[ref]"
         },
         icon: "I-car-building",
         fields: ["status", "date", "fullname", "numAdult", "numChild", "country", "price", "seller", "payed", "notes"],

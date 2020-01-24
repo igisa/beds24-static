@@ -232,20 +232,20 @@ $(function () {
         }
 
         var update_price = function () {
-            var fields = aggregate_fields(services[service_name].price.fields);
+            var ref = aggregate_fields(services[service_name].price.ref);
             var price = eval(services[service_name].price.selling_price);
             $(`#new_service_price`).val(price ? price.toFixed(2) : "0.00").change();            
         }
 
         update_price();
 
-        for (let i = 0; i < services[service_name].price.fields.length; i++) {
-            const current = services[service_name].price.fields[i];
+        for (let i = 0; i < services[service_name].price.ref.length; i++) {
+            const current = services[service_name].price.ref[i];
             $(document).on('change', `#new_service_${current}`, update_price);
         }
 
         if(services[service_name].correlations){
-            //update link all the correlations in the fields: when "from" changes, "to" changes with the "relation"
+            //update link all the correlations in the service: when "from" changes, "to" changes with the "relation"
             for (let i = 0; i < services[service_name].correlations.length; i++) {
                 const correlation = services[service_name].correlations[i];
                 for (let f = 0; f < correlation.from.length; f++) {
