@@ -244,21 +244,30 @@ $(function () {
             $(document).on('change', `#new_service_${current}`, update_price);
         }
 
-        for (let i = 0; i < services[service_name].correlations.length; i++) {
-            const correlation = services[service_name].correlations[i];
-            for (let f = 0; f < correlation.from.length; f++) {
-                const field = correlation.from[f];
-                $(document).on('change', `#new_service_${field}`, function(corr){
-                    var self = corr;
-                    return function(){
-                        var from = aggregate_fields(self.from);
-                        var value = eval(self.relation)
-                        $(`#new_service_${self.to}`).val(value).change();
-                    }
-                }(correlation));                
-            }            
+        if(services[service_name].correlations){
+            //update link all the correlations in the fields: when "from" changes, "to" changes with the "relation"
+            for (let i = 0; i < services[service_name].correlations.length; i++) {
+                const correlation = services[service_name].correlations[i];
+                for (let f = 0; f < correlation.from.length; f++) {
+                    const field = correlation.from[f];
+                    $(document).on('change', `#new_service_${field}`, function (corr) {
+                        var self = corr;
+                        return function () {
+                            var from = aggregate_fields(self.from);
+                            var value = eval(self.relation)
+                            $(`#new_service_${self.to}`).val(value).change();
+                        }
+                    }(correlation));
+                }
+            }
+
+            //update the correlations now!
+            for (let i = 0; i < services[service_name].correlations.length; i++) {
+                const correlation = services[service_name].correlations[i];
+                const field = correlation.from[0];
+                $(`#new_service_${field}`).change();
+            }
         }
-        
     });
 
     $("#include_new_service_button").on("click",function (e) {
