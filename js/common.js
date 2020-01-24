@@ -205,6 +205,7 @@ booking_extras.services = {
 booking_extras.methods = {
 
     get_price_value: function(service, value) {
+        var desc = booking_extras.services[service.name];
         var value = function (str) {
             return eval(str);
         }.call(service, desc.price[value].replace("$", "this."));
