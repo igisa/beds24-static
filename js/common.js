@@ -124,16 +124,16 @@ booking_extras.services = {
         description: "Transfer Aeropuerto-Hotel (In)",
         description_short: "Trans.IN",
         price:{
-            ref: ["numCars"],
-            selling_price: "ref * 35",
-            cost: "ref * 25",
-            commission: "ref * 5",
+            update_on: ["numCars"],
+            selling_price: "$numCars * 35",
+            cost: "$numCars * 25",
+            commission: "$numCars * 5",
         },
         correlations:[
             {
-                from: ["numAdult", "numChild"],
+                update_on: ["numAdult", "numChild"],
                 to:"numCars",
-                relation: "Math.ceil( from / 3)",
+                relation: "Math.ceil( ($numChild+$numAdult) / 3)",
             }
         ],
         icon: "I-plane-arrival",
@@ -146,16 +146,16 @@ booking_extras.services = {
         description: "Transfer Habana-Trinidad",
         description_short: "Trans.HAB-TRI",
         price:{
-            ref: ["numCars"],
-            selling_price: "ref * 200",
-            cost: "ref * 160",
-            commission: "ref * 5",
+            update_on: ["numCars"],
+            selling_price: "$numCars * 200",
+            cost: "$numCars * 160",
+            commission: "$numCars * 5",
         },
         correlations:[
             {
-                from: ["numAdult", "numChild"],
+                update_on: ["numAdult", "numChild"],
+                relation: "Math.ceil( ($numChild+$numAdult) / 3)",
                 to:"numCars",
-                relation: "Math.ceil(from/3)",
             }
         ],
         icon: "I-taxi",        
@@ -168,16 +168,16 @@ booking_extras.services = {
         description: "Transfer Hotel-Aeropuerto (Out)",
         description_short: "Trans.OUT",
         price:{
-            ref: ["numCars"],
-            selling_price: "ref * 35",
-            cost: "ref * 25",
-            commission: "ref * 5",
+            update_on: ["numCars"],
+            selling_price: "$numCars * 35",
+            cost: "$numCars * 25",
+            commission: "$numCars * 5",
         },
         correlations:[
             {
-                from: ["numAdult", "numChild"],
+                update_on: ["numAdult", "numChild"],
+                relation: "Math.ceil( ($numChild+$numAdult) /3)",
                 to:"numCars",
-                relation: "Math.ceil(from/3)",
             }
         ],
         icon: "I-plane-departure",
@@ -190,10 +190,10 @@ booking_extras.services = {
         description: "City Tour Carro Clásico",
         description_short: "City-Tour",
         price:{
-            ref: ["numChild", "numAdult"],
-            selling_price: "({ 1: 75, 2: 110, 3: 135, 4: 180, 5: 225, 6: 270, 7: 315, 8: 360, 9: 405 })[ref]",
-            cost: "({ 1: 61, 2:  77, 3:  93, 4: 109, 5: 145, 6: 166, 7: 182, 8: 198, 9: 214 })[ref]",
-            commission: "ref * 3",
+            update_on: ["numChild", "numAdult"],
+            selling_price: "({ 1: 75, 2: 110, 3: 135, 4: 180, 5: 225, 6: 270, 7: 315, 8: 360, 9: 405 })[($numChild+$numAdult)]",
+            cost: "({ 1: 61, 2:  77, 3:  93, 4: 109, 5: 145, 6: 166, 7: 182, 8: 198, 9: 214 })[($numChild+$numAdult)]",
+            commission: "($numChild+$numAdult) * 3",
         },
         icon: "I-car-building",
         fields: ["status", "date", "fullname", "numAdult", "numChild", "country", "price", "seller", "payed", "notes"],
@@ -205,23 +205,16 @@ booking_extras.services = {
 booking_extras.methods = {
 
     get_price_value: function(service, value) {
-        var desc = booking_extras.services[service.name];
-        var ref = 0;
-        for (let i = 0; i < desc.price.ref.length; i++) {
-            const current = desc.price.ref[i];
-            ref += parseFloat(service[current]);
-        }
-        var value = eval(desc.price[value]);
+        var value = function (str) {
+            return eval(str);
+        }.call(service, desc.price[value].replace("$", "this."));
         return (value ? value : 0);
     },
     
     get_correlation_value: function (service, correlation) {
-        var from = 0;
-        for (let i = 0; i < correlation.from.length; i++) {
-            const current = correlation.from[i];
-            from += parseFloat(service[current]);
-        }
-        var value = eval(correlation.relation);
+        var value = function (str) {
+            return eval(str);
+        }.call(service, correlation.relation.replace("$", "this."));
         return (value ? value : 0);
     },
 

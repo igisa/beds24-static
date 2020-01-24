@@ -230,17 +230,17 @@ $(function () {
 
         update_price();
 
-        for (let i = 0; i < services[service_name].price.ref.length; i++) {
-            const current = services[service_name].price.ref[i];
+        for (let i = 0; i < services[service_name].price.update_on.length; i++) {
+            const current = services[service_name].price.update_on[i];
             $(document).on('change', `#new_service_${current}`, update_price);
         }
 
         if(services[service_name].correlations){
-            //update link all the correlations in the service: when "from" changes, "to" changes with the "relation"
+            //update link all the correlations in the service: when "update_on" changes, "to" changes with the "relation"
             for (let i = 0; i < services[service_name].correlations.length; i++) {
                 const correlation = services[service_name].correlations[i];
-                for (let f = 0; f < correlation.from.length; f++) {
-                    const field = correlation.from[f];
+                for (let f = 0; f < correlation.update_on.length; f++) {
+                    const field = correlation.update_on[f];
                     $(document).on('change', `#new_service_${field}`, function (corr) {
                         var self_corr = corr;
                         return function () {
@@ -255,7 +255,7 @@ $(function () {
             //update the correlations now!
             for (let i = 0; i < services[service_name].correlations.length; i++) {
                 const correlation = services[service_name].correlations[i];
-                const field = correlation.from[0];
+                const field = correlation.update_on[0];
                 $(`#new_service_${field}`).change();
             }
         }
@@ -594,8 +594,8 @@ $(function () {
                 $("#${service_id}_seller_post_label").text("Comisión: " + commission.toFixed(2) + " cuc");
             };
             var service = booking_extras.services["${service_name}"];
-            for (let i = 0; i < service.price.ref.length; i++) {
-                const field = service.price.ref[i];
+            for (let i = 0; i < service.price.update_on.length; i++) {
+                const field = service.price.update_on[i];
                 $("#${service_id}_" + field).on("change", commission_updater["${service_id}"]);
             }
         ${script_close_bracket}
