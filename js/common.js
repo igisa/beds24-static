@@ -202,25 +202,29 @@ booking_extras.services = {
     }
 }
 
-booking_extras.methods.get_price_value = function(service, value){
-    var desc = booking_extras.services[service.name];
-    var ref = 0;
-    for (let i = 0; i < desc.price.ref.length; i++) {
-        const current = desc.price.ref[i];
-        ref += parseFloat(service[current]);
-    }
-    var value = eval(desc.price[value]);
-    return (value ? value : 0);
-}
+booking_extras.methods = {
 
-booking_extras.methods.get_correlation_value = function (service, correlation) {
-    var from = 0;
-    for (let i = 0; i < correlation.from.length; i++) {
-        const current = correlation.from[i];
-        from += parseFloat(service[current]);
+    get_price_value: function(service, value) {
+        var desc = booking_extras.services[service.name];
+        var ref = 0;
+        for (let i = 0; i < desc.price.ref.length; i++) {
+            const current = desc.price.ref[i];
+            ref += parseFloat(service[current]);
+        }
+        var value = eval(desc.price[value]);
+        return (value ? value : 0);
+    },
+    
+    get_correlation_value: function (service, correlation) {
+        var from = 0;
+        for (let i = 0; i < correlation.from.length; i++) {
+            const current = correlation.from[i];
+            from += parseFloat(service[current]);
+        }
+        var value = eval(correlation.relation);
+        return (value ? value : 0);
     }
-    var value = eval(correlation.relation);
-    return (value ? value : 0);
-}
+};
+
 
 booking_extras.separator = "--> DO NOT MODIFY OR INCLUDE ANY TEXT AFTER THIS <--"
