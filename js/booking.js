@@ -334,11 +334,10 @@ $(function () {
         //if something changed, do the submit after a successful ajax call
         set_loading_overlay(true);
         update_booking_infoItems(function (success) {
+            set_loading_overlay(false);
             if (success) {
                 $(self).off(".services")
                 $(self).click();
-            } else {
-                set_loading_overlay(false);
             }
         }, compute_infoItems_modifications())
     }
@@ -597,17 +596,23 @@ $(function () {
         //update seller commission label when price changes        
         html += `
         ${script_open_bracket}
-        $("#${service_id}_price").on("change", function(){
-            var price = parseFloat($(this).val());
+            if(!commission_updater) commission_updater = {};
+            commission_updater["${service_id}"] = function(){
+                var price = parseFloat($(this).val());
+                var service = booking_extras.services["${service_name}"];
+                var ref = 0;
+                for (let i = 0; i < service.price.ref.length; i++) {
+                    const current = service.price.ref[i];
+                    ref += parseFloat($("#${service_id}_" + current).val());
+                }
+                var commission = eval(service.price.commission);
+                $("#${service_id}_seller_post_label").text(" Comisión: " + commission.toFixed(2) + " cuc");
+            };
             var service = booking_extras.services["${service_name}"];
-            var ref = 0;
             for (let i = 0; i < service.price.ref.length; i++) {
-                const current = service.price.ref[i];
-                ref += parseFloat($("#${service_id}_"+current).val());
+                const field = service.price.ref[i];
+                $("#${service_id}_" + field).on("change", commission_updater["${service_id}"]);
             }
-            var commission = eval(service.price.commission);
-            $("#${service_id}_seller_post_label").text(" Comisión: "+commission.toFixed(2)+" cuc");
-        });
         ${script_close_bracket}
         `;
         
