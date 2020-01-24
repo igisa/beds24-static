@@ -1,4 +1,4 @@
-if(!booking_extras) booking_extras = {};
+if (!window.booking_extras) window.booking_extras = {};
 
 booking_extras.fields = {
     status: {

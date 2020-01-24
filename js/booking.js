@@ -596,7 +596,7 @@ $(function () {
         //update seller commission label when price changes        
         html += `
         ${script_open_bracket}
-            if(!commission_updater) commission_updater = {};
+            if(!window.commission_updater) window.commission_updater = {};
             commission_updater["${service_id}"] = function(){
                 var price = parseFloat($(this).val());
                 var service = booking_extras.services["${service_name}"];
