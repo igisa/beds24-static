@@ -208,19 +208,19 @@ booking_extras.methods = {
         var desc = booking_extras.services[service.name];
         function function_eval(code) { return Function('"use strict";return (' + code + ')'); };
         
-        var value = function_eval(desc.price[value].replace(/\$/g, "this.")).call(service);
+        var result = function_eval(desc.price[value].replace(/\$/g, "this.")).call(service);
 
         console.log(desc.price[value].replace(/\$/g, "this."));
         console.log(service);
-        console.log(value);
-        
-        return (value ? value : 0);
+        console.log(result);
+
+        return (result ? result : 0);
     },
     
     get_correlation_value: function (service, correlation) {
         function function_eval(code) { return Function('"use strict";return (' + code + ')'); };
-        var value = function_eval(correlation.relation.replace(/\$/g, "this.")).call(service);
-        return (value ? value : 0);
+        var result = function_eval(correlation.relation.replace(/\$/g, "this.")).call(service);
+        return (result ? result : 0);
     },
 
     get_service_values: function(service_id) {
