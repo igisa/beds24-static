@@ -211,7 +211,7 @@ $(function () {
 
     //on service clicked add a service html UI and prepopulate the values with booking_info
     $('[id^="new_service_button_"]').on("click", function () {
-        var service_name = $(this).attr("data");
+        const service_name = $(this).attr("data");
         $("#new_service_container").empty();
         $("#include_new_service_button").show();
         $("#new_service_container").append(create_service_ui(service_name, false, "new_service", false, false));
@@ -223,12 +223,12 @@ $(function () {
         fill_service_values("new_service", booking_info_clone);
 
         function aggregate_fields(fields){
-            var fields = 0;
+            var aggregation = 0;
             for (let i = 0; i < fields.length; i++) {
                 const current = fields[i];
-                fields += parseFloat($(`#new_service_${current}`).val());
+                aggregation += parseFloat($(`#new_service_${current}`).val());
             }
-            return fields;
+            return aggregation;
         }
 
         var update_price = function () {
