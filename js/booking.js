@@ -122,7 +122,7 @@ $(function () {
         });        
     }
 
-    var separator = booking_extras.separator;
+    var separator = booking_extras.constants.separator;
     var field_selector = "#apimessage"
     
     function get_services_data() {
@@ -223,7 +223,7 @@ $(function () {
         fill_service_values("new_service", booking_info_clone);
 
         var update_price = function () {
-            var new_service = get_service_values("new_service");
+            var new_service = booking_extras.methods.get_service_values("new_service");
             var price = booking_extras.methods.get_price_value(new_service, "selling_price");
             $(`#new_service_price`).val(price ? price.toFixed(2) : "0.00").change();            
         }
@@ -244,7 +244,7 @@ $(function () {
                     $(document).on('change', `#new_service_${field}`, function (corr) {
                         var self_corr = corr;
                         return function () {
-                            var new_service = get_service_values("new_service");
+                            var new_service = booking_extras.methods.get_service_values("new_service");
                             var value = booking_extras.methods.get_correlation_value(new_service, self_corr)
                             $(`#new_service_${self_corr.to}`).val(value).change();
                         }
@@ -266,7 +266,7 @@ $(function () {
         e.preventDefault();
         update_all_included_services();
 
-        var service = get_service_values("new_service");
+        var service = booking_extras.methods.get_service_values("new_service");
         services_data.services.push(service);
         set_services_data();        
         $("button[value='Update'][type='submit']").click();
@@ -469,7 +469,7 @@ $(function () {
         var updated_services = []
         for (let i = 0; i < services_data.services.length; i++) {
             const service = services_data.services[i];
-            updated_services.push(get_service_values(service.id));
+            updated_services.push(booking_extras.methods.get_service_values(service.id));
         }
         services_data.services = updated_services;
         set_services_data();        
@@ -589,7 +589,7 @@ $(function () {
         ${script_open_bracket}
             if(!window.commission_updater) window.commission_updater = {};
             commission_updater["${service_id}"] = function(){
-                var service_values = get_service_values("${service_id}");
+                var service_values = booking_extras.methods.get_service_values("${service_id}");
                 var commission = booking_extras.methods.get_price_value(service_values, "commission");
                 $("#${service_id}_seller_post_label").text("Comisión: " + commission.toFixed(2) + " cuc");
             };
@@ -624,20 +624,7 @@ $(function () {
         html += `</div>`;
 
         return $(html);        
-    }   
-
-    function get_service_values(service_id) {
-        var result = {
-            id: $(`#${service_id}_id`).val(),
-            name: $(`#${service_id}_name`).val()
-        }
-        var service = services[result.name];
-        for (let i = 0; i < service.fields.length; i++) {
-            const field_id = service.fields[i];
-            result[field_id] = $(`#${service_id}_${field_id}`).val();
-        }
-        return result;        
-    }
+    }      
     
     function get_field_ui_html(field_id, service_id, name){
         var field = fields[field_id];

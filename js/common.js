@@ -223,8 +223,25 @@ booking_extras.methods = {
         }
         var value = eval(correlation.relation);
         return (value ? value : 0);
+    },
+
+    get_service_values: function(service_id) {
+        var result = {
+            id: $(`#${service_id}_id`).val(),
+            name: $(`#${service_id}_name`).val()
+        }
+        var service = booking_extras.services[result.name];
+        for (let i = 0; i < service.fields.length; i++) {
+            const field_id = service.fields[i];
+            result[field_id] = $(`#${service_id}_${field_id}`).val();
+        }
+        return result;
     }
 };
 
 
-booking_extras.separator = "--> DO NOT MODIFY OR INCLUDE ANY TEXT AFTER THIS <--"
+booking_extras.constants = {
+
+    separator: "--> DO NOT MODIFY OR INCLUDE ANY TEXT AFTER THIS <--"
+
+}
