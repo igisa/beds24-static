@@ -240,9 +240,9 @@ $(function () {
         }
 
         update_price();
-        
-        for (let i = 0; i < services[service].price.fields.length; i++) {
-            const current = services[service].price.fields[i];
+
+        for (let i = 0; i < services[service_name].price.fields.length; i++) {
+            const current = services[service_name].price.fields[i];
             $(document).on('change', `#new_service_${current}`, update_price);
         }
     });
