@@ -1,16 +1,16 @@
 
 $(function () {
     
-    //on beds24 panel config there should be the following config variables:
-    if(    !panel_custom_settings 
-        || !panel_custom_settings.users 
-        || !panel_custom_settings.filter
+    //on beds24 panel config there should be the following extras variables:
+    if (!booking_extras ||
+        !booking_extras.users ||
+        !booking_extras.filter 
         ){
         return;
     }
 
-    const users = panel_custom_settings.users;
-    const filter = panel_custom_settings.filter;    
+    const users = booking_extras.users;
+    const filter = booking_extras.filter;    
 
     //add a new containsi expression to filter case-insensitive
     $.expr[":"].containsi = $.expr.createPseudo(function (arg) {
@@ -26,6 +26,13 @@ $(function () {
         });
     }
 
+    /*
+    This goes over each icon and:
+    - makes the background white, bigger and with rounded corners
+    - looks for a color specification on the title and tints the icon
+    - removes tha color specification from the icon title
+    - If has "Cobrado: SI" in the title adds a dollar icon
+    */
     function fix_icons(index) {
         const iconElement = $(this);
         iconElement.css("background-color", "#ffffff");
@@ -54,12 +61,33 @@ $(function () {
             iconElement.append(moneyIcon);
         }
     }
-
-    $("#calendartableholder [data-bookid] div i").each(fix_icons);
+    //---------------CUSTOM REPORT VIEW WITH "SERVICIO" TITLE-------------------------------
     
+    // if($("#title").val().indexOf("Servicio")>=0){
+
+    //     $("#report2 th:contains('API Message')").text("Servicios");
+    //     $("#report2 td:contains('" + booking_extras.separator + "')").each(function (index) {
+    //         var text = $(this).text();
+    //         var service_data = JSON.parse(text.split(separator)[1]);
+    //         for (let i = 0; i < service_data.services.length; i++) {
+    //             const service = service_data.services[i];
+    //             console.log(service.name);            
+    //         }
+    //     });
+
+    // }
+
+    //--------------------BOOKING GRID VIEW-------------------------------
+
+    //do the icons on the booking grid view
     $("#tabgrid [data-bookid] div i").each(fix_icons);
     //disable dragging of bookings on the grid view
     $("#tabgrid [data-bookid]").draggable('destroy');
+
+    //--------------------CALENDAR VIEW-------------------------------
+
+    //do the icon upgrade on the calendar view
+    $("#calendartableholder [data-bookid] div i").each(fix_icons);
 
     //check if is a valid user for booking text-tooltip replacement
     var allowed = false;

@@ -3,172 +3,10 @@ $(function () {
     //ui parameters
     const tab_name = "Servicios";
     const tab_pos = 4;
-    
-    const fields = {
-        status: {
-            label: "Estado",
-            type: "options",
-            options: [
-                { id: "created", show_logo: false, label: "Creado", },
-                { id: "client_confirmed", show_logo: true, logo_color: "f1d700", label: "Cliente Confirmó" },
-                { id: "provider_confirmed", show_logo: true, logo_color: "4d5ff9", label: "Cliente & Proveedor Confirmaron" },                
-                { id: "client_cancelled", show_logo: true, logo_color: "e40000", label: "Cliente Canceló" },
-                { id: "service_provided", show_logo: true, logo_color: "45ab45", label: "Servicio Realizado" },                
-            ]
-        },
-        payed: {
-            label: "Cobrado",
-            type: "options",
-            options: [
-                { id: "no", label: "No" },
-                { id: "yes", label: "Si" },
-            ]
-        },
-        notes: {
-            label: "Notas",
-            type: "multiline"            
-        },
-        seller: {
-            label: "Vendedor",
-            type: "options",
-            options: [
-                { id: "david", label: "David" },
-                { id: "yissel", label: "Yissel" },
-                { id: "yolanda", label: "Yolanda" },
-                { id: "karla", label: "Karla" },
-            ]
-        },
-        date: {
-            label: "Fecha",
-            type: "date",
-        },
-        time:{
-            label: "Hora",
-            type: "text"
-        },
-        flight: {
-            label: "Vuelo",
-            type: "text",
-            link: {
-                url: "https://www.google.com/search?q=vuelo%20{0}",
-                name: "Verificar"
-            } 
-        },
-        price:{
-            label: "Precio",
-            type: "num",
-            post_label: "cuc"
-        },
-        airline: {
-            label:"Aerolinea",
-            type: "text"
-        },
-        fullname:{
-            label: "Nombre",
-            type: "text",
-        },
-        numCars: {
-            label: "Autos",
-            type: "options",
-            options: [
-                { id: "1", label: "1" },
-                { id: "2", label: "2" },
-                { id: "3", label: "3" },
-                { id: "4", label: "4" },
-                { id: "5", label: "5" },
-                { id: "6", label: "6" },
-                { id: "7", label: "7" },
-                { id: "8", label: "8" },
-                { id: "9", label: "9" },
-                { id: "10", label: "10" },
-            ],
-        },
-        numAdult: {
-            label: "Adultos",
-            type: "options",
-            options: [
-                { id: "1", label: "1" },
-                { id: "2", label: "2" },
-                { id: "3", label: "3" },
-                { id: "4", label: "4" },
-                { id: "5", label: "5" },
-                { id: "6", label: "6" },
-                { id: "7", label: "7" },
-                { id: "8", label: "8" },
-                { id: "9", label: "9" },
-                { id: "10", label: "10" },
-            ],
-        },
-        numChild: {
-            label: "Niños",
-            type: "options",
-            options: [
-                { id: "0", label: "0" },
-                { id: "1", label: "1" },
-                { id: "2", label: "2" },
-                { id: "3", label: "3" },
-                { id: "4", label: "4" },
-                { id: "5", label: "5" },
-                { id: "6", label: "6" },
-                { id: "7", label: "7" },
-                { id: "8", label: "8" },
-                { id: "9", label: "9" },
-                { id: "10", label: "10" },
-            ],
-        },
-        country:{
-            label: "País",
-            type: "text",
-        }        
-    }
+    const fields = booking_extras.fields
+    const services = booking_extras.services;
 
-    const services = { 
-
-        transfer_in: {
-            description: "Transfer Aeropuerto-Hotel (In)",
-            description_short: "Trans.IN",
-            pax_price: { 1: 35, 2: 35, 3: 35, 4: 70, 5: 70, 6: 70, 7: 105, 8: 105, 9: 105 },
-            pax_cars: { 1: 1, 2: 1, 3: 1, 4: 2, 5: 2, 6: 2, 7: 3, 8: 3, 9: 3},
-            icon: "I-plane-arrival",
-            fields: ["status", "fullname", "numAdult", "numChild", "date", "flight", "time", "airline", "numCars", "price", "seller", "payed", "notes"],
-            provider_fields: ["status", "fullname", "numAdult", "numChild", "date", "flight", "time", "airline", "numCars", "notes"],
-            calendar_resume_fields: ["status", "date", "flight", "time", "airline", "payed"]
-        },
-        
-        transfer_hav_tri: {
-            description: "Transfer Habana-Trinidad",
-            description_short: "Trans.HAB-TRI",
-            pax_price: { 1: 200, 2: 200, 3: 200, 4: 400, 5: 400, 6: 400, 7: 600, 8: 600, 9: 600 },
-            pax_cars: { 1: 1, 2: 1, 3: 1, 4: 2, 5: 2, 6: 2, 7: 3, 8: 3, 9: 3},
-            icon: "I-taxi",
-            fields: ["status", "fullname", "numAdult", "numChild", "date", "time", "numCars", "price", "seller", "payed", "notes"],
-            provider_fields: ["status", "fullname", "numAdult", "numChild", "date", "time", "numCars", "notes"],
-            calendar_resume_fields: ["status", "date", "time", "payed"]
-        },
-        
-        transfer_out: {
-            description: "Transfer Hotel-Aeropuerto (Out)",
-            description_short: "Trans.OUT",
-            pax_price: { 1: 35, 2: 35, 3: 35, 4: 70, 5: 70, 6: 70, 7: 105, 8: 105, 9: 105 },
-            pax_cars: { 1: 1, 2: 1, 3: 1, 4: 2, 5: 2, 6: 2, 7: 3, 8: 3, 9: 3},
-            icon: "I-plane-departure",
-            fields: ["status", "fullname", "numAdult", "numChild", "date", "flight", "time", "airline", "numCars", "price", "seller", "payed", "notes"],
-            provider_fields: ["status", "fullname", "numAdult", "numChild", "date", "flight", "time", "airline", "numCars", "notes"],
-            calendar_resume_fields: ["status", "date", "flight", "time", "airline", "payed"]
-        },
-        
-        city_tour: {
-            description: "City Tour Carro Clásico",
-            description_short: "City-Tour",
-            pax_price: { 1: 75, 2: 110, 3: 135, 4: 180, 5: 225, 6: 270, 7: 315, 8: 360, 9: 405 },
-            icon: "I-car-building",
-            fields: ["status", "date", "fullname", "numAdult", "numChild", "country", "price", "seller", "payed", "notes"],
-            provider_fields: ["status", "date", "fullname", "numAdult", "numChild", "country", "notes"],
-            calendar_resume_fields: ["status", "date", "country", "payed"]
-        }
-    }
-
-    //Helper methods & constants
+    //------------------Helper methods & constants------------------------------
     
     //to avoid nested script tag closing by jquery
     const script_open_bracket = "<" + "script>";
@@ -221,21 +59,21 @@ $(function () {
     $('a[href="#tabcustom"]').text(tab_name);
     $('a[href="#tabcustom"]').parent().insertAfter($("#ui-id-" + (tab_pos - 1)).parent());
 
-    //on beds24 booking config there should be the following config variables:
-    if (!booking_custom_settings ||
-        !booking_custom_settings.authentication ||
-        !booking_custom_settings.user ||
-        !booking_custom_settings.user_restrictions ||
-        !booking_custom_settings.authentication.apiKey
+    //on beds24 booking extras there should be the following config variables:
+    if (!booking_extras ||
+        !booking_extras.authentication ||
+        !booking_extras.user ||
+        !booking_extras.user_restrictions ||
+        !booking_extras.authentication.apiKey
     ) {
         console.log("Some expected configuration values were not present.")
         return;
     }
+
     /*
     desk: restricts to only services modfications
     */
-
-    var restrictions = booking_custom_settings.user_restrictions[booking_custom_settings.user];
+    var restrictions = booking_extras.user_restrictions[booking_extras.user];
 
     if (restrictions == "desk") {
         $("#bookingcopyasnewbutton").remove();
@@ -260,7 +98,7 @@ $(function () {
         $(`${selector} #openslicemodal`).hide();
     }
     
-    const booking_info = booking_custom_settings.booking_info;
+    const booking_info = booking_extras.booking_info;
     var updated_service_data = false;
 
     //get booking info items from the info tab
@@ -284,10 +122,9 @@ $(function () {
         });        
     }
 
-    var separator = "--> DO NOT MODIFY OR INCLUDE ANY TEXT AFTER THIS <--"
+    var separator = booking_extras.separator;
     var field_selector = "#apimessage"
-    $(`${field_selector}`).attr("readonly", true);
-
+    
     function get_services_data() {
         var text = $(field_selector).val();
         if(text.indexOf(separator)<0){
@@ -297,7 +134,7 @@ $(function () {
         }
         return JSON.parse(text.split(separator)[1]);
     }
-
+    
     function set_services_data() {
         updated_service_data = true;
         var text = $(field_selector).val();
@@ -308,6 +145,8 @@ $(function () {
     //declare the value that holds all the included services data and load it
     var services_data = get_services_data();
 
+    $(`${field_selector}`).attr("readonly", true);
+    
     //create the add service option menu
     var service_options = ""
     for (const service in services) {
@@ -662,8 +501,8 @@ $(function () {
 
         var request_body = {
             authentication: {
-                apiKey: booking_custom_settings.authentication.apiKey,
-                propKey: booking_custom_settings.authentication[booking_info.property]
+                apiKey: booking_extras.authentication.apiKey,
+                propKey: booking_extras.authentication[booking_info.property]
             },
             bookId: booking_info.id,
             infoItems: infoItems
