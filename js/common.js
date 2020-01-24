@@ -53,7 +53,8 @@ booking_extras.fields = {
     price:{
         label: "Precio",
         type: "num",
-        post_label: "cuc"
+        post_label: "cuc",
+        is_number: true,
     },
     airline: {
         label:"Aerolinea",
@@ -78,6 +79,7 @@ booking_extras.fields = {
             { id: "9", label: "9" },
             { id: "10", label: "10" },
         ],
+        is_number: true,
     },
     numAdult: {
         label: "Adultos",
@@ -94,6 +96,7 @@ booking_extras.fields = {
             { id: "9", label: "9" },
             { id: "10", label: "10" },
         ],
+        is_number: true,
     },
     numChild: {
         label: "Niños",
@@ -111,6 +114,7 @@ booking_extras.fields = {
             { id: "9", label: "9" },
             { id: "10", label: "10" },
         ],
+        is_number: true,
     },
     country:{
         label: "País",
@@ -207,13 +211,7 @@ booking_extras.methods = {
     get_price_value: function(service, value) {
         var desc = booking_extras.services[service.name];
         function function_eval(code) { return Function('"use strict";return (' + code + ')'); };
-        
         var result = function_eval(desc.price[value].replace(/\$/g, "this.")).call(service);
-
-        console.log(desc.price[value].replace(/\$/g, "this."));
-        console.log(service);
-        console.log(result);
-
         return (result ? result : 0);
     },
     
@@ -231,7 +229,13 @@ booking_extras.methods = {
         var service = booking_extras.services[result.name];
         for (let i = 0; i < service.fields.length; i++) {
             const field_id = service.fields[i];
-            result[field_id] = $(`#${service_id}_${field_id}`).val();
+            const value = $(`#${service_id}_${field_id}`).val();
+            if (booking_extras.fields[field_id].is_number){
+                result[field_id] = (!value||value==="")?0:parseFloat(value);
+            }
+            else{
+                result[field_id] = value;
+            }
         }
         return result;
     }
