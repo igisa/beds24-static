@@ -606,7 +606,7 @@ $(function () {
                     ref += parseFloat($("#${service_id}_" + current).val());
                 }
                 var commission = eval(service.price.commission);
-                $("#${service_id}_seller_post_label").text(" Comisión: " + commission.toFixed(2) + " cuc");
+                $("#${service_id}_seller_post_label").text("Comisión: " + commission.toFixed(2) + " cuc");
             };
             var service = booking_extras.services["${service_name}"];
             for (let i = 0; i < service.price.ref.length; i++) {
@@ -680,7 +680,7 @@ $(function () {
                 </div>
                 <div class="ninecol last">
                     <input class="width200" inputtext" type="text" service="${name}" name="${service_id}_${field_id}" id="${service_id}_${field_id}" value="" title="">
-                    <span service="${name}" id="${service_id}_${field_id}_post_label">&nbsp;${field.post_label ? field.post_label : ""}</span>
+                    &nbsp;<span service="${name}" id="${service_id}_${field_id}_post_label">${field.post_label ? field.post_label : ""}</span>
                     ${link_html}               
                 </div>
             </div>
@@ -694,7 +694,7 @@ $(function () {
                     </div>
                     <div class="ninecol last">
                         <input class="inputnum" type="text" service="${name}" name="${service_id}_${field_id}" id="${service_id}_${field_id}" value="" title="">
-                        <span service="${name}" id="${service_id}_${field_id}_post_label">&nbsp;${field.post_label ? field.post_label : ""}</span>
+                        &nbsp;<span service="${name}" id="${service_id}_${field_id}_post_label">${field.post_label ? field.post_label : ""}</span>
                     </div>
                 </div>            
             `;
@@ -707,7 +707,7 @@ $(function () {
                 </div>
                 <div class="ninecol last">
                     <textarea class="" rows="1" service="${name}" id="${service_id}_${field_id}" name="${service_id}_${field_id}" cols="80" onkeyup="sz(this);" onfocus="cv(this,'');" onblur="ob(this,'');" title="" style="color: rgb(136, 136, 136); background-color: rgb(255, 255, 255);"></textarea>
-                    <span service="${name}" id="${service_id}_${field_id}_post_label">&nbsp;${field.post_label ? field.post_label : ""}</span>
+                    &nbsp;<span service="${name}" id="${service_id}_${field_id}_post_label">${field.post_label ? field.post_label : ""}</span>
                     ${script_open_bracket}
                         document.getElementById("${service_id}_${field_id}").rows=1;
                         sz(document.getElementById("${service_id}_${field_id}"));
@@ -734,7 +734,7 @@ $(function () {
                     <select service="${name}" id="${service_id}_${field_id}" name="${service_id}_${field_id}" class="white inputselect" title="">
                         ${field_options}
                     </select>
-                    <span service="${name}" id="${service_id}_${field_id}_post_label">&nbsp;${field.post_label ? field.post_label : ""}</span>
+                    &nbsp;<span service="${name}" id="${service_id}_${field_id}_post_label">${field.post_label ? field.post_label : ""}</span>
                 </div>
             </div>
             `;
@@ -749,7 +749,7 @@ $(function () {
                     <div class="twelvecol first setting_row">
                         <span class="setting_label" service="${name}" id="${service_id}_${field_id}" title="">${booking_info[field_id]}</span > 
                     </div>
-                    <span service="${name}" id="${service_id}_${field_id}_post_label">&nbsp;${field.post_label ? field.post_label : ""}</span>
+                    &nbsp;<span service="${name}" id="${service_id}_${field_id}_post_label">${field.post_label ? field.post_label : ""}</span>
                 </div>
             </div>
             `;
@@ -764,7 +764,7 @@ $(function () {
                     <div class="inputdatefancydiv">
                         <input class="inputdatefancy inputdate" type="text" service="${name}" name="${service_id}_${field_id}" id="${service_id}_${field_id}" value="" title="">
                         <input type="hidden" service="${name}" name="${service_id}_${field_id}_hide" id="${service_id}_${field_id}_hide" value="">
-                        <span service="${name}" id="${service_id}_${field_id}_post_label">&nbsp;${field.post_label ? field.post_label : ""}</span>
+                        &nbsp;<span service="${name}" id="${service_id}_${field_id}_post_label">${field.post_label ? field.post_label : ""}</span>
                     </div>
                     <span id="${service_id}_${field_id}_extrainfo"></span>
                     ${script_open_bracket}
