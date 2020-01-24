@@ -68,13 +68,12 @@ $(function () {
     //     $("#report2 th:contains('API Message')").text("Servicios");
     //     $("#report2 td:contains('" + booking_extras.separator + "')").each(function (index) {
     //         var text = $(this).text();
-    //         var service_data = JSON.parse(text.split(separator)[1]);
+    //         var service_data = JSON.parse(text.split(booking_extras.separator)[1]);
     //         for (let i = 0; i < service_data.services.length; i++) {
     //             const service = service_data.services[i];
     //             console.log(service.name);            
     //         }
     //     });
-
     // }
 
     //--------------------BOOKING GRID VIEW-------------------------------

@@ -222,26 +222,29 @@ $(function () {
         
         fill_service_values("new_service", booking_info_clone);
 
-        var update_pax_fields = function () {
+        var update_price = function () {
             const service = service_name
-            if (services[service].fields.indexOf("numAdult") >= 0 && services[service].fields.indexOf("numChild") >= 0){
-                var adults = parseInt($(`#new_service_numAdult`).val());
-                var childs = parseInt($(`#new_service_numChild`).val());
-                if(services[service].fields.indexOf("price") >= 0){
-                    var price = services[service].pax_price[adults + childs];
-                    $(`#new_service_price`).val(price?price.toFixed(2):"100.00");        
-                }
-                if (services[service].fields.indexOf("numCars") >= 0){
-                    var cars = services[service].pax_cars[adults + childs];
-                    $(`#new_service_numCars`).val(cars).change();
-                }
-            } 
+            var fields = 0;
+            for (let i = 0; i < services[service].price.fields.length; i++) {
+                const current = services[service].price.fields[i];
+                fields += parseFloat($(`#new_service_${current}`).val());
+            }
+            var price = 0;
+            if ((typeof services[service].price.selling_price) === "string") {
+                price = eval(services[service].price.selling_price);
+            }
+            else{
+                price = services[service].price.selling_price[fields];
+            }
+            $(`#new_service_price`).val(price ? price.toFixed(2) : "0.00");            
         }
 
-        update_pax_fields();
-
-        $(document).on('change', `#new_service_numAdult`, update_pax_fields);
-        $(document).on('change', `#new_service_numChild`, update_pax_fields);
+        update_price();
+        
+        for (let i = 0; i < services[service].price.fields.length; i++) {
+            const current = services[service].price.fields[i];
+            $(document).on('change', `#new_service_${current}`, update_price);
+        }
     });
 
     $("#include_new_service_button").on("click",function (e) {

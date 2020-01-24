@@ -123,8 +123,18 @@ booking_extras.services = {
     transfer_in: {
         description: "Transfer Aeropuerto-Hotel (In)",
         description_short: "Trans.IN",
-        pax_price: { 1: 35, 2: 35, 3: 35, 4: 70, 5: 70, 6: 70, 7: 105, 8: 105, 9: 105 },
-        pax_cars: { 1: 1, 2: 1, 3: 1, 4: 2, 5: 2, 6: 2, 7: 3, 8: 3, 9: 3},
+        price:{
+            fields: ["numCars"],
+            selling_price: "fields * 35",
+            cost: "fields * 25",
+        },
+        correlations:[
+            {
+                from: ["numAdult", "numChild"],
+                to:"numCars",
+                relation: "Math.ceil( from / 3)",
+            }
+        ],
         icon: "I-plane-arrival",
         fields: ["status", "fullname", "numAdult", "numChild", "date", "flight", "time", "airline", "numCars", "price", "seller", "payed", "notes"],
         provider_fields: ["status", "fullname", "numAdult", "numChild", "date", "flight", "time", "airline", "numCars", "notes"],
@@ -134,9 +144,19 @@ booking_extras.services = {
     transfer_hav_tri: {
         description: "Transfer Habana-Trinidad",
         description_short: "Trans.HAB-TRI",
-        pax_price: { 1: 200, 2: 200, 3: 200, 4: 400, 5: 400, 6: 400, 7: 600, 8: 600, 9: 600 },
-        pax_cars: { 1: 1, 2: 1, 3: 1, 4: 2, 5: 2, 6: 2, 7: 3, 8: 3, 9: 3},
-        icon: "I-taxi",
+        price:{
+            fields: ["numCars"],
+            selling_price: "fields * 200",
+            cost: "fields * 160"
+        },
+        correlations:[
+            {
+                from: ["numAdult", "numChild"],
+                to:"numCars",
+                relation: "Math.ceil(from/3)",
+            }
+        ],
+        icon: "I-taxi",        
         fields: ["status", "fullname", "numAdult", "numChild", "date", "time", "numCars", "price", "seller", "payed", "notes"],
         provider_fields: ["status", "fullname", "numAdult", "numChild", "date", "time", "numCars", "notes"],
         calendar_resume_fields: ["status", "date", "time", "payed"]
@@ -145,8 +165,18 @@ booking_extras.services = {
     transfer_out: {
         description: "Transfer Hotel-Aeropuerto (Out)",
         description_short: "Trans.OUT",
-        pax_price: { 1: 35, 2: 35, 3: 35, 4: 70, 5: 70, 6: 70, 7: 105, 8: 105, 9: 105 },
-        pax_cars: { 1: 1, 2: 1, 3: 1, 4: 2, 5: 2, 6: 2, 7: 3, 8: 3, 9: 3},
+        price:{
+            fields: ["numCars"],
+            selling_price: "fields * 35",
+            cost: "fields * 25"
+        },
+        correlations:[
+            {
+                from: ["numAdult", "numChild"],
+                to:"numCars",
+                relation: "Math.ceil(from/3)",
+            }
+        ],
         icon: "I-plane-departure",
         fields: ["status", "fullname", "numAdult", "numChild", "date", "flight", "time", "airline", "numCars", "price", "seller", "payed", "notes"],
         provider_fields: ["status", "fullname", "numAdult", "numChild", "date", "flight", "time", "airline", "numCars", "notes"],
@@ -156,7 +186,11 @@ booking_extras.services = {
     city_tour: {
         description: "City Tour Carro Clásico",
         description_short: "City-Tour",
-        pax_price: { 1: 75, 2: 110, 3: 135, 4: 180, 5: 225, 6: 270, 7: 315, 8: 360, 9: 405 },
+        price:{
+            fields: ["numChild", "numAdult"],
+            selling_price: { 1: 75, 2: 110, 3: 135, 4: 180, 5: 225, 6: 270, 7: 315, 8: 360, 9: 405 },
+            cost: { 1: 61, 2:  77, 3:  93, 4: 109, 5: 145, 6: 166, 7: 182, 8: 198, 9: 214 }
+        },
         icon: "I-car-building",
         fields: ["status", "date", "fullname", "numAdult", "numChild", "country", "price", "seller", "payed", "notes"],
         provider_fields: ["status", "date", "fullname", "numAdult", "numChild", "country", "notes"],
