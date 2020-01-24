@@ -222,20 +222,18 @@ $(function () {
         
         fill_service_values("new_service", booking_info_clone);
 
-        var update_price = function () {
-            const service = service_name
+        function aggregate_fields(fields){
             var fields = 0;
-            for (let i = 0; i < services[service].price.fields.length; i++) {
-                const current = services[service].price.fields[i];
+            for (let i = 0; i < fields.length; i++) {
+                const current = fields[i];
                 fields += parseFloat($(`#new_service_${current}`).val());
             }
-            var price = 0;
-            if ((typeof services[service].price.selling_price) === "string") {
-                price = eval(services[service].price.selling_price);
-            }
-            else{
-                price = services[service].price.selling_price[fields];
-            }
+            return fields;
+        }
+
+        var update_price = function () {
+            var fields = aggregate_fields(services[service_name].price.fields);
+            var price = eval(services[service_name].price.selling_price);
             $(`#new_service_price`).val(price ? price.toFixed(2) : "0.00");            
         }
 
@@ -245,6 +243,7 @@ $(function () {
             const current = services[service_name].price.fields[i];
             $(document).on('change', `#new_service_${current}`, update_price);
         }
+        
     });
 
     $("#include_new_service_button").on("click",function (e) {
