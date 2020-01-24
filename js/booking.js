@@ -222,18 +222,9 @@ $(function () {
         
         fill_service_values("new_service", booking_info_clone);
 
-        function aggregate_fields(fields){
-            var aggregation = 0;
-            for (let i = 0; i < fields.length; i++) {
-                const current = fields[i];
-                aggregation += parseFloat($(`#new_service_${current}`).val());
-            }
-            return aggregation;
-        }
-
         var update_price = function () {
-            var ref = aggregate_fields(services[service_name].price.ref);
-            var price = eval(services[service_name].price.selling_price);
+            var new_service = get_service_values("new_service");
+            var price = booking_extras.methods.get_price_value(new_service, "selling_price");
             $(`#new_service_price`).val(price ? price.toFixed(2) : "0.00").change();            
         }
 
@@ -251,11 +242,11 @@ $(function () {
                 for (let f = 0; f < correlation.from.length; f++) {
                     const field = correlation.from[f];
                     $(document).on('change', `#new_service_${field}`, function (corr) {
-                        var self = corr;
+                        var self_corr = corr;
                         return function () {
-                            var from = aggregate_fields(self.from);
-                            var value = eval(self.relation)
-                            $(`#new_service_${self.to}`).val(value).change();
+                            var new_service = get_service_values("new_service");
+                            var value = booking_extras.methods.get_correlation_value(new_service, self_corr)
+                            $(`#new_service_${self_corr.to}`).val(value).change();
                         }
                     }(correlation));
                 }
@@ -593,19 +584,13 @@ $(function () {
             html += get_field_ui_html(field, service_id, service_name);
         }
 
-        //update seller commission label when price changes        
+        //update seller commission label when price dependencies change
         html += `
         ${script_open_bracket}
             if(!window.commission_updater) window.commission_updater = {};
             commission_updater["${service_id}"] = function(){
-                var price = parseFloat($(this).val());
-                var service = booking_extras.services["${service_name}"];
-                var ref = 0;
-                for (let i = 0; i < service.price.ref.length; i++) {
-                    const current = service.price.ref[i];
-                    ref += parseFloat($("#${service_id}_" + current).val());
-                }
-                var commission = eval(service.price.commission);
+                var service_values = get_service_values("${service_id}");
+                var commission = booking_extras.methods.get_price_value(service_values, "commission");
                 $("#${service_id}_seller_post_label").text("Comisión: " + commission.toFixed(2) + " cuc");
             };
             var service = booking_extras.services["${service_name}"];
