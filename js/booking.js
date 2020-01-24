@@ -593,8 +593,10 @@ $(function () {
             const field = service.fields[i];
             html += get_field_ui_html(field, service_id, service_name);
         }
-        
+
+        //update seller commission label when price changes        
         html += `
+        ${script_open_bracket}
         $("#${service_id}_price").on("change", function(){
             var price = parseFloat($(this).val());
             var service = booking_extras.services["${service_name}"];
@@ -606,6 +608,7 @@ $(function () {
             var commission = eval(service.price.commission);
             $("#${service_id}_seller_post_label").text("Comisión: "+commission.toFixed(2)+"cuc");
         });
+        ${script_close_bracket}
         `;
         
         if (include_delete) {
