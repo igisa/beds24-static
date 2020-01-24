@@ -591,8 +591,22 @@ $(function () {
         `;
         for (let i = 0; i < service.fields.length; i++) {
             const field = service.fields[i];
-            html += get_field_ui_html(field, service_id);            
+            html += get_field_ui_html(field, service_id, service_name);
         }
+        
+        html += `
+        $("#${service_id}_price").on("change", function(){
+            var price = parseFloat($(this).val());
+            var service = booking_extras.services["${service_name}"];
+            var ref = 0;
+            for (let i = 0; i < service.price.ref.length; i++) {
+                const current = service.price.ref[i];
+                ref += parseFloat($("#${service_id}_"+current).val());
+            }
+            var commission = eval(service.price.commission);
+            $("#${service_id}_seller_post_label").text("Comisión: "+commission.toFixed(2)+"cuc");
+        });
+        `;
         
         if (include_delete) {
             html += `
@@ -613,7 +627,6 @@ $(function () {
         </div>
         `;
 
-        
 
         html += `</div>`;
 
@@ -633,14 +646,14 @@ $(function () {
         return result;        
     }
     
-    function get_field_ui_html(field_id, service_id){
+    function get_field_ui_html(field_id, service_id, name){
         var field = fields[field_id];
         
         if (field.type === "text"){
             var link_html = "";
             if(field.link){
                 link_html = `                    
-                    <a id="${service_id}_${field_id}_link" url="${field.link.url}" target="_blank">${field.link.name}</a>
+                    <a service="${name}" id="${service_id}_${field_id}_link" url="${field.link.url}" target="_blank">${field.link.name}</a>
                     ${script_open_bracket}                    
                     $("#${service_id}_${field_id}_link").on('click', function(e){ 
                         e.preventDefault();  
@@ -658,8 +671,8 @@ $(function () {
                     ${field.label}
                 </div>
                 <div class="ninecol last">
-                    <input class="width200" inputtext" type="text" name="${service_id}_${field_id}" id="${service_id}_${field_id}" value="" title="">
-                    &nbsp;${field.post_label ? field.post_label : ""}
+                    <input class="width200" inputtext" type="text" service="${name}" name="${service_id}_${field_id}" id="${service_id}_${field_id}" value="" title="">
+                    <span service="${name}" id="${service_id}_${field_id}_post_label">&nbsp;${field.post_label ? field.post_label : ""}</span>
                     ${link_html}               
                 </div>
             </div>
@@ -672,8 +685,8 @@ $(function () {
                         ${field.label}
                     </div>
                     <div class="ninecol last">
-                        <input class="inputnum" type="text" name="${service_id}_${field_id}" id="${service_id}_${field_id}" value="" title="">
-                        &nbsp;${field.post_label ? field.post_label : ""}
+                        <input class="inputnum" type="text" service="${name}" name="${service_id}_${field_id}" id="${service_id}_${field_id}" value="" title="">
+                        <span service="${name}" id="${service_id}_${field_id}_post_label">&nbsp;${field.post_label ? field.post_label : ""}</span>
                     </div>
                 </div>            
             `;
@@ -685,8 +698,8 @@ $(function () {
                     ${field.label}
                 </div>
                 <div class="ninecol last">
-                    <textarea class="" rows="1" id="${service_id}_${field_id}" name="${service_id}_${field_id}" cols="80" onkeyup="sz(this);" onfocus="cv(this,'');" onblur="ob(this,'');" title="" style="color: rgb(136, 136, 136); background-color: rgb(255, 255, 255);"></textarea>
-                    &nbsp;${field.post_label ? field.post_label : ""}
+                    <textarea class="" rows="1" service="${name}" id="${service_id}_${field_id}" name="${service_id}_${field_id}" cols="80" onkeyup="sz(this);" onfocus="cv(this,'');" onblur="ob(this,'');" title="" style="color: rgb(136, 136, 136); background-color: rgb(255, 255, 255);"></textarea>
+                    <span service="${name}" id="${service_id}_${field_id}_post_label">&nbsp;${field.post_label ? field.post_label : ""}</span>
                     ${script_open_bracket}
                         document.getElementById("${service_id}_${field_id}").rows=1;
                         sz(document.getElementById("${service_id}_${field_id}"));
@@ -710,10 +723,10 @@ $(function () {
                     ${field.label}
                 </div>
                 <div class="ninecol last">
-                    <select id="${service_id}_${field_id}" name="${service_id}_${field_id}" class="white inputselect" title="">
+                    <select service="${name}" id="${service_id}_${field_id}" name="${service_id}_${field_id}" class="white inputselect" title="">
                         ${field_options}
                     </select>
-                    &nbsp;${field.post_label ? field.post_label : ""}
+                    <span service="${name}" id="${service_id}_${field_id}_post_label">&nbsp;${field.post_label ? field.post_label : ""}</span>
                 </div>
             </div>
             `;
@@ -726,9 +739,9 @@ $(function () {
                 </div>
                 <div class="ninecol last">
                     <div class="twelvecol first setting_row">
-                        <span class="setting_label" id="${service_id}_${field_id}" title="">${booking_info[field_id]}</span > 
+                        <span class="setting_label" service="${name}" id="${service_id}_${field_id}" title="">${booking_info[field_id]}</span > 
                     </div>
-                    &nbsp;${field.post_label ? field.post_label : ""}
+                    <span service="${name}" id="${service_id}_${field_id}_post_label">&nbsp;${field.post_label ? field.post_label : ""}</span>
                 </div>
             </div>
             `;
@@ -741,9 +754,9 @@ $(function () {
                 </div>
                 <div class="ninecol last">
                     <div class="inputdatefancydiv">
-                        <input class="inputdatefancy inputdate" type="text" name="${service_id}_${field_id}" id="${service_id}_${field_id}" value="" title="">
-                        <input type="hidden" name="${service_id}_${field_id}_hide" id="${service_id}_${field_id}_hide" value="">
-                        &nbsp;${field.post_label ? field.post_label:""}
+                        <input class="inputdatefancy inputdate" type="text" service="${name}" name="${service_id}_${field_id}" id="${service_id}_${field_id}" value="" title="">
+                        <input type="hidden" service="${name}" name="${service_id}_${field_id}_hide" id="${service_id}_${field_id}_hide" value="">
+                        <span service="${name}" id="${service_id}_${field_id}_post_label">&nbsp;${field.post_label ? field.post_label : ""}</span>
                     </div>
                     <span id="${service_id}_${field_id}_extrainfo"></span>
                     ${script_open_bracket}
