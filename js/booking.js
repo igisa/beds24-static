@@ -243,6 +243,21 @@ $(function () {
             const current = services[service_name].price.fields[i];
             $(document).on('change', `#new_service_${current}`, update_price);
         }
+
+        for (let i = 0; i < services[service_name].correlations.length; i++) {
+            const correlation = services[service_name].correlations[i];
+            for (let f = 0; f < correlation.from.length; f++) {
+                const field = correlation.from[f];
+                $(document).on('change', `#new_service_${field}`, function(corr){
+                    var self = corr;
+                    return function(){
+                        var from = aggregate_fields(self.from);
+                        var value = eval(self.relation)
+                        $(`#new_service_${self.to}`).val(value);
+                    }
+                }(correlation));                
+            }            
+        }
         
     });
 
