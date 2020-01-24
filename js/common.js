@@ -208,14 +208,14 @@ booking_extras.methods = {
         var desc = booking_extras.services[service.name];
         var value = function (str) {
             return eval(str);
-        }.call(service, desc.price[value].replace("$", "this."));
+        }.call(service, desc.price[value].replace(/\$/g,"this."));
         return (value ? value : 0);
     },
     
     get_correlation_value: function (service, correlation) {
         var value = function (str) {
             return eval(str);
-        }.call(service, correlation.relation.replace("$", "this."));
+        }.call(service, correlation.relation.replace(/\$/g,"this."));
         return (value ? value : 0);
     },
 
