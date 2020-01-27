@@ -241,8 +241,17 @@ booking_extras.methods = {
 
     get_price_value: function(service, value) {
         var desc = booking_extras.services[service.name];
-        function function_eval(code) { return Function('"use strict";return (' + code + ')'); };
-        
+
+        for (const f in service) {
+            if (service.hasOwnProperty(f)) {
+                var value = service[f];
+                if (booking_extras.fields[f] && booking_extras.fields[f].is_number) {
+                    service[f] = (!value || value === "") ? 0 : parseFloat(value);
+                }               
+            }
+        }
+
+        function function_eval(code) { return Function('"use strict";return (' + code + ')'); };        
         service.cost = function_eval(desc.price.cost.replace(/\$/g, "this.")).call(service);
         service.selling_price = function_eval(desc.price.selling_price.replace(/\$/g, "this.")).call(service);
         service.commission = function_eval(desc.price.commission.replace(/\$/g, "this.")).call(service);
