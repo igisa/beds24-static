@@ -232,9 +232,7 @@ $(function () {
 
         for (let i = 0; i < services[service_name].price.update_on.length; i++) {
             const current = services[service_name].price.update_on[i];
-
-            $(`input#new_service_${current}`).on("input", update_price);
-            $(`select#new_service_${current}`).on("change", update_price);
+            $(`#new_service_${current}`).on("input change", update_price);
         }
 
         if(services[service_name].correlations){
@@ -252,8 +250,7 @@ $(function () {
                         }
                     }(correlation);
 
-                    $(`select#new_service_${field}`).on("change", func);
-                    $(`input#new_service_${field}`).on("input", func);
+                    $(`#new_service_${field}`).on("input change", func);
                 }
             }
 
@@ -285,10 +282,9 @@ $(function () {
     }
     
     $("#existing_services_container").on("keydown", "form", function (event) { return event.key != "Enter"; });
-    $("#existing_services_container").on('input', "input", update_all_included_services);
-    $("#existing_services_container").on('change', "select", update_all_included_services);
-    // $("#existing_services_container").on('change', "input", update_all_included_services);
-    $("#existing_services_container").on('change', "textarea", update_all_included_services);
+    $("#existing_services_container").on('input change', "input", update_all_included_services);
+    $("#existing_services_container").on('input change', "select", update_all_included_services);
+    $("#existing_services_container").on('input change', "textarea", update_all_included_services);
     
     $("#existing_services_container").on("click", 'button[name="copy_service_text"]', function (event) {
         event.preventDefault();
@@ -611,10 +607,9 @@ $(function () {
             var service = booking_extras.services["${service_name}"];
             for (let i = 0; i < service.price.update_on.length; i++) {
                 const field = service.price.update_on[i];
-                $("input#${service_id}_" + field).on("input", commission_updater["${service_id}"]);
-                $("select#${service_id}_" + field).on("change", commission_updater["${service_id}"]);
+                $("#${service_id}_" + field).on("input change", commission_updater["${service_id}"]);
             }
-            $("input#${service_id}_price").on("input", commission_updater["${service_id}"]);
+            $("#${service_id}_price").on("input change", commission_updater["${service_id}"]);
         ${script_close_bracket}
         `;
         
