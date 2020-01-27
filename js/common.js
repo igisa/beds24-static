@@ -129,8 +129,8 @@ booking_extras.services = {
         description_short: "Trans.IN",
         price:{
             update_on: ["numCars"],
-            selling_price: "$numCars * 35",
             cost: "$numCars * 25",
+            selling_price: "$cost + $numCars * 10",
             commission: "$numCars * 5",
         },
         correlations:[
@@ -151,8 +151,8 @@ booking_extras.services = {
         description_short: "Trans.HAB-TRI",
         price:{
             update_on: ["numCars"],
-            selling_price: "$numCars * 200",
             cost: "$numCars * 160",
+            selling_price: "$cost + $numCars * 40",
             commission: "$numCars * 5",
         },
         correlations:[
@@ -173,8 +173,8 @@ booking_extras.services = {
         description_short: "Trans.OUT",
         price:{
             update_on: ["numCars"],
-            selling_price: "$numCars * 35",
             cost: "$numCars * 25",
+            selling_price: "$cost + $numCars * 10",
             commission: "$numCars * 5",
         },
         correlations:[
@@ -211,7 +211,17 @@ booking_extras.methods = {
     get_price_value: function(service, value) {
         var desc = booking_extras.services[service.name];
         function function_eval(code) { return Function('"use strict";return (' + code + ')'); };
-        var result = function_eval(desc.price[value].replace(/\$/g, "this.")).call(service);
+        
+        service.cost = function_eval(desc.price.cost.replace(/\$/g, "this.")).call(service);
+        service.selling_price = function_eval(desc.price.selling_price.replace(/\$/g, "this.")).call(service);
+        service.commission = function_eval(desc.price.commission.replace(/\$/g, "this.")).call(service);
+
+        var result = service[value];
+
+        delete service.cost;
+        delete service.selling_price;
+        delete service.commission;
+
         return (result ? result : 0);
     },
     
