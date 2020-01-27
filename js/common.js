@@ -235,7 +235,7 @@ booking_extras.methods = {
         
         var commission = booking_extras.methods.get_price_value(service, "commission");
         var selling_price = booking_extras.methods.get_price_value(service, "selling_price");
-        var price = service.price;
+        var price = parseFloat(service.price);
         return price - selling_price + commission;
     },
 
