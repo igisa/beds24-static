@@ -232,7 +232,9 @@ $(function () {
 
         for (let i = 0; i < services[service_name].price.update_on.length; i++) {
             const current = services[service_name].price.update_on[i];
-            $(document).on('change', `#new_service_${current}`, update_price);
+
+            $(`input#new_service_${current}`).on("input", update_price);
+            $(`select#new_service_${current}`).on("change", update_price);
         }
 
         if(services[service_name].correlations){
@@ -241,14 +243,17 @@ $(function () {
                 const correlation = services[service_name].correlations[i];
                 for (let f = 0; f < correlation.update_on.length; f++) {
                     const field = correlation.update_on[f];
-                    $(document).on('change', `#new_service_${field}`, function (corr) {
+                    var func = function (corr) {
                         var self_corr = corr;
                         return function () {
                             var new_service = booking_extras.methods.get_service_values("new_service");
                             var value = booking_extras.methods.get_correlation_value(new_service, self_corr)
                             $(`#new_service_${self_corr.to}`).val(value).change();
                         }
-                    }(correlation));
+                    }(correlation);
+
+                    $(`select#new_service_${field}`).on("change", func);
+                    $(`input#new_service_${field}`).on("input", func);
                 }
             }
 
@@ -317,8 +322,9 @@ $(function () {
         
         //if nothing changed, do the click()
         if (!updated_service_data) {
-            $(self).off(".services")
-            $(self).click();
+            // $(self).off(".services")
+            // $(self).click();
+            console.log("nothing changed")
             return;
         }
         
@@ -327,8 +333,11 @@ $(function () {
         update_booking_infoItems(function (success) {
             set_loading_overlay(false);
             if (success) {
-                $(self).off(".services")
-                $(self).click();
+                // $(self).off(".services")
+                // $(self).click();
+            }
+            else{
+                console.log("something failed");
             }
         }, compute_infoItems_modifications())
     }
@@ -511,7 +520,8 @@ $(function () {
 
         if(infoItems.length==0 || ran_once){
             on_finished(true);
-            if(ran_once) Console.log("Failsafe for API abuse triggered, request skipped.")    
+            if(ran_once) Console.log("Failsafe for API abuse triggered, request skipped.")
+            else Console.log("Empty Info items");    
             return;
         }
 
@@ -600,9 +610,10 @@ $(function () {
             var service = booking_extras.services["${service_name}"];
             for (let i = 0; i < service.price.update_on.length; i++) {
                 const field = service.price.update_on[i];
-                $("#${service_id}_" + field).on("change", commission_updater["${service_id}"]);
+                $("input#${service_id}_" + field).on("input", commission_updater["${service_id}"]);
+                $("select#${service_id}_" + field).on("change", commission_updater["${service_id}"]);
             }
-            $("#${service_id}_price").on("change", commission_updater["${service_id}"]);
+            $("input#${service_id}_price").on("input", commission_updater["${service_id}"]);
         ${script_close_bracket}
         `;
         
