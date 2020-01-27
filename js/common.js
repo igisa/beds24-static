@@ -12,6 +12,10 @@ booking_extras.fields = {
             { id: "service_provided", show_logo: true, logo_color: "45ab45", label: "Servicio Realizado" },                
         ]
     },
+    name: {
+        label: "Servicio",
+        type: "text",
+    },
     payed: {
         label: "Cobrado",
         type: "options",
