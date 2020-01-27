@@ -451,18 +451,7 @@ $(function () {
         var resume = `#${color} ·${services[service.name].description_short}·\n`
         for (let i = 0; i < services[service.name].calendar_resume_fields.length; i++) {
             const field = services[service.name].calendar_resume_fields[i];
-            if(fields[field].type==="options"){
-                for (let o = 0; o < fields[field].options.length; o++) {
-                    const option = fields[field].options[o];
-                    if (option.id === service[field]){
-                        resume+=`${fields[field].label}: ${option.label}\n`;            
-                        break;
-                    }
-                }
-            }
-            else{
-                resume+=`${fields[field].label}: ${service[field]}\n`;            
-            }
+            resume += `${fields[field].label}: ${booking_extras.methods.get_service_field_pretty_value(service, field)}\n`            
         }
         return resume.trim();
     }
