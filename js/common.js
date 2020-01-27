@@ -218,9 +218,9 @@ booking_extras.methods = {
         if(field==="name"){
             value = booking_extras.services[value].description;
         }
-        else if (fields[field].type === "options") {
-            for (let o = 0; o < fields[field].options.length; o++) {
-                const option = fields[field].options[o];
+        else if (booking_extras.fields[field].type === "options") {
+            for (let o = 0; o < booking_extras.fields[field].options.length; o++) {
+                const option = booking_extras.fields[field].options[o];
                 if (option.id === service[field]) {
                     value = option.label;
                     break;
