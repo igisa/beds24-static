@@ -7,7 +7,7 @@ booking_extras.fields = {
         options: [
             { id: "created", show_logo: false, label: "Creado", },
             { id: "client_confirmed", show_logo: true, logo_color: "f1d700", label: "Cliente Confirmó" },
-            { id: "provider_confirmed", show_logo: true, logo_color: "4d5ff9", label: "Cliente & Proveedor Confirmaron" },                
+            { id: "provider_confirmed", show_logo: true, logo_color: "4d5ff9", label: "Proveedor Confirmó" },                
             { id: "client_cancelled", show_logo: true, logo_color: "e40000", label: "Cliente Canceló" },
             { id: "service_provided", show_logo: true, logo_color: "45ab45", label: "Servicio Realizado" },                
         ]
@@ -211,6 +211,25 @@ booking_extras.services = {
 }
 
 booking_extras.methods = {
+
+    get_service_field_pretty_value: function(service, field){
+        var value = service[field];
+
+        if(field==="name"){
+            value = booking_extras.services[value].description;
+        }
+        else if (fields[field].type === "options") {
+            for (let o = 0; o < fields[field].options.length; o++) {
+                const option = fields[field].options[o];
+                if (option.id === service[field]) {
+                    value = option.label;
+                    break;
+                }
+            }
+        }
+
+        return value;
+    },
 
     get_price_value: function(service, value) {
         var desc = booking_extras.services[service.name];
