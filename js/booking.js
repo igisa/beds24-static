@@ -595,6 +595,11 @@ $(function () {
                 var selling_price = booking_extras.methods.get_price_value(service_values, "selling_price");
                 var price = service_values.price;
 
+                console.log(commission)
+                console.log(selling_price)
+                console.log(price)
+                console.log(price - selling_price + commission)
+
                 $("#${service_id}_seller_post_label").text("Comisión: " + (price - selling_price + commission).toFixed(2) + " cuc");
             };
             var service = booking_extras.services["${service_name}"];
@@ -602,6 +607,7 @@ $(function () {
                 const field = service.price.update_on[i];
                 $("#${service_id}_" + field).on("change", commission_updater["${service_id}"]);
             }
+            $("#${service_id}_price").on("change", commission_updater["${service_id}"]);
         ${script_close_bracket}
         `;
         
