@@ -322,8 +322,8 @@ $(function () {
         
         //if nothing changed, do the click()
         if (!updated_service_data) {
-            // $(self).off(".services")
-            // $(self).click();
+            $(self).off(".services")
+            $(self).click();
             console.log("nothing changed")
             return;
         }
@@ -333,11 +333,8 @@ $(function () {
         update_booking_infoItems(function (success) {
             set_loading_overlay(false);
             if (success) {
-                // $(self).off(".services")
-                // $(self).click();
-            }
-            else{
-                console.log("something failed");
+                $(self).off(".services")
+                $(self).click();
             }
         }, compute_infoItems_modifications())
     }
@@ -520,8 +517,8 @@ $(function () {
 
         if(infoItems.length==0 || ran_once){
             on_finished(true);
-            if(ran_once) Console.log("Failsafe for API abuse triggered, request skipped.")
-            else Console.log("Empty Info items");    
+            if(ran_once) console.log("Failsafe for API abuse triggered, request skipped.")
+            else console.log("Empty Info items");    
             return;
         }
 
