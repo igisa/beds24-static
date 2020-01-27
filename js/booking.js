@@ -287,7 +287,7 @@ $(function () {
     $("#existing_services_container").on("keydown", "form", function (event) { return event.key != "Enter"; });
     $("#existing_services_container").on('input', "input", update_all_included_services);
     $("#existing_services_container").on('change', "select", update_all_included_services);
-    $("#existing_services_container").on('change', "input", update_all_included_services);
+    // $("#existing_services_container").on('change', "input", update_all_included_services);
     $("#existing_services_container").on('change', "textarea", update_all_included_services);
     
     $("#existing_services_container").on("click", 'button[name="copy_service_text"]', function (event) {
@@ -601,6 +601,10 @@ $(function () {
                 var commission = booking_extras.methods.get_price_value(service_values, "commission");
                 var selling_price = booking_extras.methods.get_price_value(service_values, "selling_price");
                 var price = service_values.price;
+
+                console.log("----------");
+                console.log(price);
+                console.log(price - selling_price + commission);
 
                 $("#${service_id}_seller_post_label").text("Comisión: " + (price - selling_price + commission).toFixed(2) + " cuc");
             };
