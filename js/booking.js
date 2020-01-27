@@ -582,12 +582,7 @@ $(function () {
             if(!window.commission_updater) window.commission_updater = {};
             commission_updater["${service_id}"] = function(){
                 var service_values = booking_extras.methods.get_service_values("${service_id}");
-
-                var commission = booking_extras.methods.get_price_value(service_values, "commission");
-                var selling_price = booking_extras.methods.get_price_value(service_values, "selling_price");
-                var price = service_values.price;
-
-                $("#${service_id}_seller_post_label").text("Comisión: " + (price - selling_price + commission).toFixed(2) + " cuc");
+                $("#${service_id}_seller_post_label").text("Comisión: " + booking_extras.methods.get_real_commission(service_values).toFixed(2) + " cuc");
             };
             var service = booking_extras.services["${service_name}"];
             for (let i = 0; i < service.price.update_on.length; i++) {

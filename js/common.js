@@ -231,6 +231,14 @@ booking_extras.methods = {
         return value;
     },
 
+    get_real_commission: function(service){
+        
+        var commission = booking_extras.methods.get_price_value(service, "commission");
+        var selling_price = booking_extras.methods.get_price_value(service, "selling_price");
+        var price = service.price;
+        return price - selling_price + commission;
+    },
+
     get_price_value: function(service, value) {
         var desc = booking_extras.services[service.name];
         function function_eval(code) { return Function('"use strict";return (' + code + ')'); };
