@@ -244,9 +244,9 @@ booking_extras.methods = {
 
         for (const f in service) {
             if (service.hasOwnProperty(f)) {
-                var value = service[f];
+                var field_value = service[f];
                 if (booking_extras.fields[f] && booking_extras.fields[f].is_number) {
-                    service[f] = (!value || value === "") ? 0 : parseFloat(value);
+                    service[f] = (!field_value || field_value === "") ? 0 : parseFloat(field_value);
                 }               
             }
         }
