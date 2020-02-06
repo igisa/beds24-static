@@ -123,8 +123,8 @@ $(function () {
     }
 
     var separator = booking_extras.constants.separator;
-    var field_selector = "#apimessage"
-    var field_new_selector = "#hostcomments"
+    // var field_selector = "#apimessage"
+    var field_selector = "#hostcomments"
     
     function get_services_data() {
         var text = $(field_selector).val();
@@ -138,16 +138,15 @@ $(function () {
     
     function set_services_data() {
         updated_service_data = true;
-        var text = $(field_new_selector).val();
+        var text = $(field_selector).val();
         text = text.split(separator)[0].trim();
-        $(field_new_selector).val(`${text}\n\n${separator}\n\n${JSON.stringify(services_data)}`);
+        $(field_selector).val(`${text}\n\n${separator}\n\n${JSON.stringify(services_data)}`);
     }
     
     //declare the value that holds all the included services data and load it
     var services_data = get_services_data();
 
     $(`${field_selector}`).attr("readonly", true);
-    $(`${field_new_selector}`).attr("readonly", true);
     
     //create the add service option menu
     var service_options = ""
