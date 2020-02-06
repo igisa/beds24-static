@@ -293,6 +293,5 @@ booking_extras.methods = {
 
 
 booking_extras.constants = {
-    old_separator: "--> DO NOT MODIFY OR INCLUDE ANY TEXT AFTER THIS <--",
     separator: ">>DATA<<"
 }

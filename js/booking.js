@@ -123,7 +123,6 @@ $(function () {
     }
 
     var separator = booking_extras.constants.separator;
-    var old_separator = booking_extras.constants.old_separator;
     // var field_selector = "#apimessage"
     var field_selector = "#hostcomments"
     
@@ -131,9 +130,6 @@ $(function () {
         var text = $(field_selector).val();
         if (text.indexOf(separator) >= 0) {
             return JSON.parse(text.split(separator)[1]);
-        }
-        if (text.indexOf(old_separator) >= 0) {
-            return JSON.parse(text.split(old_separator)[1]);
         }
         return {
             services: [],
@@ -143,15 +139,10 @@ $(function () {
     function set_services_data() {
         updated_service_data = true;
         var text = $(field_selector).val();        
-        
         if (text.indexOf(separator) >= 0) {
             var text_sections = text.split(separator)
             text = text_sections[0].trim() + text_sections[2].trim();
         }
-        else if (text.indexOf(old_separator) >= 0) {            
-            var text_sections = text.split(old_separator)
-            text = text_sections[0].trim();
-        }   
         $(field_selector).val(`${text}\n${separator}\n${JSON.stringify(services_data)}\n${separator}`);
     }
     
