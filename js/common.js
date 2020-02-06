@@ -123,7 +123,7 @@ booking_extras.fields = {
     country:{
         label: "País",
         type: "text",
-    }        
+    }
 }
 
 booking_extras.services = {

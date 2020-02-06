@@ -63,18 +63,155 @@ $(function () {
     }
     //---------------CUSTOM REPORT VIEW WITH "SERVICIO" TITLE-------------------------------
     
-    // if($("#title").val().indexOf("Servicio")>=0){
+    if($("#title").val().indexOf("Servicio")>=0){
 
-    //     $("#report2 th:contains('API Message')").text("Servicios");
-    //     $("#report2 td:contains('" + booking_extras.constants.separator + "')").each(function (index) {
-    //         var text = $(this).text();
-    //         var service_data = JSON.parse(text.split(booking_extras.constants.separator)[1]);
-    //         for (let i = 0; i < service_data.services.length; i++) {
-    //             const service = service_data.services[i];
-    //             console.log(service.name);            
-    //         }
-    //     });
-    // }
+        var fields = ["fullname", "date", "name", "status", "_charged", "_cost", "seller", "_commission", "_net"]
+        var numeric_fields={            
+            _net: {
+                header: "Neto",
+                getter: function (service) {
+                    var value = 0;
+                    if (service.payed == "yes"){
+                        var cost = parseFloat(booking_extras.methods.get_price_value(service, "cost"));
+                        var commission = parseFloat(booking_extras.methods.get_real_commission(service));
+                        var charged = parseFloat(service.price);
+                        value = charged - cost - commission;
+                    }                    
+                    return parseFloat(value);
+                }
+            },
+            _cost: {
+                header: "Costo",
+                getter: function (service) {
+                    var value = 0;
+                    if (service.payed == "yes") {
+                        var value = booking_extras.methods.get_price_value(service, "cost");
+                    }
+                    return parseFloat(value);
+                }
+            },
+            _commission:{
+                header: "Comisión",
+                getter: function(service){
+                    var value = 0;
+                    if (service.payed == "yes") value = booking_extras.methods.get_real_commission(service);
+                    return parseFloat(value);
+                }
+            },
+            _charged:{
+                header: "Cobrado",
+                getter: function (service) {
+                    var value = 0;
+                    if (service.payed == "yes") value = service.price;
+                    return parseFloat(value);
+                }
+            }
+        }
+        
+
+        $("#report2 thead tr").empty()
+        var headers = $("#report2 thead tr");
+        for (let f = 0; f < fields.length; f++) {
+            const field = fields[f];
+            headers.append(`<th>${booking_extras.fields[field]?booking_extras.fields[field].label:numeric_fields[field].header}</th>`)
+        }
+
+        var aggregates = {};
+
+        var all_rows = $("#report2 td:contains('" + booking_extras.constants.separator + "')");
+        all_rows.each(function (index) {
+            var text = $(this).text();
+            var service_data = JSON.parse(text.split(booking_extras.constants.separator)[1]);
+            //remove if empty
+            if (service_data.services.length == 0) $(this).parent().remove();
+
+            //remove row data         
+            var row = $(this).parent();
+            row.empty();
+
+            for (let i = 0; i < service_data.services.length; i++) {
+                const service = service_data.services[i];
+
+                var current_row = row;
+                if(i>0) current_row = row.clone().empty().insertAfter(row);
+                
+                
+                for (let f = 0; f < fields.length; f++) {
+                    const field = fields[f];   
+                    var value = "";
+                    var style = "";
+
+                    if(service[field]){
+                        value = booking_extras.methods.get_service_field_pretty_value(service, field);
+                    }
+                    else{
+                        value = numeric_fields[field].getter(service);
+
+                        //aggregate all numeric fields
+                        if (field === "_commission"){
+                            if (!aggregates[field]) aggregates[field] = {};
+                            var seller = service.seller;
+                            if (!aggregates[field][seller]) aggregates[field][seller] = 0;
+                            aggregates[field][seller] += value;
+                        }
+                        else{
+                            if (!aggregates[field]) aggregates[field] = 0;
+                            aggregates[field] += value;
+                        }
+
+                        value = `${value.toFixed(2)} cuc`
+                        
+                    } 
+
+                    //see if is option and has a color
+                    var color = "000000"
+                    if (booking_extras.fields[field] && booking_extras.fields[field].type === "options") {
+                        for (let o = 0; o < booking_extras.fields[field].options.length; o++) {
+                            const option = booking_extras.fields[field].options[o];
+                            if (option.id === service[field] && option.logo_color) {
+                                color = option.logo_color
+                                break;
+                            }
+                        }
+                    }
+                    if (field == "status") {
+                        var rgbaCol = 'rgba(' + parseInt(color.slice(-6, -4), 16) +
+                            ',' + parseInt(color.slice(-4, -2), 16) +
+                            ',' + parseInt(color.slice(-2), 16) +
+                            ',0.2)';
+                        current_row.css("background-color", rgbaCol);
+                    }
+                    current_row.append(`<td style="color: #${color}; ${style}">${value}</td>`);
+                    
+                    
+                }
+            }            
+        });
+
+        var totals_row = $('<tr class="tooltipbook" style="background-color: rgba(252, 255, 59, 0.31);"> </tr>');
+
+        for (let f = 0; f < fields.length; f++) {
+            const field = fields[f];
+            var value = "";
+            //if is a value to be aggregated
+            if (aggregates[field]) {
+                if (field === "_commission") {
+                    for (const seller in aggregates[field]) {
+                        if (aggregates[field].hasOwnProperty(seller)) {
+                            const commission = aggregates[field][seller];
+                            var name = booking_extras.methods.get_service_field_pretty_value({seller: seller}, "seller");
+                            value += `${name}: ${commission.toFixed(2)} cuc<br>`
+                        }
+                    }
+                } else {                   
+                    value = `${aggregates[field].toFixed(2)} cuc`
+                }
+            }
+            totals_row.append(`<td style="font-weight: bold; vertical-align: middle;">${value}</td>`);
+        }
+
+        $("#report2 tbody").append(totals_row)
+    }
 
     //--------------------BOOKING GRID VIEW-------------------------------
 
