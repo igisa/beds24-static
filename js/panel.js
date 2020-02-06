@@ -63,7 +63,8 @@ $(function () {
     }
     //---------------CUSTOM REPORT VIEW WITH "SERVICIO" TITLE-------------------------------
     
-    if($("#title").val().indexOf("Servicio")>=0){
+    var title = $("#title");
+    if (title && title.val() && title.val().indexOf("Servicio") >= 0) {
 
         var fields = ["fullname", "date", "name", "status", "_charged", "_cost", "seller", "_commission", "_net"]
         var numeric_fields={            
