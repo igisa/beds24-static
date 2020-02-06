@@ -177,8 +177,8 @@ booking_extras.services = {
         description_short: "Trans.OUT",
         price:{
             update_on: ["numCars"],
-            cost: "$numCars * 25",
-            selling_price: "$cost + $numCars * 10",
+            cost: "$numCars * 20",
+            selling_price: "$cost + $numCars * 15",
             commission: "$numCars * 5",
         },
         correlations:[
