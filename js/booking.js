@@ -149,7 +149,10 @@ $(function () {
     //declare the value that holds all the included services data and load it
     var services_data = get_services_data();
 
+    //if role disabled the data_field enable it so it posts it as the form data when saving it
+    $(`${field_selector}`).attr("disabled", false);
     $(`${field_selector}`).attr("readonly", true);
+
     
     //create the add service option menu
     var service_options = ""
