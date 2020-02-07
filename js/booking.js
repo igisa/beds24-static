@@ -278,7 +278,9 @@ $(function () {
         var service = booking_extras.methods.get_service_values("new_service");
         services_data.services.push(service);
         set_services_data();        
-        $("button[value='Update'][type='submit']").click();
+        var update_button = $("button[value='Update'][type='submit']")
+        if(update_button.length>0) update_button.click();
+        else $("button[value='Actualizar'][type='submit']").click();
 
     })
 
@@ -316,7 +318,10 @@ $(function () {
             }
         }
         set_services_data();
-        $("button[value='Update'][type='submit']").click();
+        
+        var update_button = $("button[value='Update'][type='submit']")
+        if (update_button.length > 0) update_button.click();
+        else $("button[value='Actualizar'][type='submit']").click();
     });
 
     var click_handler = function(event) {
@@ -343,7 +348,11 @@ $(function () {
     }
 
     $("button[value='Update'][type='submit']").on("click.services",click_handler);
+    $("button[value='Actualizar'][type='submit']").on("click.services", click_handler);
+    
     $("button[value='Save'][type='submit']").on("click.services", click_handler);
+    $("button[value='Guardar'][type='submit']").on("click.services", click_handler);
+
     // $("button[value='Delete'][type='submit']").on("click.services", click_handler);
     // $("button[value='Close'][type='submit']").on("click.services", click_handler);
 
