@@ -155,8 +155,8 @@ booking_extras.services = {
         description_short: "Trans.HAB-TRI",
         price:{
             update_on: ["numCars"],
-            cost: "$numCars * 160",
-            selling_price: "$cost + $numCars * 40",
+            cost: "$numCars * 150",
+            selling_price: "$cost + $numCars * 50",
             commission: "$numCars * 10",
         },
         correlations:[
