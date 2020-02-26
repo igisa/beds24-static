@@ -362,65 +362,36 @@ $(function () {
 
         var infoItems=[]
 
-        //find the ones not present and include them
-        //find the ones different and modify them
-        for (const code in objective) {
-            if (objective.hasOwnProperty(code)) {
-                const text = objective[code];
-                //if not in current or is not a service info item then add it
-                if (!current[code]){
-                    infoItems.push({
-                        code: code,
-                        text: text
-                    });
-                }
-                else{
-                    var foundIt = false;
-                    for (let i = 0; i < current[code].length; i++) {
-                        const data = current[code][i];
-                        //if is there but with different text then modify it
-                        if (is_service_infoItem(data.text)) {
-                            foundIt = true;
-                            if (data.text !== text){
-                                infoItems.push({
-                                    code: code,
-                                    text: text,
-                                    infoItemId: data.infoItemId
-                                })
-                            }
-                        }                        
-                    }
-                    if(!foundIt){
+        //remove the info items in current
+        for (const code in current) {
+            if (current.hasOwnProperty(code)) {
+                for (let i = 0; i < current[code].length; i++) {
+                    const data = current[code][i];
+                    if (is_service_infoItem(data.text)) {
                         infoItems.push({
-                            code: code,
-                            text: text
+                            code: "",
+                            text: "",
+                            infoItemId: data.infoItemId
                         });
                     }
                 }
             }
         }
 
-        //remove the ones that are not present on the objective set
-        for (const code in current) {
-            if (current.hasOwnProperty(code)) {
-                for (let i = 0; i < current[code].length; i++) {
-                    const data = current[code][i];
-                    if (is_service_infoItem(data.text) && !objective[data.code]) {
-                        infoItems.push({
-                            code: "",
-                            text: "",
-                            infoItemId: data.infoItemId
-                        })
-                    }
-                }
-            }
+        //add all the info items in current
+        for (let i = 0; i < objective.length; i++) {
+            const element = objective[i];
+            infoItems.push({
+                code: element.code,
+                text: element.text
+            });                        
         }
 
         return infoItems;
     }
 
     function get_services_infoItems(){
-        var items = {}
+        var items = []
         for (let i = 0; i < services_data.services.length; i++) {
             const service = services_data.services[i]; 
 
@@ -429,7 +400,11 @@ $(function () {
                 if(service.status===option.id){
                     if(option.show_logo){
                         var color = option.logo_color ? option.logo_color : "000000";
-                        items[services[service.name].icon] = get_service_calendar_resume(service, color);
+                        items.push({
+                            code: services[service.name].icon,
+                            text: get_service_calendar_resume(service, color)
+                        });
+                        //items[services[service.name].icon] = get_service_calendar_resume(service, color);
                     }
                     break;
                 }

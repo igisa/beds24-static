@@ -24,6 +24,14 @@ booking_extras.fields = {
             { id: "yes", label: "Si" },
         ]
     },
+    archived: {
+        label: "Archivado",
+        type: "options",
+        options: [
+            { id: "no", label: "No" },
+            { id: "yes", label: "Si" },
+        ]
+    },
     notes: {
         label: "Notas",
         type: "multiline"            
@@ -171,6 +179,48 @@ booking_extras.services = {
         provider_fields: ["status", "fullname", "numAdult", "numChild", "date", "time", "numCars", "notes"],
         calendar_resume_fields: ["status", "date", "time", "payed"]
     },
+
+    transfer_hav_var: {
+        description: "Transfer Habana-Varadero",
+        description_short: "Trans.HAB-VRA",
+        price: {
+            update_on: ["numCars"],
+            cost: "$numCars * 95",
+            selling_price: "$cost + $numCars * 40",
+            commission: "$numCars * 6",
+        },
+        correlations: [
+            {
+                update_on: ["numAdult", "numChild"],
+                relation: "Math.ceil( ($numChild+$numAdult) / 3)",
+                to: "numCars",
+            }
+        ],
+        icon: "I-taxi",
+        fields: ["status", "fullname", "numAdult", "numChild", "date", "time", "numCars", "price", "seller", "payed", "notes"],
+        provider_fields: ["status", "fullname", "numAdult", "numChild", "date", "time", "numCars", "notes"],
+        calendar_resume_fields: ["status", "date", "time", "payed"]
+    },
+
+    transfer_hav_cfg: {
+        description: "Transfer Habana-Cienfuegos",
+        description_short: "Trans.HAB-CFG",
+        price: {
+            update_on: ["numCars"],
+            cost: "$numCars * 120",
+            selling_price: "$cost + $numCars * 50",
+            commission: "$numCars * 6",
+        },
+        correlations: [{
+            update_on: ["numAdult", "numChild"],
+            relation: "Math.ceil( ($numChild+$numAdult) / 3)",
+            to: "numCars",
+        }],
+        icon: "I-taxi",
+        fields: ["status", "fullname", "numAdult", "numChild", "date", "time", "numCars", "price", "seller", "payed", "notes"],
+        provider_fields: ["status", "fullname", "numAdult", "numChild", "date", "time", "numCars", "notes"],
+        calendar_resume_fields: ["status", "date", "time", "payed"]
+    },
     
     transfer_out: {
         description: "Transfer Hotel-Aeropuerto (Out)",
@@ -178,7 +228,7 @@ booking_extras.services = {
         price:{
             update_on: ["numCars"],
             cost: "$numCars * 20",
-            selling_price: "$cost + $numCars * 15",
+            selling_price: "$cost + $numCars * 10",
             commission: "$numCars * 5",
         },
         correlations:[
@@ -200,14 +250,30 @@ booking_extras.services = {
         price:{
             update_on: ["numChild", "numAdult"],
             selling_price: "({ 1: 75, 2: 110, 3: 135, 4: 180, 5: 225, 6: 270, 7: 315, 8: 360, 9: 405 })[ $numChild+$numAdult ]",
-            cost: "({ 1: 61, 2:  77, 3:  93, 4: 109, 5: 145, 6: 166, 7: 182, 8: 198, 9: 214 })[ $numChild+$numAdult ]",
+            cost: "({ 1: 61, 2:  77, 3:  93, 4: 129, 5: 145, 6: 166, 7: 202, 8: 218, 9: 234 })[ $numChild+$numAdult ]",
             commission: "($numChild+$numAdult) * 3",
         },
         icon: "I-car-building",
         fields: ["status", "date", "fullname", "numAdult", "numChild", "country", "price", "seller", "payed", "notes"],
         provider_fields: ["status", "date", "fullname", "numAdult", "numChild", "country", "notes"],
         calendar_resume_fields: ["status", "date", "country", "payed"]
+    },
+
+    tour_hemingway: {
+        description: "Hemingway Tour",
+        description_short: "Hemingway",
+        price: {
+            update_on: ["numChild", "numAdult"],
+            selling_price: "({ 1: 115, 2: 85*2, 3: 75*3, 4: 75*4, 5: 75*5, 6: 75*6, 7: 75*7, 8: 75*8, 9: 75*9 })[ $numChild+$numAdult ]",
+            cost: "({ 1: 94, 2: 123, 3:  152, 4: 221, 5: 250, 6: 284, 7: 353, 8: 382, 9: 411 })[ $numChild+$numAdult ]",
+            commission: "($numChild+$numAdult) * 3",
+        },
+        icon: "I-anchor",
+        fields: ["status", "date", "fullname", "numAdult", "numChild", "country", "price", "seller", "payed", "notes"],
+        provider_fields: ["status", "date", "fullname", "numAdult", "numChild", "country", "notes"],
+        calendar_resume_fields: ["status", "date", "country", "payed"]
     }
+
 }
 
 booking_extras.methods = {
