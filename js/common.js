@@ -186,7 +186,7 @@ booking_extras.services = {
         price: {
             update_on: ["numCars"],
             cost: "$numCars * 95",
-            selling_price: "$cost + $numCars * 40",
+            selling_price: "$cost + $numCars * 45",
             commission: "$numCars * 6",
         },
         correlations: [
