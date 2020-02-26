@@ -426,7 +426,7 @@ $(function () {
             if (fields[field].type === "options") {
                 for (let o = 0; o < fields[field].options.length; o++) {
                     const option = fields[field].options[o];
-                    if (option.id === service[field]) {
+                    if ( option.id.toString() === service[field].toString()) {
                         body += `${fields[field].label}: ${option.label}\n`;
                         break;
                     }
