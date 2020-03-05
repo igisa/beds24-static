@@ -279,7 +279,7 @@ booking_extras.services = {
         description_short: "Viñales",
         price: {
             update_on: ["numChild", "numAdult"],
-            selling_price: "({ 1: 219, 2: 119*2, 3: 95*3, 4: 95*4, 5: 95*5, 6: 95*6, 7: 95*7, 8: 95*8, 9: 95*9 })[ $numChild+$numAdult ]",
+            selling_price: "({ 1: 219, 2: 119*2, 3: 95*3, 4: 110*4, 5: 95*5, 6: 95*6, 7: 95*7, 8: 95*8, 9: 95*9 })[ $numChild+$numAdult ]",
             cost: "({ 1: 190, 2: 215, 3:  240, 4: 380, 5: 425, 6: 450, 7: 475, 8: 635, 9: 660 })[ $numChild+$numAdult ]",
             commission: "($numChild+$numAdult) * 3",
         },
