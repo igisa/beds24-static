@@ -379,17 +379,13 @@ booking_extras.methods = {
             }
         }
 
-        function function_eval(code) { return Function('"use strict";return (' + code + ')'); };        
-        service.cost = function_eval(desc.price.cost.replace(/\$/g, "this.")).call(service);
-        service.selling_price = function_eval(desc.price.selling_price.replace(/\$/g, "this.")).call(service);
-        service.commission = function_eval(desc.price.commission.replace(/\$/g, "this.")).call(service);
-
-        var result = service[value];
-
-        delete service.cost;
-        delete service.selling_price;
-        delete service.commission;
-
+        function function_eval(code) { return Function('"use strict";return (' + code + ')'); };     
+        var price_values={
+            cost: function_eval(desc.price.cost.replace(/\$/g, "this.")).call(service),
+            selling_price: function_eval(desc.price.selling_price.replace(/\$/g, "this.")).call(service),
+            commission: function_eval(desc.price.commission.replace(/\$/g, "this.")).call(service)
+        }   
+        var result = price_values[value];
         return (result ? result : 0);
     },
     
