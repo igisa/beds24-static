@@ -68,6 +68,12 @@ booking_extras.fields = {
         post_label: "cuc",
         is_number: true,
     },
+    commission: {
+        label: "Comisión",
+        type: "num",
+        post_label: "cuc",
+        is_number: true,
+    },
     airline: {
         label:"Aerolinea",
         type: "text"
@@ -148,12 +154,16 @@ booking_extras.services = {
         correlations:[
             {
                 update_on: ["numAdult", "numChild"],
-                to:"numCars",
                 relation: "Math.ceil( ($numChild+$numAdult) / 3)",
+                to:"numCars",
+            }, {
+                update_on: ["numCars"],
+                relation: "$numCars * 5",
+                to: "commission",
             }
         ],
         icon: "I-plane-arrival",
-        fields: ["status", "fullname", "numAdult", "numChild", "date", "flight", "time", "airline", "numCars", "price", "seller", "payed", "notes"],
+        fields: ["status", "fullname", "numAdult", "numChild", "date", "flight", "time", "airline", "numCars", "price", "commission", "seller", "payed", "notes"],
         provider_fields: ["status", "fullname", "numAdult", "numChild", "date", "flight", "time", "airline", "numCars", "notes"],
         calendar_resume_fields: ["status", "date", "flight", "time", "airline", "payed"]
     },
@@ -172,10 +182,14 @@ booking_extras.services = {
                 update_on: ["numAdult", "numChild"],
                 relation: "Math.ceil( ($numChild+$numAdult) / 3)",
                 to:"numCars",
+            }, {
+                update_on: ["numCars"],
+                relation: "$numCars * 10",
+                to: "commission",
             }
         ],
         icon: "I-taxi",        
-        fields: ["status", "fullname", "numAdult", "numChild", "date", "time", "numCars", "price", "seller", "payed", "notes"],
+        fields: ["status", "fullname", "numAdult", "numChild", "date", "time", "numCars", "price", "commission", "seller", "payed", "notes"],
         provider_fields: ["status", "fullname", "numAdult", "numChild", "date", "time", "numCars", "notes"],
         calendar_resume_fields: ["status", "date", "time", "payed"]
     },
@@ -194,10 +208,14 @@ booking_extras.services = {
                 update_on: ["numAdult", "numChild"],
                 relation: "Math.ceil( ($numChild+$numAdult) / 3)",
                 to: "numCars",
+            }, {
+                update_on: ["numCars"],
+                relation: "$numCars * 6",
+                to: "commission",
             }
         ],
         icon: "I-taxi",
-        fields: ["status", "fullname", "numAdult", "numChild", "date", "time", "numCars", "price", "seller", "payed", "notes"],
+        fields: ["status", "fullname", "numAdult", "numChild", "date", "time", "numCars", "price", "commission", "seller", "payed", "notes"],
         provider_fields: ["status", "fullname", "numAdult", "numChild", "date", "time", "numCars", "notes"],
         calendar_resume_fields: ["status", "date", "time", "payed"]
     },
@@ -211,13 +229,20 @@ booking_extras.services = {
             selling_price: "$cost + $numCars * 60",
             commission: "$numCars * 6",
         },
-        correlations: [{
-            update_on: ["numAdult", "numChild"],
-            relation: "Math.ceil( ($numChild+$numAdult) / 3)",
-            to: "numCars",
-        }],
+        correlations: [
+            {
+                update_on: ["numAdult", "numChild"],
+                relation: "Math.ceil( ($numChild+$numAdult) / 3)",
+                to: "numCars",
+            },
+            {
+                update_on: ["numCars"],
+                relation: "$numCars * 6",
+                to: "commission",
+            }
+        ],
         icon: "I-taxi",
-        fields: ["status", "fullname", "numAdult", "numChild", "date", "time", "numCars", "price", "seller", "payed", "notes"],
+        fields: ["status", "fullname", "numAdult", "numChild", "date", "time", "numCars", "price", "commission", "seller", "payed", "notes"],
         provider_fields: ["status", "fullname", "numAdult", "numChild", "date", "time", "numCars", "notes"],
         calendar_resume_fields: ["status", "date", "time", "payed"]
     },
@@ -236,10 +261,15 @@ booking_extras.services = {
                 update_on: ["numAdult", "numChild"],
                 relation: "Math.ceil( ($numChild+$numAdult) /3)",
                 to:"numCars",
+            },
+            {
+                update_on: ["numCars"],
+                relation: "$numCars * 5",
+                to: "commission",
             }
         ],
         icon: "I-plane-departure",
-        fields: ["status", "fullname", "numAdult", "numChild", "date", "flight", "time", "airline", "numCars", "price", "seller", "payed", "notes"],
+        fields: ["status", "fullname", "numAdult", "numChild", "date", "flight", "time", "airline", "numCars", "price", "commission", "seller", "payed", "notes"],
         provider_fields: ["status", "fullname", "numAdult", "numChild", "date", "flight", "time", "airline", "numCars", "notes"],
         calendar_resume_fields: ["status", "date", "flight", "time", "airline", "payed"]
     },
@@ -253,8 +283,15 @@ booking_extras.services = {
             cost: "({ 1: 61, 2:  77, 3:  93, 4: 129, 5: 145, 6: 166, 7: 182, 8: 218, 9: 234 })[ $numChild+$numAdult ]",
             commission: "($numChild+$numAdult) * 3",
         },
+        correlations: [
+            {
+                update_on: ["numChild", "numAdult"],
+                relation: "($numChild+$numAdult) * 3",
+                to: "commission",
+            }
+        ],
         icon: "I-car-building",
-        fields: ["status", "date", "fullname", "numAdult", "numChild", "country", "price", "seller", "payed", "notes"],
+        fields: ["status", "date", "fullname", "numAdult", "numChild", "country", "price", "commission", "seller", "payed", "notes"],
         provider_fields: ["status", "date", "fullname", "numAdult", "numChild", "country", "notes"],
         calendar_resume_fields: ["status", "date", "country", "payed"]
     },
@@ -268,8 +305,13 @@ booking_extras.services = {
             cost: "({ 1: 94, 2: 123, 3:  152, 4: 221, 5: 250, 6: 284, 7: 313, 8: 382, 9: 411 })[ $numChild+$numAdult ]",
             commission: "($numChild+$numAdult) * 3",
         },
+        correlations: [{
+            update_on: ["numChild", "numAdult"],
+            relation: "($numChild+$numAdult) * 3",
+            to: "commission",
+        }],
         icon: "I-anchor",
-        fields: ["status", "date", "fullname", "numAdult", "numChild", "country", "price", "seller", "payed", "notes"],
+        fields: ["status", "date", "fullname", "numAdult", "numChild", "country", "price", "commission", "seller", "payed", "notes"],
         provider_fields: ["status", "date", "fullname", "numAdult", "numChild", "country", "notes"],
         calendar_resume_fields: ["status", "date", "country", "payed"]
     },
@@ -283,8 +325,13 @@ booking_extras.services = {
             cost: "({ 1: 190, 2: 215, 3:  240, 4: 380, 5: 425, 6: 450, 7: 475, 8: 635, 9: 660 })[ $numChild+$numAdult ]",
             commission: "($numChild+$numAdult) * 3",
         },
+        correlations: [{
+            update_on: ["numChild", "numAdult"],
+            relation: "($numChild+$numAdult) * 3",
+            to: "commission",
+        }],
         icon: "I-mountains",
-        fields: ["status", "date", "fullname", "numAdult", "numChild", "country", "price", "seller", "payed", "notes"],
+        fields: ["status", "date", "fullname", "numAdult", "numChild", "country", "price", "commission", "seller", "payed", "notes"],
         provider_fields: ["status", "date", "fullname", "numAdult", "numChild", "country", "notes"],
         calendar_resume_fields: ["status", "date", "country", "payed"]
     }
@@ -312,13 +359,13 @@ booking_extras.methods = {
         return value;
     },
 
-    get_real_commission: function(service){
+    // get_real_commission: function(service){
         
-        var commission = booking_extras.methods.get_price_value(service, "commission");
-        var selling_price = booking_extras.methods.get_price_value(service, "selling_price");
-        var price = parseFloat(service.price);
-        return price - selling_price + commission;
-    },
+    //     var commission = booking_extras.methods.get_price_value(service, "commission");
+    //     var selling_price = booking_extras.methods.get_price_value(service, "selling_price");
+    //     var price = parseFloat(service.price);
+    //     return price - selling_price + commission;
+    // },
 
     get_price_value: function(service, value) {
         var desc = booking_extras.services[service.name];
