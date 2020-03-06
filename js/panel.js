@@ -74,7 +74,7 @@ $(function () {
                     var value = 0;
                     if (service.payed == "yes"){
                         var cost = parseFloat(booking_extras.methods.get_price_value(service, "cost"));   
-                        var commission = service.commission ? parseFloat(service.commission) : parseFloat(booking_extras.methods.get_price_value(service, "commission"));
+                        var commission = (service.commission ? parseFloat(service.commission) : parseFloat(booking_extras.methods.get_price_value(service, "commission")));
                         var charged = parseFloat(service.price);
                         value = charged - cost - commission;
                     }                    
@@ -95,7 +95,7 @@ $(function () {
                 header: "Comisión",
                 getter: function(service){
                     var value = 0;
-                    if (service.payed == "yes") value = service.commission ? parseFloat(service.commission) : booking_extras.methods.get_price_value(service, "commission");
+                    if (service.payed == "yes") value = (service.commission ? parseFloat(service.commission) : booking_extras.methods.get_price_value(service, "commission"));
                     return parseFloat(value);
                 }
             },
