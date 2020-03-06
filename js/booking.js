@@ -566,23 +566,6 @@ $(function () {
             const field = service.fields[i];
             html += get_field_ui_html(field, service_id, service_name);
         }
-
-        //update seller commission label when price dependencies change
-        // html += `
-        // ${script_open_bracket}
-        //     if(!window.commission_updater) window.commission_updater = {};
-        //     commission_updater["${service_id}"] = function(){
-        //         var service_values = booking_extras.methods.get_service_values("${service_id}");
-        //         $("#${service_id}_seller_post_label").text("Comisión: " + booking_extras.methods.get_price_value(service_values, "commission").toFixed(2) + " cuc");
-        //     };
-        //     var service = booking_extras.services["${service_name}"];
-        //     for (let i = 0; i < service.price.update_on.length; i++) {
-        //         const field = service.price.update_on[i];
-        //         $("#${service_id}_" + field).on("input change", commission_updater["${service_id}"]);
-        //     }
-        //     $("#${service_id}_price").on("input change", commission_updater["${service_id}"]);
-        // ${script_close_bracket}
-        // `;
         
         if (include_delete) {
             html += `

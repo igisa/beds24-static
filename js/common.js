@@ -149,7 +149,6 @@ booking_extras.services = {
             update_on: ["numCars"],
             cost: "$numCars * 25",
             selling_price: "$cost + $numCars * 10",
-            commission: "$numCars * 5",
         },
         correlations:[
             {
@@ -175,7 +174,6 @@ booking_extras.services = {
             update_on: ["numCars"],
             cost: "$numCars * 150",
             selling_price: "$cost + $numCars * 50",
-            commission: "$numCars * 10",
         },
         correlations:[
             {
@@ -201,7 +199,6 @@ booking_extras.services = {
             update_on: ["numCars"],
             cost: "$numCars * 95",
             selling_price: "$cost + $numCars * 40",
-            commission: "$numCars * 6",
         },
         correlations: [
             {
@@ -227,7 +224,6 @@ booking_extras.services = {
             update_on: ["numCars"],
             cost: "$numCars * 110",
             selling_price: "$cost + $numCars * 60",
-            commission: "$numCars * 6",
         },
         correlations: [
             {
@@ -254,7 +250,6 @@ booking_extras.services = {
             update_on: ["numCars"],
             cost: "$numCars * 20",
             selling_price: "$cost + $numCars * 10",
-            commission: "$numCars * 5",
         },
         correlations:[
             {
@@ -281,7 +276,6 @@ booking_extras.services = {
             update_on: ["numChild", "numAdult"],
             selling_price: "({ 1: 75, 2: 110, 3: 135, 4: 180, 5: 225, 6: 270, 7: 315, 8: 360, 9: 405 })[ $numChild+$numAdult ]",
             cost: "({ 1: 61, 2:  77, 3:  93, 4: 129, 5: 145, 6: 166, 7: 182, 8: 218, 9: 234 })[ $numChild+$numAdult ]",
-            commission: "($numChild+$numAdult) * 3",
         },
         correlations: [
             {
@@ -303,7 +297,6 @@ booking_extras.services = {
             update_on: ["numChild", "numAdult"],
             selling_price: "({ 1: 115, 2: 85*2, 3: 75*3, 4: 75*4, 5: 75*5, 6: 75*6, 7: 75*7, 8: 75*8, 9: 75*9 })[ $numChild+$numAdult ]",
             cost: "({ 1: 94, 2: 123, 3:  152, 4: 221, 5: 250, 6: 284, 7: 313, 8: 382, 9: 411 })[ $numChild+$numAdult ]",
-            commission: "($numChild+$numAdult) * 3",
         },
         correlations: [{
             update_on: ["numChild", "numAdult"],
@@ -323,7 +316,6 @@ booking_extras.services = {
             update_on: ["numChild", "numAdult"],
             selling_price: "({ 1: 219, 2: 119*2, 3: 95*3, 4: 110*4, 5: 95*5, 6: 95*6, 7: 95*7, 8: 95*8, 9: 95*9 })[ $numChild+$numAdult ]",
             cost: "({ 1: 190, 2: 215, 3:  240, 4: 380, 5: 425, 6: 450, 7: 475, 8: 635, 9: 660 })[ $numChild+$numAdult ]",
-            commission: "($numChild+$numAdult) * 3",
         },
         correlations: [{
             update_on: ["numChild", "numAdult"],
@@ -359,14 +351,6 @@ booking_extras.methods = {
         return value;
     },
 
-    // get_real_commission: function(service){
-        
-    //     var commission = booking_extras.methods.get_price_value(service, "commission");
-    //     var selling_price = booking_extras.methods.get_price_value(service, "selling_price");
-    //     var price = parseFloat(service.price);
-    //     return price - selling_price + commission;
-    // },
-
     get_price_value: function(service, value) {
         var desc = booking_extras.services[service.name];
 
@@ -382,8 +366,7 @@ booking_extras.methods = {
         function function_eval(code) { return Function('"use strict";return (' + code + ')'); };     
         var price_values={
             cost: function_eval(desc.price.cost.replace(/\$/g, "this.")).call(service),
-            selling_price: function_eval(desc.price.selling_price.replace(/\$/g, "this.")).call(service),
-            commission: function_eval(desc.price.commission.replace(/\$/g, "this.")).call(service)
+            selling_price: function_eval(desc.price.selling_price.replace(/\$/g, "this.")).call(service)
         }   
         var result = price_values[value];
         return (result ? result : 0);
