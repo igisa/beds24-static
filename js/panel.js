@@ -34,32 +34,35 @@ $(function () {
     - If has "Cobrado: SI" in the title adds a dollar icon
     */
     function fix_icons(index) {
-        if ($(this).find("i").length === 0) return
-        var iconElement = $($(this).find("i")[0]);
-        iconElement.css("background-color", "#ffffff");
-        iconElement.css("padding", "3px");
-        iconElement.css("border-radius", "4px");
+        var icons = $(this).find("i");
 
-        var text = iconElement.attr("title");
+        for (var i = 0; i < icons.length; i++) {
+             var iconElement = $(icons[i]);
+             iconElement.css("background-color", "#ffffff");
+             iconElement.css("padding", "3px");
+             iconElement.css("border-radius", "4px");
 
-        if (text && text.startsWith("#")) {
-            var split = text.split(" ");
-            if (split[0]) {
-                var color = split[0];
-                iconElement.css("color", `${color}`);
-                iconElement.attr("title", text.substr(split[0].length, text.length - split[0].length));
-            }
-        }
+             var text = iconElement.attr("title");
 
-        const iconParent = $(this).parent();
-        iconParent.css("margin-left", "5px");
-        iconParent.css("margin-right", "5px");
+             if (text && text.startsWith("#")) {
+                 var split = text.split(" ");
+                 if (split[0]) {
+                     var color = split[0];
+                     iconElement.css("color", `${color}`);
+                     iconElement.attr("title", text.substr(split[0].length, text.length - split[0].length));
+                 }
+             }
 
-        if (text && text.indexOf("Cobrado: Si") >= 0) {
-            var moneyIcon = $(`
+             const iconParent = $(this).parent();
+             iconParent.css("margin-left", "5px");
+             iconParent.css("margin-right", "5px");
+
+             if (text && text.indexOf("Cobrado: Si") >= 0) {
+                 var moneyIcon = $(`
                 <i class = "fas fa-dollar-sign" style = "font-size: 80%; color: #45ab45; margin-left: 3px;"></i>
             `);
-            iconElement.append(moneyIcon);
+                 iconElement.append(moneyIcon);
+             }
         }
     }
     //---------------CUSTOM REPORT VIEW WITH "SERVICIO" TITLE-------------------------------
