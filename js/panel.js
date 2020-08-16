@@ -34,13 +34,8 @@ $(function () {
     - If has "Cobrado: SI" in the title adds a dollar icon
     */
     function fix_icons(index) {
-        var iconElement = $(this);
-        if (iconElement.find("i").length===1){
-            iconElement = $(iconElement.find("i")[0]);
-        }
-        else {
-            return;
-        }
+        if ($(this).find("i").length !== 1) return
+        var iconElement = $($(this).find("i")[0]);
         iconElement.css("background-color", "#ffffff");
         iconElement.css("padding", "3px");
         iconElement.css("border-radius", "4px");
