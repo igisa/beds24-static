@@ -230,7 +230,7 @@ $(function () {
     var allowed = false;
     for (let i = 0; i < users.length; i++) {
         const name = users[i];
-        if ($("span.hide_helplink:containsi('" + name + "')").length > 0) {
+        if ($('div[aria-labelledby="topmenuDropdownUser"] a span:containsi("' + name + '")').length > 0) {
             allowed = true;
             break;
         }
