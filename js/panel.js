@@ -35,6 +35,12 @@ $(function () {
     */
     function fix_icons(index) {
         const iconElement = $(this);
+        if (iconElement.find("i").length===1){
+            iconElement = $(iconElement.find("i")[0]);
+        }
+        else {
+            return;
+        }
         iconElement.css("background-color", "#ffffff");
         iconElement.css("padding", "3px");
         iconElement.css("border-radius", "4px");
@@ -217,14 +223,14 @@ $(function () {
     //--------------------BOOKING GRID VIEW-------------------------------
 
     //do the icons on the booking grid view
-    $("#tabgrid [data-bookid] div i").each(fix_icons);
+    $("#tabgrid [data-bookid] div").each(fix_icons);
     //disable dragging of bookings on the grid view
     $("#tabgrid [data-bookid]").draggable('destroy');
 
     //--------------------CALENDAR VIEW-------------------------------
 
     //do the icon upgrade on the calendar view
-    $("#calendartableholder [data-bookid] div i").each(fix_icons);
+    $("#calendartableholder [data-bookid] div").each(fix_icons);
 
     //check if is a valid user for booking text-tooltip replacement
     var allowed = false;
