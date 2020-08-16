@@ -33,36 +33,30 @@ $(function () {
     - removes tha color specification from the icon title
     - If has "Cobrado: SI" in the title adds a dollar icon
     */
-    function fix_icons(index) {
-        var icons = $(this).find("i");
+    function fix_icons(element) {
+        const iconElement = $(element);
+        iconElement.css("background-color", "#ffffff");
+        iconElement.css("padding", "3px");
+        iconElement.css("border-radius", "4px");
 
-        for (var i = icons.length - 1; i >= 0; i--) {
-             var iconElement = $(icons[i]);
-             iconElement.css("background-color", "#ffffff");
-             iconElement.css("padding", "3px");
-             iconElement.css("border-radius", "4px");
+        var text = iconElement.attr("title");
 
-             var text = iconElement.attr("title");
+        if (text && text.startsWith("#")) {
+            var split = text.split(" ");
+            if (split[0]) {
+                var color = split[0];
+                iconElement.css("color", `${color}`);
+                iconElement.attr("title", text.substr(split[0].length, text.length - split[0].length));
+            }
+        }
 
-             if (text && text.startsWith("#")) {
-                 var split = text.split(" ");
-                 if (split[0]) {
-                     var color = split[0];
-                     iconElement.css("color", `${color}`);
-                     iconElement.attr("title", text.substr(split[0].length, text.length - split[0].length));
-                 }
-             }
+        const iconParent = $(element).parent();
+        iconParent.css("margin-left", "5px");
+        iconParent.css("margin-right", "5px");
 
-             const iconParent = $(this).parent();
-             iconParent.css("margin-left", "5px");
-             iconParent.css("margin-right", "5px");
-
-             if (text && text.indexOf("Cobrado: Si") >= 0) {
-                 var moneyIcon = $(`
-                <i class = "fas fa-dollar-sign" style = "font-size: 80%; color: #45ab45; margin-left: 3px;"></i>
-            `);
-                 iconElement.append(moneyIcon);
-             }
+        if (text && text.indexOf("Cobrado: Si") >= 0) {
+            var moneyIcon = $(`<i class = "fas fa-dollar-sign" style = "font-size: 80%; color: #45ab45; margin-left: 3px;"></i>`);
+            iconElement.append(moneyIcon);
         }
     }
     //---------------CUSTOM REPORT VIEW WITH "SERVICIO" TITLE-------------------------------
@@ -221,14 +215,16 @@ $(function () {
     //--------------------BOOKING GRID VIEW-------------------------------
 
     //do the icons on the booking grid view
-    $("#tabgrid [data-bookid] div").each(fix_icons);
+    var icons = $("#tabgrid [data-bookid] div i");
+    for (var i = 0; i < icons.length; i++) fix_icons(icons[i]);
     //disable dragging of bookings on the grid view
     $("#tabgrid [data-bookid]").draggable('destroy');
 
     //--------------------CALENDAR VIEW-------------------------------
 
     //do the icon upgrade on the calendar view
-    $("#calendartableholder [data-bookid] div").each(fix_icons);
+    icons = $("#calendartableholder [data-bookid] div i");
+    for (var i = 0; i < icons.length; i++) fix_icons(icons[i]);
 
     //check if is a valid user for booking text-tooltip replacement
     var allowed = false;
