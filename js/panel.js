@@ -36,7 +36,7 @@ $(function () {
     function fix_icons(index) {
         var icons = $(this).find("i");
 
-        for (var i = 0; i < icons.length; i++) {
+        for (var i = icons.length - 1; i >= 0; i--) {
              var iconElement = $(icons[i]);
              iconElement.css("background-color", "#ffffff");
              iconElement.css("padding", "3px");
