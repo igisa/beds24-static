@@ -213,19 +213,21 @@ $(function () {
     }
 
     //--------------------BOOKING GRID VIEW-------------------------------
-
+    
     //do the icons on the booking grid view
     var icons = $("#tabgrid [data-bookid] div i");
-    for (var i = 0; i < icons.length; i++) fix_icons(icons[i]);
+    log(icons);
+    // for (var i = 0; i < icons.length; i++) fix_icons(icons[i]);
     //disable dragging of bookings on the grid view
     $("#tabgrid [data-bookid]").draggable('destroy');
-
+    
     //--------------------CALENDAR VIEW-------------------------------
 
     //do the icon upgrade on the calendar view
     icons = $("#calendartableholder [data-bookid] div i");
-    for (var i = 0; i < icons.length; i++) fix_icons(icons[i]);
-
+    log(icons);
+    // for (var i = 0; i < icons.length; i++) fix_icons(icons[i]);
+    
     //check if is a valid user for booking text-tooltip replacement
     var allowed = false;
     for (let i = 0; i < users.length; i++) {
