@@ -1,5 +1,8 @@
 $(function () {
 
+    if(window.extra_booking_js_executed) return;
+    window.extra_booking_js_executed = true;
+
     //ui parameters
     const tab_name = "Servicios";
     const tab_pos = 4;

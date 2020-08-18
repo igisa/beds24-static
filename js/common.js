@@ -398,7 +398,6 @@ booking_extras.methods = {
     }
 };
 
-
 booking_extras.constants = {
     separator: ">>DATA<<"
 }
