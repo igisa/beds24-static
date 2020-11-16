@@ -3,7 +3,7 @@ $(function () {
     window.extra_bookingpage_js_executed = true;
     
     //change main image by map
-    $(".b24-prop-pic img").attr("src", "https://raw.githubusercontent.com/igisa/beds24-static/master/images/salvia/map/304A-304B.jpg");
+    $(".b24-prop-pic img").attr("src", "https://raw.githubusercontent.com/igisa/beds24-static/master/images/salvia/map/map-16x9.jpg");
     
     //move lang selector to the right
     $(`i[class~="fa-map-o"]`).attr("class", "fa fa-map");
