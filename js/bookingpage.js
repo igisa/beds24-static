@@ -1,6 +1,8 @@
 $(function () {
     if(window.extra_bookingpage_js_executed) return;
     window.extra_bookingpage_js_executed = true;
+
+    
     
     //change main image by map
     $(".b24-prop-pic img").attr("src", "https://raw.githubusercontent.com/igisa/beds24-static/master/images/salvia/map/map-16x9.jpg");
@@ -14,6 +16,36 @@ $(function () {
 
     //Change the weight og the currency ticker
     $(`span.bookingpagecurrency`).attr("style", "font-weight: 300;");
+
+    var video_mapping = {
+        227723: "BIMWgai1wQM",
+        227720: "paA80yO1ecg",
+        230354: "fkhknM-R2s8"
+    };
+
+    var main_images = $(".b24-room-pic");
+    for (let i = 0; i < main_images.length; i += 1) {        
+        
+        var yt_video_id = "";
+        
+        var classList =  $(main_images[i]).attr("class");
+        var classArr = classList.split(/\s+/);
+        $.each(classArr, function(index, value){
+            if(value.startsWith("b24-room-") && !value.startsWith("b24-room-pic")){
+                yt_video_id = video_mapping[value.replace("b24-room-","")];
+            }
+        });
+        
+        //get the image to query the width and height
+        const image = $(main_images[i]).find("img"); 
+        //embed the video with the correct height and the correct id 
+        var room_video = $(`<iframe width="`+ image.width()+`" height="`+ image.width()*(9/16) +`" src="https://www.youtube.com/embed/`+yt_video_id+`?autoplay=0&mute=1&loop=1&playlist=`+yt_video_id+`&controls=0&iv_load_policy=3" frameborder="0""></iframe>`);
+        $(main_images[i]).append(room_video);
+        
+        //remove the script and the image elements
+        $(main_images[i]).find("script").remove();    
+        $(main_images[i]).find("img").remove();    
+    }   
 
     //iterate over all the galleries and update them to the nanogallery2 version
     var galleries = $(".carousel");
