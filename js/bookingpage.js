@@ -15,15 +15,17 @@ $(function () {
     //Change the weight og the currency ticker
     $(`span.bookingpagecurrency`).attr("style", "font-weight: 300;");
 
+    //iterate over all the galleries and update them to the nanogallery2 version
     var galleries = $(".carousel");
     for (let i = 0; i < galleries.length; i += 1) {        
         
-        //
+        //get the images on the gallery and tore their url in items list
         const images = $(galleries[i]).find(".item img");       
         var items = [];
         for (let x = 0; x < images.length; x += 1) {
             var url = $(images[x]).attr("src");
             if(url==undefined) url = $(images[x]).attr("data-lazy-load-src");
+            //set the url and set the thumbnail ul 
             items.push({
                 src: url,
                 srct: url.replace(".1200.", ".350."),
