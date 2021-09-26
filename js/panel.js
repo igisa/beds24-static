@@ -219,20 +219,18 @@ $(function () {
 
      var url = document.location.href;
     if(url.indexOf("pagetype=roomsdescription")>=0){
-    
-        var data = $("#template5").val();
-        var variables = $("#template6").val();
-        var pax = $("#template7").val();
-        var offers = $("#template8").val();
 
-        if( data==='' || (variables===""&&pax===""&&offers==="") )return;
-
-        var payload = {
-            data: data,
-            variables: variables,
-            pax: pax,
-            offers: offers,
-        }        
+        function getPayload(){    
+            return {
+                data:  $("#template5").val(),
+                variables: $("#template6").val(),
+                pax: $("#template6").val(),
+                offers: $("#template8").val(),
+            }        
+        }
+        
+        var payload = getPayload();
+        if( payload.data==='' || (payload.variables===""&&payload.pax===""&&payload.offers==="") )return;
 
         $(`
             <div class="setting_row">
@@ -271,7 +269,7 @@ $(function () {
 
 
             $.ajax(booking_extras.price_url , {
-                data : JSON.stringify(payload),
+                data : JSON.stringify(getPayload()),
                 contentType : 'application/json',
                 type : 'POST',
             }).done(function(data) { dataPosted(data.message, data.color) })
