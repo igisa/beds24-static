@@ -7,7 +7,8 @@ $(function () {
     //on beds24 panel config there should be the following extras variables:
     if (!booking_extras ||
         !booking_extras.users ||
-        !booking_extras.filter 
+        !booking_extras.filter ||
+        !booking_extras.price_url 
         ){
         return;
     }
@@ -212,6 +213,71 @@ $(function () {
         }
 
         $("#report2 tbody").append(totals_row)
+    }
+    
+    //--------------------EASY PRICING SETUP-------------------------------
+
+     var url = document.location.href;
+    if(url.indexOf("pagetype=roomsdescription")>=0){
+    
+        var data = $("#template5").val();
+        var variables = $("#template6").val();
+        var pax = $("#template7").val();
+        var offers = $("#template8").val();
+
+        if( data==='' || (variables===""&&pax===""&&offers==="") )return;
+
+        var payload = {
+            data: data,
+            variables: variables,
+            pax: pax,
+            offers: offers,
+        }        
+
+        $(`
+            <div class="setting_row">
+                <button type="button" id="easy_update_pricing_button" class="btn btn-primary btn-xs b24-btn b24btn_Update" title="">
+                    <span class="glyphicon glyphicon-refresh" aria-hidden="true"></span>
+                    Generate Pricing Rates 
+                </button>
+                <span id="easy_update_pricing_text" style="color:red"></span>
+            </div>`
+        ).insertAfter($("#template5").parent().closest('div').parent());
+
+        $( "body" ).append($(`
+            <div id="overlay" style="display:none; width: 100%; height: 100%; position: fixed; left: 0px; top: 0px; background-color: #000; opacity: .80; text-align: center; vertical-align: middle; z-index:1000; ">
+                <p id="overlay_p" style="position: absolute; top: 50%; left: 50%; transform: translateX(-50%) translateY(-45%); font-size: 30px; color: white;">
+                    Generating price data ...
+                </p>
+            </div>
+        `));        
+
+        $("#easy_update_pricing_button").on("click",function (e) {
+            e.preventDefault();
+
+            //disable the button, clear the log and show the overlay            
+            $("#easy_update_pricing_button").attr("disabled", true);
+            $("#easy_update_pricing_text").text("");
+            $("#easy_update_pricing_text").css('color', 'black');
+            $("#overlay").show();
+            $("#overlay_p").html("Generating Price Data<br>Please wait...");
+
+            function dataPosted(message, color){
+                $("#overlay").hide();  
+                $("#easy_update_pricing_button").attr("disabled", false);                      
+                $("#easy_update_pricing_text").css('color', color);
+                $("#easy_update_pricing_text").text(message);
+            }
+
+
+            $.ajax(booking_extras.price_url , {
+                data : JSON.stringify(payload),
+                contentType : 'application/json',
+                type : 'POST',
+            }).done(function(data) { dataPosted(data.message, data.color) })
+            .fail(function() { dataPosted('The request failed, try in a minute. It it keeps failing contact David','red')})            
+        })
+
     }
 
     //--------------------BOOKING GRID VIEW-------------------------------
