@@ -224,7 +224,7 @@ $(function () {
             return {
                 data:  $("#template5").val(),
                 variables: $("#template6").val(),
-                pax: $("#template6").val(),
+                pax: $("#template7").val(),
                 offers: $("#template8").val(),
             }        
         }
