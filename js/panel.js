@@ -222,7 +222,8 @@ $(function () {
 
         function getPayload(){    
             return {
-                data:  $("#template5").val(),
+                roomId: $("input[name=id][type=hidden]").val(),
+                propKey:  $("#template5").val(),
                 variables: $("#template6").val(),
                 pax: $("#template7").val(),
                 offers: $("#template8").val(),
