@@ -399,5 +399,6 @@ booking_extras.methods = {
 };
 
 booking_extras.constants = {
-    separator: ">>DATA<<"
+    separator: ">>DATA<<",
+    skip_properties: ["144244"]
 }

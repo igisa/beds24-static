@@ -9,6 +9,9 @@ $(function () {
     const fields = booking_extras.fields
     const services = booking_extras.services;
 
+    //skip the Services Tab on specific properties
+    if(booking_extras.constants.skip_properties.indexOf($("#changepropid").val())>-1) return;
+
     //------------------Helper methods & constants------------------------------
     
     //to avoid nested script tag closing by jquery
