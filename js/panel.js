@@ -54,6 +54,14 @@ $(function () {
             }
         }
 
+        if (text && (
+            text.toLowerCase().indexOf("cancelado")>=0 || 
+            text.toLowerCase().indexOf("cancel")>=0 || 
+            text.toLowerCase().indexOf("cancelled")>=0 
+            )) {
+            iconElement.css("color", `#FF4040`);
+        }
+
         const iconParent = $(element).parent();
         iconParent.css("margin-left", "5px");
         iconParent.css("margin-right", "5px");
