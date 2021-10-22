@@ -57,7 +57,7 @@ $(function () {
         var colors = [
             { color: "#FF4040", words: ["cancelado", "cancel", "cancelled"] },
             { color: "#E9DD3A", words: ["pendiente", "pending"] },
-            { color: "#36D741", words: ["confirmada", "confirmado", "confirmed"] },
+            { color: "#45AB45", words: ["confirmada", "confirmado", "confirmed"] },
         ]
 
         if (text){
@@ -78,17 +78,16 @@ $(function () {
         iconParent.css("margin-right", "5px");
 
         var icons = [
-            { icon: "fa-dollar-sign", words: ["cobrado: si"] },
-            { icon: "fa-lock", words: ["privado", "private", "exclusivo", "exclusive"] },
+            { icon: "fa-dollar-sign", color: "#45ab45", words: ["cobrado: si"] },
+            { icon: "fa-lock", color: "#000000", words: ["privado", "private", "exclusivo", "exclusive"] },
         ]
 
         if (text){
             for (let i = 0; i < icons.length; i++) {
                 for (let w = 0; w < icons[i].words.length; w++) {
                     const word = icons[i].words[w];
-                    const icon = icons[i].icon;
                     if(text.toLowerCase().indexOf(word)>=0){
-                        var moneyIcon = $(`<i class = "fas `+icon+`" style = "font-size: 80%; color: #45ab45; margin-left: 3px;"></i>`);
+                        var moneyIcon = $(`<i class = "fas `+icons[i].icon+`" style = "font-size: 67%; color: `+icons[i].color+`; margin-left: 3px;"></i>`);
                         iconElement.append(moneyIcon);
                         break;
                     }                    
