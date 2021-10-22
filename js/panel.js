@@ -77,9 +77,23 @@ $(function () {
         iconParent.css("margin-left", "5px");
         iconParent.css("margin-right", "5px");
 
-        if (text && text.indexOf("Cobrado: Si") >= 0) {
-            var moneyIcon = $(`<i class = "fas fa-dollar-sign" style = "font-size: 80%; color: #45ab45; margin-left: 3px;"></i>`);
-            iconElement.append(moneyIcon);
+        var icons = [
+            { icon: "fa-dollar-sign", words: ["cobrado: si"] },
+            { icon: "fa-lock", words: ["privado", "private", "exclusivo", "exclusive"] },
+        ]
+
+        if (text){
+            for (let i = 0; i < icons.length; i++) {
+                for (let w = 0; w < icons[i].words.length; w++) {
+                    const word = icons[i].words[w];
+                    const icon = icons[i].icon;
+                    if(text.toLowerCase().indexOf(word)>=0){
+                        var moneyIcon = $(`<i class = "fas `+icon+`" style = "font-size: 80%; color: #45ab45; margin-left: 3px;"></i>`);
+                        iconElement.append(moneyIcon);
+                        break;
+                    }                    
+                }
+            }
         }
     }
     //---------------CUSTOM REPORT VIEW WITH "SERVICIO" TITLE-------------------------------
