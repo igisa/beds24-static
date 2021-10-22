@@ -54,12 +54,23 @@ $(function () {
             }
         }
 
-        if (text && (
-            text.toLowerCase().indexOf("cancelado")>=0 || 
-            text.toLowerCase().indexOf("cancel")>=0 || 
-            text.toLowerCase().indexOf("cancelled")>=0 
-            )) {
-            iconElement.css("color", `#FF4040`);
+        var colors = [
+            { color: "#FF4040", words: ["cancelado", "cancel", "cancelled"] },
+            { color: "#E9DD3A", words: ["pendiente", "pending"] },
+            { color: "#36D741", words: ["confirmada", "confirmado", "confirmed"] },
+        ]
+
+        if (text){
+            for (let i = 0; i < colors.length; i++) {
+                for (let w = 0; w < colors[i].words.length; w++) {
+                    const word = colors[i].words[w];
+                    const c = colors[i].color;
+                    if(text.toLowerCase().indexOf(word)>=0){
+                        iconElement.css("color", c);
+                        break;
+                    }                    
+                }
+            }
         }
 
         const iconParent = $(element).parent();
