@@ -79,7 +79,7 @@ $(function () {
 
         var icons = [
             { icon: "fa-dollar-sign", color: "#45ab45", words: ["cobrado: si"] },
-            { icon: "fa-lock", color: "#000000", words: ["privado", "private", "exclusivo", "exclusive"] },
+            { icon: "fa-lock", color: "#000000", words: ["privado", "private", "exclusivo", "exclusive", "exc"] },
         ]
 
         if (text){
