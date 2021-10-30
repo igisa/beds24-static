@@ -3,14 +3,52 @@ $(function () {
     if(window.extra_booking_js_executed) return;
     window.extra_booking_js_executed = true;
 
+    //============================================ BOOKING INFO MODIFIER ============================================
+
+    // add the edit button on the info item
+    var items = $("#tabinfo div.booking-info-item");
+    var info_items = {}
+    for (let i = 0; i < items.length; i+=3) {
+        const key   = items[i].innerText.trim();
+        const value = items[i+1].innerText.trim();
+        const date  = items[i+2].innerText.trim();
+        const click_event = $(items[i]).find(">:first-child").attr("onclick");
+        const event_name = "dodeletebookinginfo";
+        const id = click_event.substr(event_name.length+1, click_event.length-event_name.length-2 )
+        if(!info_items[key]) info_items[key] = [];
+        var item = {
+            text: value,
+            time: date,
+            code: key,
+            infoItemId: id
+        };
+        info_items[key].push(item);        
+        items.eq(i+1).prepend('<span class="btn btn-info btn-xs glyphicon glyphicon-edit" aria-hidden="true" title="dismiss" onclick=\'customeditbookinginfo('+JSON.stringify(item)+')\'></span>');
+    }
+
+    window.customeditbookinginfo = function (booking_info) {
+        var new_value = window.prompt(booking_info.code,booking_info.text);
+        if(new_value!=null){
+            $("#bookinginfocode").val(booking_info.code);
+            $("#bookinginfodata").val(new_value);
+            var input = $("<input>").attr("type", "hidden").attr("name", "dosubbookinginfo").val(1);
+            $("#bookingedit").append($(input));
+            input = $("<input>").attr("type", "hidden").attr("name", "dodeletebookinginfo").val(booking_info.infoItemId);
+            $("#bookingedit").append($(input));
+            $("#bookingedit").submit();
+        }
+    }
+
+    //============================================ SERVICES TAB ============================================
+
+    //skip the Services Tab on specific properties
+    if(booking_extras.constants.skip_properties.indexOf($("#changepropid").val())>-1) return;
+
     //ui parameters
     const tab_name = "Servicios";
     const tab_pos = 4;
     const fields = booking_extras.fields
     const services = booking_extras.services;
-
-    //skip the Services Tab on specific properties
-    if(booking_extras.constants.skip_properties.indexOf($("#changepropid").val())>-1) return;
 
     //------------------Helper methods & constants------------------------------
     
