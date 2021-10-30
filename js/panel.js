@@ -55,9 +55,9 @@ $(function () {
         }
 
         var colors = [
-            { color: "#FF4040", words: ["cancelado", "cancel", "cancelled"] },
-            { color: "#E9DD3A", words: ["pendiente", "pending"] },
-            { color: "#45AB45", words: ["confirmada", "confirmado", "confirmed"] },
+            { color: "#FF4040", words: ["cancelado", "cancel", "cancelled", "canc"] },
+            { color: "#E9DD3A", words: ["pendiente", "pending", "pend"] },
+            { color: "#45AB45", words: ["confirmada", "confirmado", "confirmed", "conf"] },
         ]
 
         if (text){
