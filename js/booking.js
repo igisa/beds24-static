@@ -64,7 +64,7 @@ $(function () {
             $("#bookinginfodata").val(new_value);
             var input = $("<input>").attr("type", "hidden").attr("name", "dosubbookinginfo").val(1);
             $("#bookingedit").append($(input));
-            input = $("<input>").attr("type", "hidden").attr("name", "dodeletebookinginfo").val(booking_info.infoItemId);
+            input = $("<input>").attr("type", "hidden").attr("name", "dodeletebookinginfo").val(booking_info_items.infoItemId);
             $("#bookingedit").append($(input));
             $("#bookingedit").submit();
         }
