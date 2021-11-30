@@ -43,22 +43,22 @@ $(function () {
         }
     }
 
-    window.customeditbookinginfo = function (booking_info, element) {
+    window.customeditbookinginfo = function (booking_info_items, element) {
         var new_value = null;
         if(element.nodeName.toLowerCase()==="span"){
-            new_value = window.prompt(booking_info.code,booking_info.text);
+            new_value = window.prompt(booking_info_items.code,booking_info_items.text);
         }
         else if(element.nodeName.toLowerCase()==="select"){{
             var options = window.custom_status_options;
             var option = options[element.selectedIndex];
             for (let i = 1; i < options.length; i++) {
-                booking_info.text = booking_info.text.replace(" "+options[i]," ");
+                booking_info_items.text = booking_info_items.text.replace(" "+options[i]," ");
             }
-            if(option!=="") booking_info.text = booking_info.text.trim() + " "+option;
-            new_value = booking_info.text;
+            if(option!=="") booking_info_items.text = booking_info_items.text.trim() + " "+option;
+            new_value = booking_info_items.text;
         }
         if(new_value!=null){
-            $("#bookinginfocode").val(booking_info.code);
+            $("#bookinginfocode").val(booking_info_items.code);
             $("#bookinginfodata").val(new_value);
             var input = $("<input>").attr("type", "hidden").attr("name", "dosubbookinginfo").val(1);
             $("#bookingedit").append($(input));
