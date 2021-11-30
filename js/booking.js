@@ -48,13 +48,15 @@ $(function () {
         if(element.nodeName.toLowerCase()==="span"){
             new_value = window.prompt(booking_info_items.code,booking_info_items.text);
         }
-        else if(element.nodeName.toLowerCase()==="select"){{
+        else if(element.nodeName.toLowerCase()==="select"){
             var options = window.custom_status_options;
             var option = options[element.selectedIndex];
             for (let i = 1; i < options.length; i++) {
                 booking_info_items.text = booking_info_items.text.replace(" "+options[i]," ");
             }
-            if(option!=="") booking_info_items.text = booking_info_items.text.trim() + " "+option;
+            if(option!==""){
+                booking_info_items.text = (booking_info_items.text.trim() + " "+option);
+            }
             new_value = booking_info_items.text;
         }
         if(new_value!=null){
