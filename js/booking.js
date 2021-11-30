@@ -54,7 +54,7 @@ $(function () {
             for (let i = 1; i < options.length; i++) {
                 booking_info.text = booking_info.text.replace(" "+options[i]," ");
             }
-            if(option!=="") booking_info.text += booking_info.text.trim() + " "+option;
+            if(option!=="") booking_info.text = booking_info.text.trim() + " "+option;
             new_value = booking_info.text;
         }
         if(new_value!=null){
