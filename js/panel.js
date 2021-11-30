@@ -55,9 +55,9 @@ $(function () {
         }
 
         var colors = [
-            { color: "#FF4040", words: ["cancelado", "cancel", "cancelled", "canc"] },
-            { color: "#E9DD3A", words: ["pendiente", "pending", "pend"] },
             { color: "#45AB45", words: ["confirmada", "confirmado", "confirmed", "conf"] },
+            { color: "#E9DD3A", words: ["pendiente", "pending", "pend"] },
+            { color: "#FF4040", words: ["cancelado", "cancel", "cancelled", "canc"] },
         ]
 
         if (text){
@@ -90,7 +90,7 @@ $(function () {
                         var moneyIcon = $(`<i class = "fas `+icons[i].icon+`" style = "font-size: 67%; color: `+icons[i].color+`; margin-left: 3px;"></i>`);
                         iconElement.append(moneyIcon);
                         break;
-                    }                    
+                    }
                 }
             }
         }
