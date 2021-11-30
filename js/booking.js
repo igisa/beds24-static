@@ -45,7 +45,7 @@ $(function () {
 
     window.customeditbookinginfo = function (booking_info_items, element) {
         var new_value = null;
-        if(element.nodeName.toLowerCase()==="span"){
+        if(element.nodeName.toLowerCase()==="span"){ 
             new_value = window.prompt(booking_info_items.code,booking_info_items.text);
         }
         else if(element.nodeName.toLowerCase()==="select"){

@@ -83,7 +83,7 @@ $(function () {
         ]
 
         if (text){
-            for (let i = 0; i < icons.length; i++) {
+            for (let i = 0; i < icons.length; i++) { 
                 for (let w = 0; w < icons[i].words.length; w++) {
                     const word = icons[i].words[w];
                     if(text.toLowerCase().indexOf(word)>=0){
