@@ -268,8 +268,6 @@ $(function () {
             }        
         }
         
-        var payload = getPayload();
-        if( payload.data==='' || (payload.variables===""&&payload.pax===""&&payload.offers==="") )return;
 
         $(`
             <div class="setting_row">
