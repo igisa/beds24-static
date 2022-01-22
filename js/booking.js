@@ -25,7 +25,7 @@ $(function () {
         };
         info_items[key].push(item);        
         items.eq(i+1).prepend('<span class="btn btn-info btn-xs glyphicon glyphicon-edit" aria-hidden="true" title="dismiss" onclick=\'customeditbookinginfo('+JSON.stringify(item)+', this)\'></span>');
-        if(item.code==="TRANSFER_OUT"||item.code==="TRANSFER_IN"||item.code==="HOTEL"){
+        if(item.code==="TRANSFER_OUT"||item.code==="TRANSFER_IN"||item.code==="HOTEL" || item.code==="CIRCUIT" ||  item.code==="TRANSFER_INTERHOTEL"){
             var options = window.custom_status_options;
             var selector = '<select aria-hidden="true" title="dismiss"  title="dismiss" onchange=\'customeditbookinginfo('+JSON.stringify(item)+', this)\'>';
             var selected = 0;            
