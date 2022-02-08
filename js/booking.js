@@ -100,8 +100,10 @@ $(function () {
         }
         else if(element.nodeName.toLowerCase()==="select"){
             var option = options[element.selectedIndex];
-            for (let i = 1; i < options.length; i++) {
-                booking_info_items.text = booking_info_items.text.replace(" "+options[i]," ");
+            for (let i = 0; i < options.length; i++) {
+                if(options[i]==="") continue;
+                if(booking_info_items.text===options[i]) booking_info_items.text = ""
+                else booking_info_items.text = booking_info_items.text.replace(" "+options[i]," ");
             }
             if(option!==""){
                 booking_info_items.text = (booking_info_items.text.trim() + " "+option);
