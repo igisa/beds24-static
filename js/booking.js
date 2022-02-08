@@ -44,7 +44,6 @@ $(function () {
     // add the edit button on the info item
     var items = $("#tabinfo div.booking-info-item");
     var info_items = {}
-    // window.custom_status_options = ["", "Confirmed", "Cancelled", "Pending"];
     window.custom_status_options =[
         {
             items: ["TRANSFER_OUT", "TRANSFER_IN", "HOTEL", "CIRCUIT", "TRANSFER_INTERHOTEL"],
