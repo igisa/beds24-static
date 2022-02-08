@@ -44,7 +44,17 @@ $(function () {
     // add the edit button on the info item
     var items = $("#tabinfo div.booking-info-item");
     var info_items = {}
-    window.custom_status_options = ["", "Confirmed", "Cancelled", "Pending"];
+    // window.custom_status_options = ["", "Confirmed", "Cancelled", "Pending"];
+    window.custom_status_options =[
+        {
+            items: ["TRANSFER_OUT", "TRANSFER_IN", "HOTEL", "CIRCUIT", "TRANSFER_INTERHOTEL"],
+            values: ["", "Confirmed", "Cancelled", "Pending"],
+        },
+        {
+            items: ["INVOICE"],
+            values: ["", "Pending", "Payed"],
+        }
+    ] 
     for (let i = 0; i < items.length; i+=3) {
         const key   = items[i].innerText.trim();
         const value = items[i+1].innerText.trim();
@@ -60,32 +70,35 @@ $(function () {
             infoItemId: id
         };
         info_items[key].push(item);        
-        items.eq(i+1).prepend('<span class="btn btn-info btn-xs glyphicon glyphicon-edit" aria-hidden="true" title="dismiss" onclick=\'customeditbookinginfo('+JSON.stringify(item)+', this)\'></span>');
-        if(item.code==="TRANSFER_OUT"||item.code==="TRANSFER_IN"||item.code==="HOTEL" || item.code==="CIRCUIT" ||  item.code==="TRANSFER_INTERHOTEL"){
-            var options = window.custom_status_options;
-            var selector = '<select aria-hidden="true" title="dismiss"  title="dismiss" onchange=\'customeditbookinginfo('+JSON.stringify(item)+', this)\'>';
-            var selected = 0;            
-            for (let i = 1; i < options.length; i++) {
-                if(item.text.indexOf(options[i])>=0){
-                    selected=i;
-                    break;
+        items.eq(i+1).prepend('<span class="btn btn-info btn-xs glyphicon glyphicon-edit" aria-hidden="true" title="dismiss" onclick=\'customeditbookinginfo('+JSON.stringify(item)+', this,[])\'></span>');
+
+        for (let o = 0; o < window.custom_status_options.length; o++) {
+            if(window.custom_status_options[o].items.indexOf(item.code)>=0){
+                var options = window.custom_status_options[o].values;
+                var selector = '<select aria-hidden="true" title="dismiss"  title="dismiss" onchange=\'customeditbookinginfo('+JSON.stringify(item)+', this,'+JSON.stringify(options)+')\'>';
+                var selected = 0;            
+                for (let i = 1; i < options.length; i++) {
+                    if(item.text.indexOf(options[i])>=0){
+                        selected=i;
+                        break;
+                    }
                 }
-            }
-            for (let i = 0; i < options.length; i++) {
-                selector+= '<option ' + (selected===i?'selected=""':' ') + ' value="'+i+'">'+ options[i] +'</option>';
-            }
-            selector+= '</select>';
-            items.eq(i+1).append(selector);
+                for (let i = 0; i < options.length; i++) {
+                    selector+= '<option ' + (selected===i?'selected=""':' ') + ' value="'+i+'">'+ options[i] +'</option>';
+                }
+                selector+= '</select>';
+                items.eq(i+1).append(selector);
+                break;
+            }            
         }
     }
 
-    window.customeditbookinginfo = function (booking_info_items, element) {
+    window.customeditbookinginfo = function (booking_info_items, element, options) {
         var new_value = null;
         if(element.nodeName.toLowerCase()==="span"){ 
             new_value = window.prompt(booking_info_items.code,booking_info_items.text);
         }
         else if(element.nodeName.toLowerCase()==="select"){
-            var options = window.custom_status_options;
             var option = options[element.selectedIndex];
             for (let i = 1; i < options.length; i++) {
                 booking_info_items.text = booking_info_items.text.replace(" "+options[i]," ");
