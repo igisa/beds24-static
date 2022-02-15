@@ -264,7 +264,7 @@ $(function () {
             return {
                 roomId: $("input[name=id][type=hidden]").val(),
                 propKey:  $("#template4").val(),
-                variables: $("#template5").val() +" "+ $("#template6").val(),
+                variables: $("#template5").val() +"\n"+ $("#template6").val(),
                 pax: $("#template7").val(),
                 offers: $("#template8").val(),
             }        
