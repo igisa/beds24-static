@@ -8,7 +8,8 @@ $(function () {
     if (!booking_extras ||
         !booking_extras.users ||
         !booking_extras.filter ||
-        !booking_extras.price_url 
+        !booking_extras.price_url ||
+        !booking_extras.price_credentials
         ){
         return;
     }
@@ -309,6 +310,9 @@ $(function () {
                 data : JSON.stringify(getPayload()),
                 contentType : 'application/json',
                 type : 'POST',
+                beforeSend: function (xhr) {
+                    xhr.setRequestHeader ("Authorization", "Basic " + btoa(booking_extras.price_credentials.user + ":" + booking_extras.price_credentials.pass));
+                },
             }).done(function(data) { dataPosted(data.message, data.color) })
             .fail(function() { dataPosted('The request failed, try in a minute. It it keeps failing contact David','red')})            
         })
