@@ -253,17 +253,18 @@ $(function () {
      var url = document.location.href;
     if(url.indexOf("pagetype=roomsdescription")>=0){
 
-        $("div[class*=menusetting-template5] div[class*=setting_name]").text("Property Key");
-        $("div[class*=menusetting-template6] div[class*=setting_name]").text("Pricing Variables");
+        $("div[class*=menusetting-template4] div[class*=setting_name]").text("Property Key");
+        $("div[class*=menusetting-template5] div[class*=setting_name]").text("Pricing Variables 1");
+        $("div[class*=menusetting-template6] div[class*=setting_name]").text("Pricing Variables 2");
         $("div[class*=menusetting-template7] div[class*=setting_name]").text("Pricing per Guest");
         $("div[class*=menusetting-template8] div[class*=setting_name]").text("Pricing Offers");
-        $("#template5").css('min-height','25px');
+        $("#template4").css('min-height','25px');
 
         function getPayload(){    
             return {
                 roomId: $("input[name=id][type=hidden]").val(),
-                propKey:  $("#template5").val(),
-                variables: $("#template6").val(),
+                propKey:  $("#template4").val(),
+                variables: $("#template5").val() +" "+ $("#template6").val(),
                 pax: $("#template7").val(),
                 offers: $("#template8").val(),
             }        
@@ -278,7 +279,7 @@ $(function () {
                 </button>
                 <span id="easy_update_pricing_text" style="color:red"></span>
             </div>`
-        ).insertAfter($("#template4").parent().closest('div').parent());
+        ).insertAfter($("#template3").parent().closest('div').parent());
 
         $( "body" ).append($(`
             <div id="overlay" style="display:none; width: 100%; height: 100%; position: fixed; left: 0px; top: 0px; background-color: #000; opacity: .80; text-align: center; vertical-align: middle; z-index:1000; ">
