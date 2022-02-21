@@ -210,6 +210,11 @@ $(function () {
         disable_booking_tab ('#tabsummary');
         disable_booking_tab ('#tabinfo');
     }
+    else if (restrictions == "agent"){
+        $(`#unitprice`).attr("readonly", true);
+        $(`#price`).attr("readonly", true);
+        $(`#unitpricetype`).attr("readonly", true);
+    }
 
     function disable_booking_tab(selector){
         $(`${selector} textarea`).attr("disabled", true);
