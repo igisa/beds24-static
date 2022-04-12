@@ -43,7 +43,7 @@ booking_extras.fields = {
             { id: "david", label: "David" },
             { id: "yissel", label: "Yissel" },
             { id: "yolanda", label: "Yolanda" },
-            { id: "karla", label: "Karla" },
+            { id: "isabel", label: "Isabel" },
         ]
     },
     date: {
@@ -65,13 +65,13 @@ booking_extras.fields = {
     price:{
         label: "Precio",
         type: "num",
-        post_label: "cuc",
+        post_label: "usd",
         is_number: true,
     },
     commission: {
         label: "Comisión",
         type: "num",
-        post_label: "cuc",
+        post_label: "usd",
         is_number: true,
     },
     airline: {
@@ -147,7 +147,7 @@ booking_extras.services = {
         description_short: "Trans.IN",
         price:{
             update_on: ["numCars"],
-            cost: "$numCars * 25",
+            cost: "$numCars * 15",
             selling_price: "$cost + $numCars * 10",
         },
         correlations:[
@@ -248,7 +248,7 @@ booking_extras.services = {
         description_short: "Trans.OUT",
         price:{
             update_on: ["numCars"],
-            cost: "$numCars * 20",
+            cost: "$numCars * 15",
             selling_price: "$cost + $numCars * 10",
         },
         correlations:[

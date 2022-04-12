@@ -408,9 +408,9 @@ $(function () {
         var service = booking_extras.methods.get_service_values("new_service");
         services_data.services.push(service);
         set_services_data();        
-        var update_button = $("button[value='Update'][type='submit']")
+        var update_button = $("button[class*='_Update'][type='submit']")
         if(update_button.length>0) update_button.click();
-        else $("button[value='Actualizar'][type='submit']").click();
+        else console.log("Update button not found");
 
     })
 
@@ -449,9 +449,9 @@ $(function () {
         }
         set_services_data();
         
-        var update_button = $("button[value='Update'][type='submit']")
+        var update_button = $("button[class*='_Update'][type='submit']")
         if (update_button.length > 0) update_button.click();
-        else $("button[value='Actualizar'][type='submit']").click();
+        else console.log("Update button not found.");
     });
 
     var click_handler = function(event) {
@@ -477,11 +477,10 @@ $(function () {
         }, compute_infoItems_modifications())
     }
 
-    $("button[value='Update'][type='submit']").on("click.services",click_handler);
-    $("button[value='Actualizar'][type='submit']").on("click.services", click_handler);
+
+    $("button[class*='_Update'][type='submit']").on("click.services",click_handler);    
     
-    $("button[value='Save'][type='submit']").on("click.services", click_handler);
-    $("button[value='Guardar'][type='submit']").on("click.services", click_handler);
+    $("button[class*='_Save'][type='submit']").on("click.services", click_handler);
 
     // $("button[value='Delete'][type='submit']").on("click.services", click_handler);
     // $("button[value='Close'][type='submit']").on("click.services", click_handler);
