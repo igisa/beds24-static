@@ -363,11 +363,16 @@ booking_extras.methods = {
             }
         }
 
-        function function_eval(code) { return Function('"use strict";return (' + code + ')'); };     
+        function function_eval(code) { return Function('"use strict";return (' + code + ')'); };
+        var original_cost = service.cost;
+        service.cost = function_eval(desc.price.cost.replace(/\$/g, "this.")).call(service); 
+        
         var price_values={
-            cost: function_eval(desc.price.cost.replace(/\$/g, "this.")).call(service),
+            cost: service.cost,
             selling_price: function_eval(desc.price.selling_price.replace(/\$/g, "this.")).call(service)
         }   
+        service.cost = original_cost;
+
         var result = price_values[value];
         return (result ? result : 0);
     },
