@@ -147,8 +147,8 @@ booking_extras.services = {
         description_short: "Trans.IN",
         price:{
             update_on: ["numCars"],
-            cost: "$numCars * 15",
-            selling_price: "$cost + $numCars * 10",
+            cost: "$numCars * 10",
+            selling_price: "$cost + $numCars * 15",
         },
         correlations:[
             {
@@ -167,89 +167,89 @@ booking_extras.services = {
         calendar_resume_fields: ["status", "date", "flight", "time", "airline", "payed"]
     },
     
-    transfer_hav_tri: {
-        description: "Transfer Habana-Trinidad",
-        description_short: "Trans.HAB-TRI",
-        price:{
-            update_on: ["numCars"],
-            cost: "$numCars * 150",
-            selling_price: "$cost + $numCars * 50",
-        },
-        correlations:[
-            {
-                update_on: ["numAdult", "numChild"],
-                relation: "Math.ceil( ($numChild+$numAdult) / 3)",
-                to:"numCars",
-            }, {
-                update_on: ["numCars"],
-                relation: "$numCars * 10",
-                to: "commission",
-            }
-        ],
-        icon: "I-taxi",        
-        fields: ["status", "fullname", "numAdult", "numChild", "date", "time", "numCars", "price", "commission", "seller", "payed", "notes"],
-        provider_fields: ["status", "fullname", "numAdult", "numChild", "date", "time", "numCars", "notes"],
-        calendar_resume_fields: ["status", "date", "time", "payed"]
-    },
+    // transfer_hav_tri: {
+    //     description: "Transfer Habana-Trinidad",
+    //     description_short: "Trans.HAB-TRI",
+    //     price:{
+    //         update_on: ["numCars"],
+    //         cost: "$numCars * 150",
+    //         selling_price: "$cost + $numCars * 50",
+    //     },
+    //     correlations:[
+    //         {
+    //             update_on: ["numAdult", "numChild"],
+    //             relation: "Math.ceil( ($numChild+$numAdult) / 3)",
+    //             to:"numCars",
+    //         }, {
+    //             update_on: ["numCars"],
+    //             relation: "$numCars * 10",
+    //             to: "commission",
+    //         }
+    //     ],
+    //     icon: "I-taxi",        
+    //     fields: ["status", "fullname", "numAdult", "numChild", "date", "time", "numCars", "price", "commission", "seller", "payed", "notes"],
+    //     provider_fields: ["status", "fullname", "numAdult", "numChild", "date", "time", "numCars", "notes"],
+    //     calendar_resume_fields: ["status", "date", "time", "payed"]
+    // },
 
-    transfer_hav_var: {
-        description: "Transfer Habana-Varadero",
-        description_short: "Trans.HAB-VRA",
-        price: {
-            update_on: ["numCars"],
-            cost: "$numCars * 95",
-            selling_price: "$cost + $numCars * 40",
-        },
-        correlations: [
-            {
-                update_on: ["numAdult", "numChild"],
-                relation: "Math.ceil( ($numChild+$numAdult) / 3)",
-                to: "numCars",
-            }, {
-                update_on: ["numCars"],
-                relation: "$numCars * 6",
-                to: "commission",
-            }
-        ],
-        icon: "I-taxi",
-        fields: ["status", "fullname", "numAdult", "numChild", "date", "time", "numCars", "price", "commission", "seller", "payed", "notes"],
-        provider_fields: ["status", "fullname", "numAdult", "numChild", "date", "time", "numCars", "notes"],
-        calendar_resume_fields: ["status", "date", "time", "payed"]
-    },
+    // transfer_hav_var: {
+    //     description: "Transfer Habana-Varadero",
+    //     description_short: "Trans.HAB-VRA",
+    //     price: {
+    //         update_on: ["numCars"],
+    //         cost: "$numCars * 95",
+    //         selling_price: "$cost + $numCars * 40",
+    //     },
+    //     correlations: [
+    //         {
+    //             update_on: ["numAdult", "numChild"],
+    //             relation: "Math.ceil( ($numChild+$numAdult) / 3)",
+    //             to: "numCars",
+    //         }, {
+    //             update_on: ["numCars"],
+    //             relation: "$numCars * 6",
+    //             to: "commission",
+    //         }
+    //     ],
+    //     icon: "I-taxi",
+    //     fields: ["status", "fullname", "numAdult", "numChild", "date", "time", "numCars", "price", "commission", "seller", "payed", "notes"],
+    //     provider_fields: ["status", "fullname", "numAdult", "numChild", "date", "time", "numCars", "notes"],
+    //     calendar_resume_fields: ["status", "date", "time", "payed"]
+    // },
 
-    transfer_hav_cfg: {
-        description: "Transfer Habana-Cienfuegos",
-        description_short: "Trans.HAB-CFG",
-        price: {
-            update_on: ["numCars"],
-            cost: "$numCars * 110",
-            selling_price: "$cost + $numCars * 60",
-        },
-        correlations: [
-            {
-                update_on: ["numAdult", "numChild"],
-                relation: "Math.ceil( ($numChild+$numAdult) / 3)",
-                to: "numCars",
-            },
-            {
-                update_on: ["numCars"],
-                relation: "$numCars * 6",
-                to: "commission",
-            }
-        ],
-        icon: "I-taxi",
-        fields: ["status", "fullname", "numAdult", "numChild", "date", "time", "numCars", "price", "commission", "seller", "payed", "notes"],
-        provider_fields: ["status", "fullname", "numAdult", "numChild", "date", "time", "numCars", "notes"],
-        calendar_resume_fields: ["status", "date", "time", "payed"]
-    },
+    // transfer_hav_cfg: {
+    //     description: "Transfer Habana-Cienfuegos",
+    //     description_short: "Trans.HAB-CFG",
+    //     price: {
+    //         update_on: ["numCars"],
+    //         cost: "$numCars * 110",
+    //         selling_price: "$cost + $numCars * 60",
+    //     },
+    //     correlations: [
+    //         {
+    //             update_on: ["numAdult", "numChild"],
+    //             relation: "Math.ceil( ($numChild+$numAdult) / 3)",
+    //             to: "numCars",
+    //         },
+    //         {
+    //             update_on: ["numCars"],
+    //             relation: "$numCars * 6",
+    //             to: "commission",
+    //         }
+    //     ],
+    //     icon: "I-taxi",
+    //     fields: ["status", "fullname", "numAdult", "numChild", "date", "time", "numCars", "price", "commission", "seller", "payed", "notes"],
+    //     provider_fields: ["status", "fullname", "numAdult", "numChild", "date", "time", "numCars", "notes"],
+    //     calendar_resume_fields: ["status", "date", "time", "payed"]
+    // },
     
     transfer_out: {
         description: "Transfer Hotel-Aeropuerto (Out)",
         description_short: "Trans.OUT",
         price:{
             update_on: ["numCars"],
-            cost: "$numCars * 15",
-            selling_price: "$cost + $numCars * 10",
+            cost: "$numCars * 10",
+            selling_price: "$cost + $numCars * 15",
         },
         correlations:[
             {
@@ -269,64 +269,64 @@ booking_extras.services = {
         calendar_resume_fields: ["status", "date", "flight", "time", "airline", "payed"]
     },
     
-    city_tour: {
-        description: "City Tour Carro Clásico",
-        description_short: "City-Tour",
-        price:{
-            update_on: ["numChild", "numAdult"],
-            selling_price: "({ 1: 75, 2: 110, 3: 135, 4: 180, 5: 225, 6: 270, 7: 315, 8: 360, 9: 405 })[ $numChild+$numAdult ]",
-            cost: "({ 1: 61, 2:  77, 3:  93, 4: 129, 5: 145, 6: 166, 7: 182, 8: 218, 9: 234 })[ $numChild+$numAdult ]",
-        },
-        correlations: [
-            {
-                update_on: ["numChild", "numAdult"],
-                relation: "($numChild+$numAdult) * 3",
-                to: "commission",
-            }
-        ],
-        icon: "I-car-building",
-        fields: ["status", "date", "fullname", "numAdult", "numChild", "country", "price", "commission", "seller", "payed", "notes"],
-        provider_fields: ["status", "date", "fullname", "numAdult", "numChild", "country", "notes"],
-        calendar_resume_fields: ["status", "date", "country", "payed"]
-    },
+    // city_tour: {
+    //     description: "City Tour Carro Clásico",
+    //     description_short: "City-Tour",
+    //     price:{
+    //         update_on: ["numChild", "numAdult"],
+    //         selling_price: "({ 1: 75, 2: 110, 3: 135, 4: 180, 5: 225, 6: 270, 7: 315, 8: 360, 9: 405 })[ $numChild+$numAdult ]",
+    //         cost: "({ 1: 61, 2:  77, 3:  93, 4: 129, 5: 145, 6: 166, 7: 182, 8: 218, 9: 234 })[ $numChild+$numAdult ]",
+    //     },
+    //     correlations: [
+    //         {
+    //             update_on: ["numChild", "numAdult"],
+    //             relation: "($numChild+$numAdult) * 3",
+    //             to: "commission",
+    //         }
+    //     ],
+    //     icon: "I-car-building",
+    //     fields: ["status", "date", "fullname", "numAdult", "numChild", "country", "price", "commission", "seller", "payed", "notes"],
+    //     provider_fields: ["status", "date", "fullname", "numAdult", "numChild", "country", "notes"],
+    //     calendar_resume_fields: ["status", "date", "country", "payed"]
+    // },
 
-    tour_hemingway: {
-        description: "Hemingway Tour",
-        description_short: "Hemingway",
-        price: {
-            update_on: ["numChild", "numAdult"],
-            selling_price: "({ 1: 115, 2: 85*2, 3: 75*3, 4: 75*4, 5: 75*5, 6: 75*6, 7: 75*7, 8: 75*8, 9: 75*9 })[ $numChild+$numAdult ]",
-            cost: "({ 1: 94, 2: 123, 3:  152, 4: 221, 5: 250, 6: 284, 7: 313, 8: 382, 9: 411 })[ $numChild+$numAdult ]",
-        },
-        correlations: [{
-            update_on: ["numChild", "numAdult"],
-            relation: "($numChild+$numAdult) * 3",
-            to: "commission",
-        }],
-        icon: "I-anchor",
-        fields: ["status", "date", "fullname", "numAdult", "numChild", "country", "price", "commission", "seller", "payed", "notes"],
-        provider_fields: ["status", "date", "fullname", "numAdult", "numChild", "country", "notes"],
-        calendar_resume_fields: ["status", "date", "country", "payed"]
-    },
+    // tour_hemingway: {
+    //     description: "Hemingway Tour",
+    //     description_short: "Hemingway",
+    //     price: {
+    //         update_on: ["numChild", "numAdult"],
+    //         selling_price: "({ 1: 115, 2: 85*2, 3: 75*3, 4: 75*4, 5: 75*5, 6: 75*6, 7: 75*7, 8: 75*8, 9: 75*9 })[ $numChild+$numAdult ]",
+    //         cost: "({ 1: 94, 2: 123, 3:  152, 4: 221, 5: 250, 6: 284, 7: 313, 8: 382, 9: 411 })[ $numChild+$numAdult ]",
+    //     },
+    //     correlations: [{
+    //         update_on: ["numChild", "numAdult"],
+    //         relation: "($numChild+$numAdult) * 3",
+    //         to: "commission",
+    //     }],
+    //     icon: "I-anchor",
+    //     fields: ["status", "date", "fullname", "numAdult", "numChild", "country", "price", "commission", "seller", "payed", "notes"],
+    //     provider_fields: ["status", "date", "fullname", "numAdult", "numChild", "country", "notes"],
+    //     calendar_resume_fields: ["status", "date", "country", "payed"]
+    // },
 
-    tour_vinales: {
-        description: "Viñales Tour",
-        description_short: "Viñales",
-        price: {
-            update_on: ["numChild", "numAdult"],
-            selling_price: "({ 1: 219, 2: 119*2, 3: 95*3, 4: 110*4, 5: 95*5, 6: 95*6, 7: 95*7, 8: 95*8, 9: 95*9 })[ $numChild+$numAdult ]",
-            cost: "({ 1: 190, 2: 215, 3:  240, 4: 380, 5: 425, 6: 450, 7: 475, 8: 635, 9: 660 })[ $numChild+$numAdult ]",
-        },
-        correlations: [{
-            update_on: ["numChild", "numAdult"],
-            relation: "($numChild+$numAdult) * 3",
-            to: "commission",
-        }],
-        icon: "I-mountains",
-        fields: ["status", "date", "fullname", "numAdult", "numChild", "country", "price", "commission", "seller", "payed", "notes"],
-        provider_fields: ["status", "date", "fullname", "numAdult", "numChild", "country", "notes"],
-        calendar_resume_fields: ["status", "date", "country", "payed"]
-    }
+    // tour_vinales: {
+    //     description: "Viñales Tour",
+    //     description_short: "Viñales",
+    //     price: {
+    //         update_on: ["numChild", "numAdult"],
+    //         selling_price: "({ 1: 219, 2: 119*2, 3: 95*3, 4: 110*4, 5: 95*5, 6: 95*6, 7: 95*7, 8: 95*8, 9: 95*9 })[ $numChild+$numAdult ]",
+    //         cost: "({ 1: 190, 2: 215, 3:  240, 4: 380, 5: 425, 6: 450, 7: 475, 8: 635, 9: 660 })[ $numChild+$numAdult ]",
+    //     },
+    //     correlations: [{
+    //         update_on: ["numChild", "numAdult"],
+    //         relation: "($numChild+$numAdult) * 3",
+    //         to: "commission",
+    //     }],
+    //     icon: "I-mountains",
+    //     fields: ["status", "date", "fullname", "numAdult", "numChild", "country", "price", "commission", "seller", "payed", "notes"],
+    //     provider_fields: ["status", "date", "fullname", "numAdult", "numChild", "country", "notes"],
+    //     calendar_resume_fields: ["status", "date", "country", "payed"]
+    // }
 
 }
 
