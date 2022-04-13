@@ -167,30 +167,30 @@ booking_extras.services = {
         calendar_resume_fields: ["status", "date", "flight", "time", "airline", "payed"]
     },
     
-    // transfer_hav_tri: {
-    //     description: "Transfer Habana-Trinidad",
-    //     description_short: "Trans.HAB-TRI",
-    //     price:{
-    //         update_on: ["numCars"],
-    //         cost: "$numCars * 150",
-    //         selling_price: "$cost + $numCars * 50",
-    //     },
-    //     correlations:[
-    //         {
-    //             update_on: ["numAdult", "numChild"],
-    //             relation: "Math.ceil( ($numChild+$numAdult) / 3)",
-    //             to:"numCars",
-    //         }, {
-    //             update_on: ["numCars"],
-    //             relation: "$numCars * 10",
-    //             to: "commission",
-    //         }
-    //     ],
-    //     icon: "I-taxi",        
-    //     fields: ["status", "fullname", "numAdult", "numChild", "date", "time", "numCars", "price", "commission", "seller", "payed", "notes"],
-    //     provider_fields: ["status", "fullname", "numAdult", "numChild", "date", "time", "numCars", "notes"],
-    //     calendar_resume_fields: ["status", "date", "time", "payed"]
-    // },
+    transfer_hav_tri: {
+        description: "Transfer Habana-Trinidad",
+        description_short: "Trans.HAB-TRI",
+        price:{
+            update_on: ["numCars"],
+            cost: "$numCars * 150",
+            selling_price: "$cost + $numCars * 50",
+        },
+        correlations:[
+            {
+                update_on: ["numAdult", "numChild"],
+                relation: "Math.ceil( ($numChild+$numAdult) / 3)",
+                to:"numCars",
+            }, {
+                update_on: ["numCars"],
+                relation: "$numCars * 10",
+                to: "commission",
+            }
+        ],
+        icon: "I-taxi",        
+        fields: ["status", "fullname", "numAdult", "numChild", "date", "time", "numCars", "price", "commission", "seller", "payed", "notes"],
+        provider_fields: ["status", "fullname", "numAdult", "numChild", "date", "time", "numCars", "notes"],
+        calendar_resume_fields: ["status", "date", "time", "payed"]
+    },
 
     // transfer_hav_var: {
     //     description: "Transfer Habana-Varadero",
