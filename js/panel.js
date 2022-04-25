@@ -194,7 +194,7 @@ $(function () {
                             aggregates[field] += value;
                         }
 
-                        value = `${value.toFixed(2)} cuc`
+                        value = `${value.toFixed(2)} usd`
                         
                     } 
 
@@ -235,11 +235,11 @@ $(function () {
                         if (aggregates[field].hasOwnProperty(seller)) {
                             const commission = aggregates[field][seller];
                             var name = booking_extras.methods.get_service_field_pretty_value({seller: seller}, "seller");
-                            value += `${name}: ${commission.toFixed(2)} cuc<br>`
+                            value += `${name}: ${commission.toFixed(2)} usd<br>`
                         }
                     }
                 } else {                   
-                    value = `${aggregates[field].toFixed(2)} cuc`
+                    value = `${aggregates[field].toFixed(2)} usd`
                 }
             }
             totals_row.append(`<td style="font-weight: bold; vertical-align: middle;">${value}</td>`);
