@@ -293,29 +293,27 @@ booking_extras.services = {
         provider_fields: ["status", "fullname", "numAdult", "numChild", "date", "time", "numCars", "notes"],
         calendar_resume_fields: ["status", "date", "time", "payed"]
     },
-    
-    
-    
-    // city_tour: {
-    //     description: "City Tour Carro Clásico",
-    //     description_short: "City-Tour",
-    //     price:{
-    //         update_on: ["numChild", "numAdult"],
-    //         selling_price: "({ 1: 75, 2: 110, 3: 135, 4: 180, 5: 225, 6: 270, 7: 315, 8: 360, 9: 405 })[ $numChild+$numAdult ]",
-    //         cost: "({ 1: 61, 2:  77, 3:  93, 4: 129, 5: 145, 6: 166, 7: 182, 8: 218, 9: 234 })[ $numChild+$numAdult ]",
-    //     },
-    //     correlations: [
-    //         {
-    //             update_on: ["numChild", "numAdult"],
-    //             relation: "($numChild+$numAdult) * 3",
-    //             to: "commission",
-    //         }
-    //     ],
-    //     icon: "I-car-building",
-    //     fields: ["status", "date", "fullname", "numAdult", "numChild", "country", "price", "commission", "seller", "payed", "notes"],
-    //     provider_fields: ["status", "date", "fullname", "numAdult", "numChild", "country", "notes"],
-    //     calendar_resume_fields: ["status", "date", "country", "payed"]
-    // },
+
+    city_tour: {
+        description: "City Tour Carro Clásico",
+        description_short: "City-Tour",
+        price:{
+            update_on: ["numChild", "numAdult"],
+            selling_price: "({ 1: 60, 2: 80, 3: 105, 4: 140, 5: 175, 6: 210, 7: 210, 8: 240, 9: 270 })[ $numChild+$numAdult ]",
+            cost:          "({ 1: 45, 2: 45, 3:  45, 4:  65, 5:  65, 6:  65, 7:  90, 8: 110, 9: 110 })[ $numChild+$numAdult ]",
+        },
+        correlations: [
+            {
+                update_on: ["numChild", "numAdult"],
+                relation: "($numChild+$numAdult) * 4",
+                to: "commission",
+            }
+        ],
+        icon: "I-car-building",
+        fields: ["status", "date", "fullname", "numAdult", "numChild", "country", "price", "commission", "seller", "payed", "notes"],
+        provider_fields: ["status", "date", "fullname", "numAdult", "numChild", "country", "notes"],
+        calendar_resume_fields: ["status", "date", "country", "payed"]
+    },
 
     // tour_hemingway: {
     //     description: "Hemingway Tour",
