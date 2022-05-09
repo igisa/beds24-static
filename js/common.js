@@ -334,24 +334,24 @@ booking_extras.services = {
     //     calendar_resume_fields: ["status", "date", "country", "payed"]
     // },
 
-    // tour_vinales: {
-    //     description: "Viñales Tour",
-    //     description_short: "Viñales",
-    //     price: {
-    //         update_on: ["numChild", "numAdult"],
-    //         selling_price: "({ 1: 219, 2: 119*2, 3: 95*3, 4: 110*4, 5: 95*5, 6: 95*6, 7: 95*7, 8: 95*8, 9: 95*9 })[ $numChild+$numAdult ]",
-    //         cost: "({ 1: 190, 2: 215, 3:  240, 4: 380, 5: 425, 6: 450, 7: 475, 8: 635, 9: 660 })[ $numChild+$numAdult ]",
-    //     },
-    //     correlations: [{
-    //         update_on: ["numChild", "numAdult"],
-    //         relation: "($numChild+$numAdult) * 3",
-    //         to: "commission",
-    //     }],
-    //     icon: "I-mountains",
-    //     fields: ["status", "date", "fullname", "numAdult", "numChild", "country", "price", "commission", "seller", "payed", "notes"],
-    //     provider_fields: ["status", "date", "fullname", "numAdult", "numChild", "country", "notes"],
-    //     calendar_resume_fields: ["status", "date", "country", "payed"]
-    // }
+    tour_vinales: {
+        description: "Viñales Tour",
+        description_short: "Viñales",
+        price: {
+            update_on: ["numChild", "numAdult"],
+            selling_price: "({ 1: 230, 2: 125*2, 3: 100*3, 4: 120*4, 5: 100*5, 6: 100*6, 7: 100*7, 8: 100*8, 9: 100*9 })[ $numChild+$numAdult ]",
+            cost: "({ 1: 200, 2: 200, 3:  200, 4: 380, 5: 425, 6: 450, 7: 475, 8: 635, 9: 660 })[ $numChild+$numAdult ]",
+        },
+        correlations: [{
+            update_on: ["numChild", "numAdult"],
+            relation: "($numChild+$numAdult) * 4",
+            to: "commission",
+        }],
+        icon: "I-mountains",
+        fields: ["status", "date", "fullname", "numAdult", "numChild", "country", "price", "commission", "seller", "payed", "notes"],
+        provider_fields: ["status", "date", "fullname", "numAdult", "numChild", "country", "notes"],
+        calendar_resume_fields: ["status", "date", "country", "payed"]
+    }
 
 }
 
