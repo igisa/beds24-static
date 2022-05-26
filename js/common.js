@@ -167,13 +167,59 @@ booking_extras.services = {
         calendar_resume_fields: ["status", "date", "flight", "time", "airline", "payed"]
     },
 
+    transfer_in_desc: {
+        description: "Transfer Aeropuerto-Hotel Descapotable (In)",
+        description_short: "Trans.IN-DESC",
+        price: {
+            update_on: ["numCars"],
+            cost: "$numCars * 25",
+            selling_price: "$cost + $numCars * 15",
+        },
+        correlations: [
+            {
+                update_on: ["numAdult", "numChild"],
+                relation: "Math.ceil( ($numChild+$numAdult) / 3)",
+                to: "numCars",
+            }, {
+                update_on: ["numCars"],
+                relation: "$numCars * 5",
+                to: "commission",
+            }
+        ],
+        icon: "I-plane-arrival",
+        fields: ["status", "fullname", "numAdult", "numChild", "date", "flight", "time", "airline", "numCars", "price", "commission", "seller", "payed", "notes"],
+        provider_fields: ["status", "fullname", "numAdult", "numChild", "date", "flight", "time", "airline", "numCars", "notes"],
+        calendar_resume_fields: ["status", "date", "flight", "time", "airline", "payed"]
+    },
+
+    add_night: {
+        description: "Noches Adicionales",
+        description_short: "Additional.NIGHT",
+        price: {
+            update_on: ["numNights"],
+            cost: "$numNights * 0",
+            selling_price: "$cost + 50",
+        },
+        correlations: [
+            {
+                update_on: ["numNights"],
+                relation: "$numNights * 5",
+                to: "commission",
+            }
+        ],
+        icon: "I-bed",
+        fields: ["status", "numNights", "price", "seller", "commission", "payed", "notes"],
+        provider_fields: ["status", "numNights", "notes"],
+        calendar_resume_fields: ["status", "numNights"]
+    },
+
     transfer_out: {
         description: "Transfer Hotel-Aeropuerto (Out)",
         description_short: "Trans.OUT",
         price: {
             update_on: ["numCars"],
             cost: "$numCars * 10",
-            selling_price: "$cost + $numCars * 15",
+            selling_price: "$cost + $numCars * 30",
         },
         correlations: [
             {
