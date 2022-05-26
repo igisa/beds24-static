@@ -232,7 +232,7 @@ booking_extras.services = {
         icon: "I-bed",
         fields: ["status", "numNights", "price", "seller", "commission", "payed", "notes"],
         provider_fields: ["status", "numNights", "notes"],
-        calendar_resume_fields: ["status", "numNights"]
+        calendar_resume_fields: ["status", "numNights", "payed"]
     },
 
     transfer_out: {
