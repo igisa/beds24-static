@@ -15,7 +15,7 @@ $(function () {
 
     if(booking_extras.invoice_properties.indexOf($('#booking-data').attr("data-propid"))>=0){
 
-        var recalculate_butt = '<div class="btn-group"><button id="recalculate_butt" class="btn btn-warning btn-xs b24-btn  pull-right b24btn_Refresh" value="Recalculate Charges" title=""><span class="glyphicon glyphicon-refresh" aria-hidden="true"></span> <span class="glyphicon glyphicon-" aria-hidden="true"></span> Recalculate Charges</button></div>'
+        var recalculate_butt = '<div class="btn-group"><button id="recalculate_butt" class="btn btn-warning btn-xs b24-btn  pull-right b24btn_Refresh" value="Recalculate Charges" title=""><span class="glyphicon glyphicon-refresh" aria-hidden="true"></span> <span class="glyphicon glyphicon-" aria-hidden="true"></span>Recalculate Charges & Payments</button></div>'
         $('#tabcharges tbody > tr:nth-child(1) > td').append(recalculate_butt);
     
         $('#recalculate_butt').on("click", function (e) {  
