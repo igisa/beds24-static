@@ -50,9 +50,13 @@ $(function () {
             values: ["", "Confirmed", "Cancelled", "Pending"],
         },
         {
-            items: ["INVOICE"],
+            items: ["INVOICE_ALLTOURS_STATUS"],
             values: ["", "Pending", "Payed"],
-        }
+        },
+        {
+            items: ["INVOICE_CUBATUR_STATUS"],
+            values: ["", "Pending", "Payed"],
+        },
     ] 
     for (let i = 0; i < items.length; i+=3) {
         const key   = items[i].innerText.trim();
