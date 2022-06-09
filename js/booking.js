@@ -50,11 +50,11 @@ $(function () {
             values: ["", "Confirmed", "Cancelled", "Pending"],
         },
         {
-            items: ["INVOICE_ALLTOURS_STATUS"],
+            items: ["INVOICE_ALLTOURS"],
             values: ["", "Locked", "Pending", "Payed"],
         },
         {
-            items: ["INVOICE_CUBATUR_STATUS"],
+            items: ["INVOICE_CUBATUR"],
             values: ["", "Locked", "Pending", "Payed"],
         },
     ] 
