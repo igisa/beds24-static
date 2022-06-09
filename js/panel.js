@@ -56,7 +56,7 @@ $(function () {
         }
 
         var colors = [
-            { color: "#45AB45", words: ["confirmada", "confirmado", "confirmed", "conf"] },
+            { color: "#45AB45", words: ["confirmada", "confirmado", "confirmed", "conf", "payed"] },
             { color: "#E9DD3A", words: ["pendiente", "pending", "pend"] },
             { color: "#FF4040", words: ["cancelado", "cancel", "cancelled", "canc"] },
         ]
