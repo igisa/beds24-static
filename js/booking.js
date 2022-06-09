@@ -51,11 +51,11 @@ $(function () {
         },
         {
             items: ["INVOICE_ALLTOURS_STATUS"],
-            values: ["", "Pending", "Payed"],
+            values: ["", "Locked", "Pending", "Payed"],
         },
         {
             items: ["INVOICE_CUBATUR_STATUS"],
-            values: ["", "Pending", "Payed"],
+            values: ["", "Locked", "Pending", "Payed"],
         },
     ] 
     for (let i = 0; i < items.length; i+=3) {
