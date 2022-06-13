@@ -46,15 +46,6 @@ $(function () {
 
         var text = iconElement.attr("title");
 
-        if (text && text.startsWith("#")) {
-            var split = text.split(" ");
-            if (split[0]) {
-                var color = split[0];
-                iconElement.css("color", `${color}`);
-                iconElement.attr("title", text.substr(split[0].length, text.length - split[0].length));
-            }
-        }
-
         var colors = [
             { color: "#45AB45", words: ["confirmada", "confirmado", "confirmed", "conf", "payed"] },
             { color: "#E9DD3A", words: ["pendiente", "pending", "pend"] },
@@ -62,14 +53,24 @@ $(function () {
         ]
 
         if (text){
-            for (let i = 0; i < colors.length; i++) {
-                for (let w = 0; w < colors[i].words.length; w++) {
-                    const word = colors[i].words[w];
-                    const c = colors[i].color;
-                    if(text.toLowerCase().indexOf(word)>=0){
-                        iconElement.css("color", c);
-                        break;
-                    }                    
+            if(text.startsWith("#")) {
+                var split = text.split(" ");
+                if (split[0]) {
+                    var color = split[0];
+                    iconElement.css("color", `${color}`);
+                    iconElement.attr("title", text.substr(split[0].length, text.length - split[0].length));
+                }
+            }
+            else{
+                for (let i = 0; i < colors.length; i++) {
+                    for (let w = 0; w < colors[i].words.length; w++) {
+                        const word = colors[i].words[w];
+                        const c = colors[i].color;
+                        if(text.toLowerCase().indexOf(word)>=0){
+                            iconElement.css("color", c);
+                            break;
+                        }                    
+                    }
                 }
             }
         }

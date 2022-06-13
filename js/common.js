@@ -5,7 +5,7 @@ booking_extras.fields = {
         label: "Estado",
         type: "options",
         options: [
-            { id: "created", show_logo: false, label: "Creado", },
+            { id: "created", show_logo: true, logo_color: "3e3e3e", label: "Creado", },
             { id: "client_confirmed", show_logo: true, logo_color: "f1d700", label: "Cliente Confirmó" },
             { id: "provider_confirmed", show_logo: true, logo_color: "4d5ff9", label: "Proveedor Confirmó" },                
             { id: "client_cancelled", show_logo: true, logo_color: "e40000", label: "Cliente Canceló" },
