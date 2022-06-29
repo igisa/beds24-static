@@ -32,15 +32,19 @@ $(function () {
             });
         }
 
-        var recalculate_alltours_butt = '<div class="btn-group"><button id="recalculate_alltours_butt" class="btn btn-warning btn-xs b24-btn  pull-right b24btn_Refresh" value="Recalculate Alltours Invoice" title=""><span class="glyphicon glyphicon-refresh" aria-hidden="true"></span> <span class="glyphicon glyphicon-" aria-hidden="true"></span>Recalculate Alltours Invoice</button></div>'
+        var header = '<span class="invoicetabledesctd">Recalculate Invoice:</span>'
+
+        var recalculate_alltours_butt = '<div class="btn-group">&nbsp;&nbsp;<button id="recalculate_alltours_butt" style="background-color: #de8958; border-color: #de8958;" class="btn btn-warning btn-xs b24-btn  pull-right b24btn_Refresh" value="Recalculate Alltours Invoice" title=""><span class="glyphicon glyphicon-refresh" aria-hidden="true"></span> <span class="glyphicon glyphicon-" aria-hidden="true"></span>Recalculate Alltours</button></div>'
+        var recalculate_cubatur_butt = '<div class="btn-group">&nbsp;&nbsp;<button id="recalculate_cubatur_butt" style="background-color: #7f60ff; border-color: #7f60ff;" class="btn btn-warning btn-xs b24-btn  pull-right b24btn_Refresh" value="Recalculate Cubatur Invoice" title=""><span class="glyphicon glyphicon-refresh" aria-hidden="true"></span> <span class="glyphicon glyphicon-" aria-hidden="true"></span>Recalculate Cubatur</button></div>'
+        
+        $('#tabcharges tbody > tr:nth-child(1) > td').append(header);
         $('#tabcharges tbody > tr:nth-child(1) > td').append(recalculate_alltours_butt);
+        $('#tabcharges tbody > tr:nth-child(1) > td').append(recalculate_cubatur_butt);
     
         $('#recalculate_alltours_butt').on("click", function (e) {  
             generateInvoice(e,this,"alltours");
         });
 
-        var recalculate_cubatur_butt = '<div class="btn-group"><button id="recalculate_cubatur_butt" class="btn btn-warning btn-xs b24-btn  pull-right b24btn_Refresh" value="Recalculate Alltours Invoice" title=""><span class="glyphicon glyphicon-refresh" aria-hidden="true"></span> <span class="glyphicon glyphicon-" aria-hidden="true"></span>Recalculate Alltours Invoice</button></div>'
-        $('#tabcharges tbody > tr:nth-child(1) > td').append(recalculate_cubatur_butt);
 
         $('#recalculate_cubatur_butt').on("click", function (e) {
             generateInvoice(e, this, "cubatur");
