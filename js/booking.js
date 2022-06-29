@@ -15,26 +15,35 @@ $(function () {
 
     if(booking_extras.invoice_properties.indexOf($('#booking-data').attr("data-propid"))>=0){
 
-        var recalculate_butt = '<div class="btn-group"><button id="recalculate_butt" class="btn btn-warning btn-xs b24-btn  pull-right b24btn_Refresh" value="Recalculate Charges" title=""><span class="glyphicon glyphicon-refresh" aria-hidden="true"></span> <span class="glyphicon glyphicon-" aria-hidden="true"></span>Recalculate Charges & Payments</button></div>'
-        $('#tabcharges tbody > tr:nth-child(1) > td').append(recalculate_butt);
-    
-        $('#recalculate_butt').on("click", function (e) {  
-            e.preventDefault();      
-            $(this).attr("disabled", true);
-            $.ajax(booking_extras.invoice_url + $('#booking-data').attr("data-bookid"), {                
-                type : 'GET',
+        function generateInvoice(e,button,invoicee){
+            e.preventDefault();
+            $(button).attr("disabled", true);
+            $.ajax(booking_extras.invoice_url + "?id=" + $('#booking-data').attr("data-bookid") + "&invoicee=" + invoicee, {
+                type: 'GET',
                 beforeSend: function (xhr) {
-                    xhr.setRequestHeader ("Authorization", "Basic " + btoa(booking_extras.invoice_credentials.user + ":" + booking_extras.invoice_credentials.pass));
+                    xhr.setRequestHeader("Authorization", "Basic " + btoa(booking_extras.invoice_credentials.user + ":" + booking_extras.invoice_credentials.pass));
                 },
             })
-            
-            .done(function(data) {                 
-                window.location = window.location.href;  
+            .done(function (data) {
+                window.location = window.location.href;
             })
-            .fail(function() { 
-                window.location = window.location.href;                        
+            .fail(function () {
+                window.location = window.location.href;
             });
+        }
+
+        var recalculate_alltours_butt = '<div class="btn-group"><button id="recalculate_alltours_butt" class="btn btn-warning btn-xs b24-btn  pull-right b24btn_Refresh" value="Recalculate Alltours Invoice" title=""><span class="glyphicon glyphicon-refresh" aria-hidden="true"></span> <span class="glyphicon glyphicon-" aria-hidden="true"></span>Recalculate Alltours Invoice</button></div>'
+        $('#tabcharges tbody > tr:nth-child(1) > td').append(recalculate_alltours_butt);
     
+        $('#recalculate_alltours_butt').on("click", function (e) {  
+            generateInvoice(e,this,"alltours");
+        });
+
+        var recalculate_cubatur_butt = '<div class="btn-group"><button id="recalculate_cubatur_butt" class="btn btn-warning btn-xs b24-btn  pull-right b24btn_Refresh" value="Recalculate Alltours Invoice" title=""><span class="glyphicon glyphicon-refresh" aria-hidden="true"></span> <span class="glyphicon glyphicon-" aria-hidden="true"></span>Recalculate Alltours Invoice</button></div>'
+        $('#tabcharges tbody > tr:nth-child(1) > td').append(recalculate_cubatur_butt);
+
+        $('#recalculate_cubatur_butt').on("click", function (e) {
+            generateInvoice(e, this, "cubatur");
         });
     }
 
