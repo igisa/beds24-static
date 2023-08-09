@@ -58,6 +58,7 @@ $(function () {
             var url = $(images[x]).attr("src");
             if(url==undefined) url = $(images[x]).attr("data-lazy-load-src");
             //set the url and set the thumbnail ul 
+            url = url.replace(".png", ".jpg")
             items.push({
                 src: url,
                 srct: url.replace(".1200.", ".350."),
