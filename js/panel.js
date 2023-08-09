@@ -97,6 +97,7 @@ $(function () {
             }
         }
     }
+    
     //---------------CUSTOM REPORT VIEW WITH "SERVICIO" TITLE-------------------------------
     
     var title = $("#title");

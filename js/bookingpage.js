@@ -17,9 +17,9 @@ $(function () {
 
     //mapping between the room id in beds24 and the video on youtube
     var video_mapping = {
-        227723: "BIMWgai1wQM",
-        227720: "paA80yO1ecg",
-        230354: "fkhknM-R2s8"
+        227723: "awPlirZ4AQM",//BIMWgai1wQM
+        227720: "fHY7P84FyU4",//paA80yO1ecg
+        230354: "sQlVG1Y-dEg"//fkhknM-R2s8
     };
 
     //this replaces the main image with the respective video on youtube
